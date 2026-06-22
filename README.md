@@ -6,21 +6,7 @@ Agentic AI does not augment the enterprise. It replaces the coordination layer t
 
 This GitHub is where I ideate and build working proofs of that future — one product at a time.
 
----
-
-### Products Envisioned
-
-| Product | Domain | Status | Category |
-|---|---|---|---|
-| **Optikon** | [optikon.app](https://optikon.app) | Live | FinOps / AI Spend |
-| **Ichnos** | [ichnos.dev](https://ichnos.dev) | Live | AI Provenance |
-| **Alethinos** | [alethinos.vercel.app](https://alethinos.vercel.app/) | Live | Project Intelligence |
-| **Poiesis** | poiesis.dev | Building | Agentic SDLC |
-| **Pistis** | pistis.dev | Building | Identity & Access |
-| **Nexus** | nexus.dev | Building | Platform Self-Service |
-| **Nomos** | nomos.dev | Building | Compliance Automation |
-
-Full write-ups, architecture notes, and the reasoning behind each product: **[myproductlab26.github.io/myproductlab26](https://myproductlab26.github.io/myproductlab26/)**
+Full portfolio: **[myproductlab26.github.io](https://myproductlab26.github.io)**
 
 ---
 
