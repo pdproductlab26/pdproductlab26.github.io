@@ -3,849 +3,1137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Applied AI Lab / Enterprise Rethought</title>
+<title>myproductlab26 | Enterprise AI Rethought</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
 
-  /* ── Design tokens ─────────────────────────────── */
   :root {
-    --bg:          #0d1117;   /* GitHub dark bg */
-    --surface:     #161b22;   /* GitHub canvas-subtle */
-    --surface-alt: #1c2128;   /* slightly lifted */
-    --border:      #30363d;   /* GitHub border-default */
-    --border-sub:  #21262d;
-    --accent:      #d4622a;   /* ember */
-    --accent-dim:  #8a3a18;
-    --accent-glow: rgba(212,98,42,0.08);
-    --text-body:   #9198a1;   /* GitHub fg-muted */
-    --text-head:   #e6edf3;   /* GitHub fg-default */
-    --text-ter:    #484f58;   /* GitHub fg-subtle */
-    --mono:        'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
-    --sans:        -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
-    --serif:       'Fraunces', Georgia, serif;
-    --radius:      6px;
-    --wide:        1100px;
-    --pad:         48px;
+    --bg:            #0d1117;
+    --canvas-subtle: #161b22;
+    --canvas-inset:  #010409;
+    --border:        #30363d;
+    --border-muted:  #21262d;
+    --fg-default:    #e6edf3;
+    --fg-muted:      #8d96a0;
+    --fg-subtle:     #484f58;
+    --accent-fg:     #58a6ff;
+    --accent-subtle: rgba(56,139,253,.15);
+    --success-fg:    #3fb950;
+    --ember:         #d4622a;
+    --ember-subtle:  rgba(212,98,42,.10);
+    --ember-border:  rgba(212,98,42,.28);
+    --mono:   'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --sans:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif;
+    --radius: 6px;
+    --nav-h:  56px;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
-    color: var(--text-body);
+    color: var(--fg-muted);
     font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Nav ───────────────────────────────────────── */
+  /* ── Nav ─────────────────────────────────────── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(13,17,23,.95);
-    backdrop-filter: blur(12px);
+    height: var(--nav-h);
+    background: #161b22;
     border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 var(--pad); height: 60px;
+    display: flex; align-items: center;
+    padding: 0 16px; gap: 12px;
   }
-  .nav-brand {
-    font-family: var(--mono); font-size: 13px; color: var(--accent);
-    letter-spacing: .05em; text-decoration: none; font-weight: 500;
+  .nav-mark { color: var(--fg-default); display: flex; align-items: center; flex-shrink: 0; }
+  .nav-mark svg { fill: currentColor; }
+  .nav-crumb {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 500;
   }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-crumb a { color: var(--accent-fg); text-decoration: none; }
+  .nav-crumb a:hover { text-decoration: underline; }
+  .nav-crumb .sep { color: var(--fg-subtle); }
+  .nav-links { display: flex; gap: 4px; list-style: none; margin-left: auto; align-items: center; }
   .nav-links a {
-    font-size: 14px; color: var(--text-body); text-decoration: none;
+    font-size: 13px; color: var(--fg-default); text-decoration: none;
+    padding: 5px 10px; border-radius: var(--radius); transition: background .15s;
+  }
+  .nav-links a:hover { background: rgba(177,186,196,.08); }
+  .nav-btn {
+    font-size: 12px; font-weight: 500; color: var(--fg-default);
+    text-decoration: none; border: 1px solid rgba(240,246,252,.1);
+    background: rgba(33,139,55,.15); padding: 5px 12px;
+    border-radius: var(--radius); transition: background .15s;
+  }
+  .nav-btn:hover { background: rgba(46,160,67,.2); }
+
+  /* ── Page layout ──────────────────────────────── */
+  .layout {
+    max-width: 1280px; margin: 0 auto;
+    padding: calc(var(--nav-h) + 24px) 32px 64px;
+    display: flex; gap: 24px; align-items: flex-start;
+  }
+
+  /* ── Sidebar ──────────────────────────────────── */
+  .sidebar {
+    width: 270px; flex-shrink: 0;
+    position: sticky; top: calc(var(--nav-h) + 24px);
+  }
+  .avatar {
+    width: 270px; height: 270px; border-radius: 50%;
+    background: var(--canvas-subtle);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; overflow: hidden; position: relative;
+  }
+  .avatar svg { width: 100%; height: 100%; }
+  .profile-name {
+    font-size: 20px; font-weight: 600; color: var(--fg-default);
+    line-height: 1.2; margin-bottom: 2px;
+  }
+  .profile-username {
+    font-size: 20px; font-weight: 300; color: var(--fg-muted);
+    margin-bottom: 16px;
+  }
+  .profile-bio {
+    font-size: 14px; color: var(--fg-muted); line-height: 1.6;
+    margin-bottom: 16px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  }
+  .thesis-badge {
+    display: inline-block;
+    background: var(--ember-subtle); color: var(--ember);
+    border: 1px solid var(--ember-border);
+    border-radius: 20px; font-size: 11px; font-weight: 500;
+    padding: 2px 10px; font-family: var(--mono);
+    margin-top: 8px;
+  }
+  .profile-stat-row {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    font-size: 14px; color: var(--fg-muted); margin-bottom: 12px;
+  }
+  .profile-stat-row a {
+    color: var(--fg-muted); text-decoration: none;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .profile-stat-row a:hover { color: var(--accent-fg); }
+  .profile-stat-row strong { color: var(--fg-default); font-weight: 600; }
+  .sidebar-meta { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .sidebar-meta li {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; color: var(--fg-muted);
+  }
+  .sidebar-meta li svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--fg-subtle); fill: currentColor; }
+  .sidebar-meta a { color: var(--fg-muted); text-decoration: none; }
+  .sidebar-meta a:hover { color: var(--accent-fg); }
+
+  /* ── Main ─────────────────────────────────────── */
+  .main-content { flex: 1; min-width: 0; }
+
+  .profile-tabs {
+    display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto;
+  }
+  .profile-tab {
+    padding: 8px 16px; font-size: 14px; font-weight: 600;
+    color: var(--fg-muted); text-decoration: none;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    white-space: nowrap; display: flex; align-items: center; gap: 6px;
     transition: color .15s;
   }
-  .nav-links a:hover { color: var(--text-head); }
-
-  /* ── Hero ──────────────────────────────────────── */
-  .hero {
-    padding: 120px var(--pad) 72px;
-    max-width: var(--wide); margin: 0 auto;
-  }
-  .hero-eyebrow {
-    font-family: var(--mono); font-size: 11px; color: var(--accent);
-    letter-spacing: .16em; text-transform: uppercase; margin-bottom: 20px;
-  }
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: clamp(36px, 4.5vw, 58px);
-    font-weight: 300; line-height: 1.1;
-    color: var(--text-head); margin-bottom: 22px;
-  }
-  .hero h1 em { font-style: italic; color: var(--text-body); }
-  .hero-desc {
-    font-size: 17px; color: var(--text-body);
-    max-width: 640px; line-height: 1.7; margin-bottom: 44px;
-  }
-  .hero-meta {
-    display: flex; gap: 48px;
-    padding-top: 28px; border-top: 1px solid var(--border);
-  }
-  .hero-meta-item { display: flex; flex-direction: column; gap: 5px; }
-  .hero-meta-label {
-    font-family: var(--mono); font-size: 11px;
-    color: var(--text-ter); letter-spacing: .08em;
-  }
-  .hero-meta-value { font-size: 14px; color: var(--text-body); }
-
-  /* ── Section divider ───────────────────────────── */
-  .section-label {
-    max-width: var(--wide); margin: 0 auto 28px;
-    padding: 0 var(--pad);
-    display: flex; align-items: center; gap: 16px;
-  }
-  .section-label span {
-    font-family: var(--mono); font-size: 11px; color: var(--text-ter);
-    letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
-  }
-  .section-label::after {
-    content: ''; flex: 1; height: 1px; background: var(--border);
+  .profile-tab:hover { color: var(--fg-default); }
+  .profile-tab.active { color: var(--fg-default); border-bottom-color: var(--ember); }
+  .profile-tab .count {
+    background: rgba(177,186,196,.12); color: var(--fg-muted);
+    border-radius: 20px; font-size: 12px; font-weight: 500; padding: 0 7px;
   }
 
-  /* ── Product list ──────────────────────────────── */
-  .products {
-    max-width: var(--wide); margin: 0 auto;
-    padding: 0 var(--pad) 100px;
-    display: flex; flex-direction: column; gap: 1px;
+  .contact-bar {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 12px 16px; margin-bottom: 24px;
+    background: var(--canvas-subtle);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
   }
-
-  /* ── Product card ──────────────────────────────── */
-  .product-card {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--surface);
-    overflow: hidden;
-    transition: border-color .15s;
-  }
-  .product-card:hover { border-color: #444c56; }
-
-  .product-header {
-    display: grid; grid-template-columns: 1fr auto;
-    align-items: center; padding: 18px 24px;
-    cursor: pointer; user-select: none; gap: 16px;
-  }
-  .product-left {
-    display: flex; align-items: center; gap: 12px; min-width: 0;
-  }
-  .product-name {
-    font-family: var(--mono); font-size: 15px; font-weight: 600;
-    color: var(--text-head); letter-spacing: .01em; flex-shrink: 0;
-  }
-  .product-domain {
-    font-family: var(--mono); font-size: 12px;
-    color: var(--accent); opacity: .8; flex-shrink: 0;
-  }
-  .product-tagline {
-    font-size: 14px; color: var(--text-body);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .product-right {
-    display: flex; align-items: center; gap: 8px; flex-shrink: 0;
-  }
-  .product-tag {
-    font-family: var(--mono); font-size: 10px;
-    padding: 2px 8px; border-radius: 20px;
-    letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;
-  }
-  .tag-live {
-    background: rgba(212,98,42,.12); color: var(--accent);
-    border: 1px solid rgba(212,98,42,.3);
-  }
-  .tag-spec {
-    background: rgba(110,118,129,.1); color: var(--text-body);
-    border: 1px solid var(--border);
-  }
-  .live-link {
-    font-family: var(--mono); font-size: 11px; color: var(--accent);
-    text-decoration: none; border: 1px solid rgba(212,98,42,.3);
+  .contact-bar p { font-size: 14px; color: var(--fg-muted); }
+  .contact-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
+  .btn-outline {
+    font-family: var(--mono); font-size: 11px; color: var(--ember);
+    text-decoration: none; border: 1px solid var(--ember-border);
     padding: 4px 10px; border-radius: var(--radius);
-    letter-spacing: .03em; transition: background .15s;
-    white-space: nowrap; position: relative; z-index: 10;
-    pointer-events: all; cursor: pointer;
+    letter-spacing: .03em; transition: background .15s; white-space: nowrap;
+    display: flex; align-items: center; gap: 4px;
   }
-  .live-link:hover { background: rgba(212,98,42,.1); }
-
-  .chevron {
-    width: 16px; height: 16px; color: var(--text-body);
-    transition: transform .25s cubic-bezier(.4,0,.2,1); flex-shrink: 0;
+  .btn-outline:hover { background: var(--ember-subtle); }
+  .btn-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border: 1px solid var(--ember-border);
+    border-radius: var(--radius); color: var(--ember); text-decoration: none;
+    transition: background .15s;
   }
-  .product-card.open .chevron { transform: rotate(180deg); }
+  .btn-icon:hover { background: var(--ember-subtle); }
+  .btn-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-  .product-body { display: none; border-top: 1px solid var(--border); }
-  .product-card.open .product-body { display: block; }
+  /* ── Repo list ────────────────────────────────── */
+  .repo-list { display: flex; flex-direction: column; }
 
-  /* ── Tabs ──────────────────────────────────────── */
+  .repo-item {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+  }
+  .repo-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .repo-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 12px; cursor: pointer; user-select: none;
+  }
+  .repo-left { flex: 1; min-width: 0; }
+
+  .repo-name-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;
+  }
+  .repo-icon { color: var(--fg-subtle); fill: currentColor; flex-shrink: 0; }
+  .repo-name {
+    font-size: 16px; font-weight: 600; color: var(--accent-fg);
+    text-decoration: none;
+  }
+  .repo-name:hover { text-decoration: underline; }
+  .repo-vis {
+    font-size: 12px; color: var(--fg-muted); font-weight: 500;
+    border: 1px solid var(--border); border-radius: 20px; padding: 0 8px; line-height: 20px;
+  }
+  .repo-badge-live {
+    font-size: 12px; color: var(--success-fg); font-weight: 500;
+    border: 1px solid rgba(63,185,80,.3); background: rgba(63,185,80,.08);
+    border-radius: 20px; padding: 0 8px; line-height: 20px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .repo-badge-live::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--success-fg); flex-shrink: 0;
+  }
+  .repo-badge-building {
+    font-size: 12px; color: var(--fg-subtle); font-weight: 500;
+    border: 1px solid var(--border-muted); background: rgba(110,118,129,.08);
+    border-radius: 20px; padding: 0 8px; line-height: 20px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .repo-badge-building::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ember); opacity: .6; flex-shrink: 0;
+  }
+  .repo-homepage {
+    font-size: 12px; color: var(--accent-fg); text-decoration: none;
+    display: flex; align-items: center; gap: 3px;
+  }
+  .repo-homepage:hover { text-decoration: underline; }
+  .repo-desc {
+    font-size: 14px; color: var(--fg-muted); line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .repo-meta {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .repo-lang {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 12px; color: var(--fg-muted);
+  }
+  .lang-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .repo-topics { display: flex; gap: 6px; flex-wrap: wrap; }
+  .topic-pill {
+    background: var(--accent-subtle); color: var(--accent-fg);
+    border-radius: 20px; font-size: 12px; font-weight: 500;
+    padding: 0 10px; line-height: 22px; white-space: nowrap;
+    text-decoration: none; transition: background .15s; cursor: default;
+  }
+
+  .repo-chevron {
+    width: 16px; height: 16px; color: var(--fg-subtle);
+    transition: transform .2s cubic-bezier(.4,0,.2,1);
+    flex-shrink: 0; margin-top: 2px;
+    fill: none; stroke: currentColor; stroke-width: 1.5;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .repo-item.open .repo-chevron { transform: rotate(180deg); }
+
+  /* ── Expanded content ─────────────────────────── */
+  .repo-body { display: none; margin-top: 20px; }
+  .repo-item.open .repo-body { display: block; }
+
+  .repo-quick-links {
+    display: flex; gap: 8px; margin-bottom: 12px;
+  }
+  .quick-link {
+    font-family: var(--mono); font-size: 11px; color: var(--ember);
+    text-decoration: none; border: 1px solid var(--ember-border);
+    padding: 4px 10px; border-radius: var(--radius);
+    letter-spacing: .03em; transition: background .15s; white-space: nowrap;
+  }
+  .quick-link:hover { background: var(--ember-subtle); }
+  .quick-link-dim {
+    font-family: var(--mono); font-size: 11px; color: var(--fg-subtle);
+    text-decoration: none; border: 1px solid var(--border-muted);
+    padding: 4px 10px; border-radius: var(--radius);
+    letter-spacing: .03em; transition: background .15s; white-space: nowrap;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .quick-link-dim:hover { background: rgba(110,118,129,.08); }
+  .quick-link-dim svg { width: 12px; height: 12px; fill: currentColor; }
+
+  /* Tabs */
   .product-tabs {
-    display: flex; border-bottom: 1px solid var(--border);
-    padding: 0 24px; overflow-x: auto; scrollbar-width: none;
-    background: var(--surface-alt);
+    display: flex; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none;
+    background: var(--canvas-subtle);
+    border: 1px solid var(--border); border-radius: var(--radius) var(--radius) 0 0;
   }
   .product-tabs::-webkit-scrollbar { display: none; }
   .tab-btn {
-    font-family: var(--mono); font-size: 12px; color: var(--text-body);
-    background: none; border: none;
-    border-bottom: 2px solid transparent;
-    padding: 12px 16px; cursor: pointer;
-    letter-spacing: .04em; text-transform: uppercase;
-    transition: color .15s, border-color .15s;
-    margin-bottom: -1px; white-space: nowrap; flex-shrink: 0;
+    font-size: 13px; color: var(--fg-muted); font-family: var(--sans); font-weight: 400;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    padding: 10px 16px; cursor: pointer;
+    transition: color .15s, border-color .15s; margin-bottom: -1px;
+    white-space: nowrap; flex-shrink: 0;
   }
-  .tab-btn:hover { color: var(--text-body); }
-  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn:hover { color: var(--fg-default); background: rgba(177,186,196,.05); }
+  .tab-btn.active { color: var(--fg-default); border-bottom-color: var(--ember); }
 
-  .tab-content { display: none; padding: 32px 28px 36px; }
+  .tab-content {
+    display: none; padding: 28px 24px 32px;
+    border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
   .tab-content.active { display: block; }
 
-  /* ── Content atoms ─────────────────────────────── */
+  /* ── Content atoms ────────────────────────────── */
   .s-label {
-    font-family: var(--mono); font-size: 11px; color: var(--text-body);
+    font-family: var(--mono); font-size: 11px; color: var(--fg-muted);
     letter-spacing: .12em; text-transform: uppercase;
     margin-bottom: 12px; display: block;
   }
-
-  .bullets {
-    list-style: none; display: flex; flex-direction: column;
-    gap: 10px; margin-bottom: 28px;
-  }
-  .bullets li {
-    font-size: 15px; color: var(--text-body);
-    line-height: 1.65; padding-left: 20px; position: relative;
-  }
-  .bullets li::before {
-    content: '·'; position: absolute; left: 0;
-    color: var(--text-ter); font-size: 16px; line-height: 1.5;
-  }
-  .bullets li.punch { color: var(--text-head); }
-  .bullets li.punch::before { color: var(--accent); }
-
+  .bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .bullets li { font-size: 14px; color: var(--fg-muted); line-height: 1.65; padding-left: 20px; position: relative; }
+  .bullets li::before { content: '·'; position: absolute; left: 0; color: var(--fg-subtle); font-size: 16px; line-height: 1.5; }
+  .bullets li.punch { color: var(--fg-default); }
+  .bullets li.punch::before { color: var(--ember); }
   .name-block {
-    font-size: 15px; color: var(--text-body); line-height: 1.8;
-    padding: 20px 22px;
-    border-left: 3px solid var(--border);
+    font-size: 14px; color: var(--fg-muted); line-height: 1.8;
+    padding: 20px 22px; border-left: 3px solid var(--border);
     border-radius: 0 var(--radius) var(--radius) 0;
-    background: var(--surface-alt);
-    font-style: italic;
+    background: var(--canvas-subtle);
   }
-
   .objection-block {
-    border-left: 3px solid var(--accent-dim);
-    padding: 14px 18px; font-size: 14px;
-    color: var(--text-body); font-style: italic; line-height: 1.7;
-    background: var(--accent-glow);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    margin-bottom: 20px;
+    border-left: 3px solid var(--ember); padding: 14px 18px;
+    font-size: 14px; color: var(--fg-muted); font-style: italic; line-height: 1.7;
+    background: var(--ember-subtle);
+    border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 20px;
   }
-
   .one-liner {
-    border-left: 3px solid #3d7a3a;
-    padding: 14px 18px; margin-top: 20px;
-    font-size: 15px; color: var(--text-body);
-    font-style: italic; line-height: 1.7;
-    background: rgba(63,122,58,.06);
-    border-radius: 0 var(--radius) var(--radius) 0;
+    border-left: 3px solid #3fb950; padding: 14px 18px; margin-top: 20px;
+    font-size: 14px; color: var(--fg-muted); font-style: italic; line-height: 1.7;
+    background: rgba(63,185,80,.06); border-radius: 0 var(--radius) var(--radius) 0;
   }
-
   .layers-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 12px; margin-top: 8px;
   }
   .layer-card {
-    background: var(--surface-alt); border: 1px solid var(--border);
+    background: var(--canvas-subtle); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 16px 18px;
   }
-  .layer-name {
-    font-family: var(--mono); font-size: 11px; color: var(--accent);
-    margin-bottom: 8px; letter-spacing: .04em; font-weight: 500;
-  }
-  .layer-desc { font-size: 14px; color: var(--text-body); line-height: 1.65; }
-
+  .layer-name { font-family: var(--mono); font-size: 11px; color: var(--ember); margin-bottom: 8px; letter-spacing: .04em; font-weight: 500; }
+  .layer-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.65; }
   .features-list { display: flex; flex-direction: column; gap: 8px; }
   .feature-row {
-    display: grid; grid-template-columns: 200px 1fr;
-    gap: 16px; padding: 12px 16px;
-    background: var(--surface-alt); border: 1px solid var(--border);
-    border-radius: var(--radius); font-size: 14px;
-  }
-  .feature-name { color: var(--text-head); font-weight: 600; }
-  .feature-desc { color: var(--text-body); line-height: 1.6; }
-
-  .arch-diffs { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-  .arch-diff {
-    padding: 14px 18px; background: var(--surface-alt);
+    display: grid; grid-template-columns: 180px 1fr; gap: 16px;
+    padding: 12px 16px; background: var(--canvas-subtle);
     border: 1px solid var(--border); border-radius: var(--radius);
   }
-  .arch-diff-label {
-    font-family: var(--mono); font-size: 10px; color: var(--accent);
-    letter-spacing: .1em; text-transform: uppercase;
-    margin-bottom: 8px; display: block;
+  .feature-name { color: var(--fg-default); font-weight: 600; font-size: 13px; }
+  .feature-desc { color: var(--fg-muted); line-height: 1.6; font-size: 13px; }
+  .arch-diffs { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+  .arch-diff {
+    padding: 14px 18px; background: var(--canvas-subtle);
+    border: 1px solid var(--border); border-radius: var(--radius);
   }
-
-  .diff-h {
-    font-family: var(--mono); font-size: 10px; color: var(--text-ter);
-    letter-spacing: .12em; text-transform: uppercase; margin: 22px 0 12px;
-  }
+  .arch-diff-label { font-family: var(--mono); font-size: 10px; color: var(--ember); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .diff-h { font-size: 12px; font-weight: 600; color: var(--fg-default); margin: 22px 0 12px; }
   .diff-h:first-child { margin-top: 0; }
   .gap { margin-bottom: 24px; }
 
-  /* ── Footer ────────────────────────────────────── */
+  /* ── Footer ───────────────────────────────────── */
   footer {
     border-top: 1px solid var(--border);
-    padding: 36px var(--pad);
-    display: flex; justify-content: space-between; align-items: center;
-    max-width: var(--wide); margin: 0 auto;
+    padding: 32px;
+    max-width: 1280px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
   }
-  footer span { font-family: var(--mono); font-size: 12px; color: var(--text-ter); }
+  footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  footer a { font-size: 12px; color: var(--fg-subtle); text-decoration: none; }
+  footer a:hover { color: var(--accent-fg); text-decoration: underline; }
+  footer span { font-size: 12px; color: var(--fg-subtle); }
 
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-  @media (max-width: 800px) {
-    :root { --pad: 20px; }
-    nav { padding: 0 20px; }
-    .nav-links { display: none; }
-    .hero { padding-top: 100px; }
-    .hero-meta { flex-wrap: wrap; gap: 20px; }
-    .product-header { padding: 16px 20px; }
-    .product-left { flex-wrap: wrap; gap: 8px; }
-    .product-tagline { display: none; }
-    .tab-content { padding: 24px 20px 28px; }
-    .product-tabs { padding: 0 20px; }
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; padding: calc(var(--nav-h) + 16px) 16px 48px; }
+    .sidebar { width: 100%; position: static; }
+    .avatar { width: 80px; height: 80px; }
+    .profile-name { font-size: 16px; }
+    .profile-username { font-size: 16px; }
     .feature-row { grid-template-columns: 1fr; }
     .layers-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 12px; }
+    footer { padding: 24px 16px; flex-direction: column; align-items: flex-start; }
+    .nav-crumb { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
+
+<!-- ── Nav ──────────────────────────────────────── -->
 <nav>
-  <a href="#" class="nav-brand">// my applied-ai-lab</a>
+  <a href="#" class="nav-mark" aria-label="GitHub">
+    <svg height="32" viewBox="0 0 16 16" width="32">
+      <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/>
+    </svg>
+  </a>
+  <div class="nav-crumb">
+    <a href="https://github.com/myproductlab26" target="_blank">myproductlab26</a>
+    <span class="sep">/</span>
+    <a href="#" style="color:var(--fg-default);font-weight:600;">applied-ai-lab</a>
+  </div>
   <ul class="nav-links">
     <li><a href="#products">Products</a></li>
     <li><a href="https://github.com/myproductlab26" target="_blank">GitHub</a></li>
+    <li><a href="mailto:pduttahere@gmail.com?subject=Interested" class="nav-btn">Get in touch</a></li>
   </ul>
 </nav>
-<section class="hero">
-  <p class="hero-eyebrow">My Applied AI Lab / Enterprise Rethought</p>
-  <h1 style="font-size:clamp(26px,3.2vw,40px);">This GitHub is where I ideate and build<br><em>working proofs of the future enterprise</em><br>as I envision it.</h1>
-  <p class="hero-desc">Some are live. Some becoming. All of them start from the same premise: agentic AI does not augment the enterprise; it replaces the coordination layer that was never supposed to be human in the first place.</p>
-  <div class="hero-meta">
-    <div class="hero-meta-item"><span class="hero-meta-label">Products envisioned</span><span class="hero-meta-value">8 proof-of-futures</span></div>
-    <div class="hero-meta-item"><span class="hero-meta-label">Domains live</span><span class="hero-meta-value">optikon.app, ichnos.dev &amp; more</span></div>
-    <div class="hero-meta-item"><span class="hero-meta-label">Thesis</span><span class="hero-meta-value" style="color:var(--accent);font-weight:600;letter-spacing:.02em;">Agentic everything</span></div>
-  </div>
-</section>
-<div class="section-label" id="products"><span>Products Envisioned</span></div>
-<div style="max-width:var(--wide);margin:0 auto 28px;padding:0 var(--pad)">
-  <div style="border:1px solid var(--border);border-radius:var(--radius);padding:16px 22px;background:var(--surface-alt);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
-    <p style="font-size:15px;color:var(--text-body);line-height:1.6">Investors, builders, and collaborators are welcome. If any of this resonates, reach out.</p>
-    <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-      <a href="https://github.com/myproductlab26" target="_blank" style="font-family:var(--mono);font-size:10px;color:var(--accent);text-decoration:none;border:1px solid rgba(212,98,42,.28);padding:4px 10px;border-radius:3px;white-space:nowrap;letter-spacing:.04em;transition:background .15s" onmouseover="this.style.background='rgba(212,98,42,.1)'" onmouseout="this.style.background=''">&#8599; github.com/myproductlab26</a>
-      <a href="mailto:pduttahere@gmail.com?subject=Interested" title="Get in touch" style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid rgba(212,98,42,.28);border-radius:3px;color:var(--accent);text-decoration:none;transition:background .15s;flex-shrink:0" onmouseover="this.style.background='rgba(212,98,42,.1)'" onmouseout="this.style.background=''"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 4l7 5 7-5"/></svg></a>
-    </div>
-  </div>
-</div>
-<div class="products">
-<!-- OPTIKON -->
-<div class="product-card" id="card-optikon">
-  <div class="product-header" onclick="toggle('optikon')">
-    <div class="product-left"><span class="product-name">Optikon</span><span class="product-domain">optikon.dev</span></div>
-    <div class="product-right"><span class="product-tagline" style="font-size:13px;color:var(--text-body);white-space:nowrap;">What if every AI dollar spent was visible, down to the team?</span>
-      <span class="product-tag tag-live">Live</span><span class="product-tag tag-spec">FinOps / AI Spend</span>
-      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
-    </div>
-  </div>
-  <div style="padding:10px 24px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface-alt)" onclick="event.stopPropagation();">
-    <a href="https://optikon.dev" target="_blank" class="live-link" onclick="event.stopPropagation();" onmousedown="event.stopPropagation();">&#8599; optikon.app</a>
-    <a href="https://github.com/myproductlab26" target="_blank" class="live-link" onclick="event.stopPropagation();" onmousedown="event.stopPropagation();">&#128274; github / private</a>
-  </div>
-  <div class="product-body">
-    <div class="product-tabs">
-      <button class="tab-btn active" onclick="switchTab(this,'optikon','name')">Name</button>
-      <button class="tab-btn" onclick="switchTab(this,'optikon','story')">Pitch</button>
-      <button class="tab-btn" onclick="switchTab(this,'optikon','features')">Features</button>
-      <button class="tab-btn" onclick="switchTab(this,'optikon','diff')">What's Different</button>
-      <button class="tab-btn" onclick="switchTab(this,'optikon','layers')">Agentic Intelligence</button>
-    </div>
-    <div class="tab-content active" data-card="optikon" data-tab="name">
-      <div class="name-block">Optikon commits to one architectural promise: every AI dollar must leave a trace. Not a summary. Not a category. A trace, attributable, timestamped, owned, explainable.<br><br>The name reaches toward the idea of making something visible that was never designed to be seen. Most enterprises receive AI spend as a single line on an invoice. Optikon insists that if a dollar was spent, you can say whose hand spent it.</div>
-    </div>
-    <div class="tab-content" data-card="optikon" data-tab="story">
-      <span class="s-label">What it is</span>
-      <ul class="bullets">
-        <li>AI spend intelligence platform for FinOps teams: real-time cost allocation, variance detection, and governance across every LLM provider an enterprise uses.</li>
-        <li>Pulls spend from OpenAI, Anthropic, Google, and every other AI API. Maps every dollar to a cost center, team, use case, and owner.</li>
-        <li>Most enterprises today receive AI spend as a single-line invoice with no decomposition, no attribution, and no governance.</li>
-        <li class="punch">Optikon eliminates all of that.</li>
-      </ul>
-      <span class="s-label">The core problem</span>
-      <ul class="bullets">
-        <li>Finance teams are discovering AI spend at month-end close, weeks after the variance compounded, long after any corrective action is possible.</li>
-        <li>OpenAI's invoice says "$214,000." It does not say which team, which product, which use case, or which model.</li>
-        <li>One enterprise ran up $500M in charges before anyone noticed.</li>
-        <li class="punch">This is not a tooling gap. It is a visibility gap; the total absence of a ledger between what AI providers charge and what finance can explain.</li>
-      </ul>
-    </div>
-    <div class="tab-content" data-card="optikon" data-tab="features">
-      <div class="features-list">
-        <div class="feature-row"><span class="feature-name">Real-time allocation</span><span class="feature-desc">Every AI dollar mapped to a cost center, team, use case, and provider, updated every 5 minutes. Budget-to-actual you can trust between closes.</span></div>
-        <div class="feature-row"><span class="feature-name">Variance alerting</span><span class="feature-desc">Anomalies and unattributed usage flagged against rolling forecast. Alerts route to the right owner before the variance compounds.</span></div>
-        <div class="feature-row"><span class="feature-name">Unit economics dashboard</span><span class="feature-desc">Cost per request, cost per use case, model cost comparison. Identifies 30–40% savings opportunities without touching quality.</span></div>
-        <div class="feature-row"><span class="feature-name">Chargeback reports</span><span class="feature-desc">Finance-ready exports showing AI spend by business unit, period-over-period. The allocation model FinOps teams actually need.</span></div>
-        <div class="feature-row"><span class="feature-name">Unattributed usage queue</span><span class="feature-desc">All spend with no cost center mapping surfaced with suggested attribution, routed to owners for confirmation. Phantom spend made visible.</span></div>
-      </div>
-    </div>
-    <div class="tab-content" data-card="optikon" data-tab="diff">
-      <p class="diff-h">The buyer's objection</p>
-      <div class="objection-block">"We already have Datadog. We have our cloud cost management in Apptio. We track OpenAI spend in our billing dashboard. What exactly does Optikon do that we don't already have?"</div>
-      <p class="diff-h">The architectural answer</p>
-      <ul class="bullets gap">
-        <li>The tools FinOps teams already use are observability stacks. They tell you what happened.</li>
-        <li>They do not answer: who is responsible, does this match the forecast, and what should change.</li>
-        <li class="punch">Those questions live entirely unmapped in the existing stack. Optikon owns them.</li>
-      </ul>
-      <div class="arch-diffs">
-        <div class="arch-diff"><span class="arch-diff-label">Attribution layer, not measurement layer</span><ul class="bullets" style="margin:4px 0 0"><li>Datadog tells engineering the call was made. It cannot tell finance who pays for it. Attribution requires: API key to cost center mapping, a budget baseline FinOps owns, and real-time comparison with alert routing. No existing tool provides all three.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">5-minute cadence, not monthly</span><ul class="bullets" style="margin:4px 0 0"><li>The root cause of invoice shock is that every existing tool operates on daily or monthly summaries. The variance compounds for weeks before it is visible. Optikon updates every 5 minutes.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Org structure, not cloud accounts</span><ul class="bullets" style="margin:4px 0 0"><li>Finance thinks in cost centers. Datadog, Apptio, and cloud billing tools use different primitives. Optikon maintains the mapping layer between them, configurable, applied retroactively.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Unit economics, not spend totals</span><ul class="bullets" style="margin:4px 0 0"><li>Knowing a cost center spent $50,000 last month is useful. Knowing the customer support use case costs $0.023 per ticket; and switching to Claude Haiku cuts it 60%, which is actionable.</li></ul></div>
-      </div>
-      <div class="one-liner">Every cost management tool you have was built for cloud infrastructure; they can tell you what your AI APIs charged, but not which team, which use case, or whether it matched the budget; Optikon is the allocation layer that maps every AI dollar to a cost center and alerts you before the variance becomes an invoice.</div>
-    </div>
-    <div class="tab-content" data-card="optikon" data-tab="layers">
-      <span class="s-label">Three intelligence layers</span>
-      <div class="layers-grid">
-        <div class="layer-card"><p class="layer-name">Provider Ingestion</p><p class="layer-desc">Direct connections to OpenAI, Anthropic, Google Vertex, Azure OpenAI, pulling usage and spend data on a 5-minute cadence. Token counts by model, by project, by API key.</p></div>
-        <div class="layer-card"><p class="layer-name">Allocation Engine</p><p class="layer-desc">Raw spend mapped to the enterprise's cost center tree: team, product, environment, use case. Rules configurable and applied retroactively. Unattributed spend surfaced automatically.</p></div>
-        <div class="layer-card"><p class="layer-name">Variance &amp; Governance</p><p class="layer-desc">Budget baselines per cost center. Statistical spike detection vs. rolling 30-day baseline. Real-time comparison against forecast. Approval workflow for overruns.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ICHNOS -->
-<div class="product-card" id="card-ichnos">
-  <div class="product-header" onclick="toggle('ichnos')">
-    <div class="product-left"><span class="product-name">Ichnos</span><span class="product-domain">ichnos.dev</span></div>
-    <div class="product-right"><span class="product-tagline" style="font-size:13px;color:var(--text-body);white-space:nowrap;">What if every AI decision left a permanent, signed trace?</span>
-      <span class="product-tag tag-live">Live</span><span class="product-tag tag-spec">AI Provenance</span>
-      <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
-    </div>
-  </div>
-  <div style="padding:10px 24px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface-alt)" onclick="event.stopPropagation();">
-    <a href="https://ichnos.dev" target="_blank" class="live-link" onclick="event.stopPropagation();" onmousedown="event.stopPropagation();">&#8599; ichnos.dev</a>
-    <a href="https://github.com/myproductlab26" target="_blank" class="live-link" onclick="event.stopPropagation();" onmousedown="event.stopPropagation();">&#128274; github / private</a>
-  </div>
-  <div class="product-body">
-    <div class="product-tabs">
-      <button class="tab-btn active" onclick="switchTab(this,'ichnos','name')">Name</button>
-      <button class="tab-btn" onclick="switchTab(this,'ichnos','story')">Pitch</button>
-      <button class="tab-btn" onclick="switchTab(this,'ichnos','features')">Features</button>
-      <button class="tab-btn" onclick="switchTab(this,'ichnos','diff')">What's Different</button>
-      <button class="tab-btn" onclick="switchTab(this,'ichnos','layers')">Agentic Intelligence</button>
-    </div>
-    <div class="tab-content active" data-card="ichnos" data-tab="name">
-      <div class="name-block">ichnos (ίχνος), Ancient Greek for: a track, a footprint, a trace. In Homeric usage, the physical mark left by a passage, the evidence that an agent moved through space. Trackers read ichnos to reconstruct what happened. Forensic investigators follow ichnos to prove causation.<br><br>The name commits the product to a single, non-negotiable promise: every AI decision leaves a mark, and that mark must be preserved at the moment it is made, not reconstructed from diffs, not inferred from comments. Captured by the agent that made it, signed, and stored permanently alongside the code it produced.<br><br>If your AI assistant writes your code, your codebase must carry its footprint. That is not a compliance requirement. It is a first principle of accountable engineering.</div>
-    </div>
-    <div class="tab-content" data-card="ichnos" data-tab="story">
-      <span class="s-label">What it is</span>
-      <ul class="bullets">
-        <li>Compliance infrastructure layer for AI-generated code. Captures, automatically, immutably, stored in git, the provenance, reasoning, assumptions, and human disposition behind every AI-written change.</li>
-        <li>25–42% of production code is already AI-authored, and none of it shows its work: no record of what the model chose, what it assumed, what it skipped, or which human reviewed it.</li>
-        <li>The EU AI Act begins enforcement on August 2, 2026, with fines reaching 7% of global revenue for teams that cannot produce documented AI provenance.</li>
-        <li class="punch">Almost no engineering team can produce that record today. Ichnos eliminates all of that.</li>
-      </ul>
-      <span class="s-label">The core problem</span>
-      <ul class="bullets">
-        <li>An AI coding assistant produces a change. Six months later, in a production incident: why did we use polling instead of webhooks? Why did we skip the idempotency retry?</li>
-        <li>There is no answer, not in git history, not in the PR description, not anywhere. The model made those choices in milliseconds and wrote none of them down.</li>
-        <li class="punch">Multiply that across 25–42% of the codebase. The result: a growing fraction of decisions that are permanently unrecoverable, invisible during maintenance, invisible to the regulator.</li>
-      </ul>
-    </div>
-    <div class="tab-content" data-card="ichnos" data-tab="features">
-      <div class="features-list">
-        <div class="feature-row"><span class="feature-name">PostToolUse capture</span><span class="feature-desc">Fires before the engineer sees the diff. The decision record is written when reasoning is still structurally present. There is no later point at which this information is recoverable.</span></div>
-        <div class="feature-row"><span class="feature-name">Git-native storage</span><span class="feature-desc">Decision records as JSON files committed directly into the repository in .decisions/. Versioned with the code. Survives Ichnos as a company.</span></div>
-        <div class="feature-row"><span class="feature-name">Disposition layer</span><span class="feature-desc">accepted / accepted_with_modifications / rejected; the EU AI Act requires evidence of human oversight per change. This is that record, timestamped and cryptographically linked.</span></div>
-        <div class="feature-row"><span class="feature-name">Regulatory export</span><span class="feature-desc">git why log --export eu-ai-act produces a PDF structured for Article 13: AI system identification, full decision index, human oversight summary, integrity manifest.</span></div>
-        <div class="feature-row"><span class="feature-name">CI coverage gate</span><span class="feature-desc">Blocks deploys when undocumented AI changes are detected. Dashboard shows gaps by repo and engineer. Designed to drive to 100%, not to report and stop.</span></div>
-      </div>
-    </div>
-    <div class="tab-content" data-card="ichnos" data-tab="diff">
-      <p class="diff-h">The buyer's objection</p>
-      <div class="objection-block">"We already have GitHub Copilot. We have Snyk scanning our PRs. Our engineers write PR descriptions. We have a code review process. We even have Datadog tracing our services in production. What exactly does Ichnos do that we don't already have?"</div>
-      <p class="diff-h">The architectural answer</p>
-      <ul class="bullets gap">
-        <li>Every tool in that list was designed to answer one question and stop. None were designed to answer the question regulators are now asking.</li>
-        <li class="punch">"What did the AI reason about when it wrote this code, and what did a human decide to do with that reasoning?"</li>
-        <li>The PR description documents what the engineer intended. It does not document what the AI assumed, what it considered and rejected, or what it explicitly skipped.</li>
-      </ul>
-      <div class="arch-diffs">
-        <div class="arch-diff"><span class="arch-diff-label">Generation time, not review time</span><ul class="bullets" style="margin:4px 0 0"><li>Every existing tool operates after the code has been written. By that point, the AI's reasoning is gone. Ichnos fires at the PostToolUse boundary, before the engineer sees the diff.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Human layer, not code layer</span><ul class="bullets" style="margin:4px 0 0"><li>The disposition layer records what the human decided to do with the AI's specific reasoning. This is what the EU AI Act requires. A GitHub PR approval is not a provenance record under Article 13.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Git-native, not vendor-locked</span><ul class="bullets" style="margin:4px 0 0"><li>Decision records are in your repository, committed alongside the code. The record for code written in June 2026 will still be there in 2036, regardless of whether Ichnos exists as a company.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Regulatory schema, not custom schema</span><ul class="bullets" style="margin:4px 0 0"><li>Every other tool produces output in its own format. Ichnos ships EU AI Act Article 13 as a first-class export target. The regulator reads it directly, no translation layer needed.</li></ul></div>
-      </div>
-      <div class="one-liner">Every tool you have watches what the code does: Copilot writes it, Snyk scans it, reviewers read it, Datadog monitors it. Ichnos is the layer that records what the AI decided when it wrote it, what the human chose to do with that decision, and hands you a signed PDF when the auditor asks, while your engineers keep working exactly as they do today.</div>
-    </div>
-    <div class="tab-content" data-card="ichnos" data-tab="layers">
-      <span class="s-label">Three capture layers</span>
-      <div class="layers-grid">
-        <div class="layer-card"><p class="layer-name">Hook Interception</p><p class="layer-desc">Fires on the PostToolUse event immediately after every AI code edit, before the engineer sees the diff. Model identifier, timestamp, file path, decision payload, captured at the moment of generation.</p></div>
-        <div class="layer-card"><p class="layer-name">Human Disposition Tracking</p><p class="layer-desc">Records what the engineer did with the AI output: accepted, accepted with modifications, or rejected. The evidence that a person reviewed the change and made a deliberate decision.</p></div>
-        <div class="layer-card"><p class="layer-name">Compliance Export Engine</p><p class="layer-desc">EU AI Act Article 13, California AB 2013. One command: <code style="font-family:var(--mono);font-size:10px">git why log --export eu-ai-act</code>. Signed PDF, delivered. No manual assembly.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- ALETHINOS -->
-<div class="product-card" id="card-alethinos">
-  <div class="product-header" onclick="toggle('alethinos')">
-    <div class="product-left"><span class="product-name">Alethinos</span><span class="product-domain">alethinos.dev</span></div>
-    <div class="product-right"><span class="product-tagline" style="font-size:13px;color:var(--text-body);white-space:nowrap;">What if your projects told you the truth without being asked?</span><span class="product-tag tag-live">Live</span><span class="product-tag tag-spec">Agentic Project Mgmt</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-  </div>
-  <div style="padding:10px 24px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface-alt)" onclick="event.stopPropagation();"><a href="https://alethinos.vercel.app/" target="_blank" class="live-link" onclick="event.stopPropagation();" onmousedown="event.stopPropagation();">&#8599; alethinos.vercel.app</a><a href="https://github.com/myproductlab26" target="_blank" class="live-link" onclick="event.stopPropagation();" onmousedown="event.stopPropagation();">&#128274; github / private</a></div>
-  <div class="product-body">
-    <div class="product-tabs">
-      <button class="tab-btn active" onclick="switchTab(this,'alethinos','name')">Name</button>
-      <button class="tab-btn" onclick="switchTab(this,'alethinos','story')">Pitch</button>
-      <button class="tab-btn" onclick="switchTab(this,'alethinos','features')">Features</button>
-      <button class="tab-btn" onclick="switchTab(this,'alethinos','diff')">What's Different</button>
-      <button class="tab-btn" onclick="switchTab(this,'alethinos','layers')">Agentic Intelligence</button>
-    </div>
-    <div class="tab-content active" data-card="alethinos" data-tab="name">
-      <div class="name-block">Alethinos (ἀληθινός) is biblical and classical Greek for "true," "real," "genuine," but not in the ordinary sense. In classical usage, alethinos does not mean accurate or correct. It means the thing that is the perfect embodiment of its own nature: the true bread versus bread that merely resembles it, the true light versus a reflection of light. It stands in stark contrast to shadows, copies, and incomplete representations.<br><br>Jira gives you the shadow of your project: a list of what exists, frozen at the moment someone last updated it. Alethinos gives you the alethinos version: what is actually true right now, derived from every signal the project is emitting.</div>
-    </div>
-    <div class="tab-content" data-card="alethinos" data-tab="story">
-      <span class="s-label">What it is</span>
-      <ul class="bullets">
-        <li>AI project intelligence platform that sits on top of Jira and tells engineering organisations, in plain English, why their deliverables are at risk and what to do about it, before deadlines slip.</li>
-        <li>Reads three signal layers Jira ignores: structured ticket data, human language in comments, and code signals in connected repositories.</li>
-        <li>Cascades intelligence bottom-up, story to epic to deliverable, and produces a real forecast against every committed date, with cited root causes and recommended actions.</li>
-        <li class="punch">Every Monday morning, PMO teams spend 4–6 hours manually assembling this picture from Jira exports, Slack threads, and gut feel. Alethinos eliminates all of that.</li>
-      </ul>
-      <span class="s-label">The core problem</span>
-      <ul class="bullets">
-        <li>A delivery manager opens a spreadsheet. Exports stories. Manually tags each one red, amber, or green based on gut feel.</li>
-        <li>If a story slipped because an engineer mentioned in a comment that she'd been pulled onto a production incident; the delivery manager almost certainly missed it.</li>
-        <li>Jira recorded the comment. Nobody read it.</li>
-        <li class="punch">The VP's deck is wrong. The committed date is a fiction. And nobody knows until the sprint ends.</li>
-      </ul>
-    </div>
-    <div class="tab-content" data-card="alethinos" data-tab="features">
-      <div class="features-list">
-        <div class="feature-row"><span class="feature-name">Cascade date engine</span><span class="feature-desc">When a story changes, every epic and deliverable date recomputes bottom-up automatically. No human updates the forecast; it is always current.</span></div>
-        <div class="feature-row"><span class="feature-name">Comment NLP pipeline</span><span class="feature-desc">Reads every ticket comment to detect blockers, scope expansion, capacity leakage, and hidden decisions that delivery managers cannot read at scale.</span></div>
-        <div class="feature-row"><span class="feature-name">Why Reports</span><span class="feature-desc">Named root causes with cited evidence. Not "the epic is late," but "MER-881 is blocked on a contract outstanding 6 days" with the comment quote attached.</span></div>
-        <div class="feature-row"><span class="feature-name">Natural language queries</span><span class="feature-desc">"Why is the Authentication overhaul 22 days behind?" returns a cited, plain-English answer referencing specific tickets, comments, and engineers.</span></div>
-        <div class="feature-row"><span class="feature-name">Scenario modelling</span><span class="feature-desc">What happens to the Q3 deliverable if we add one engineer to this epic? Modelled against real velocity data, not planning-poker guesses.</span></div>
-      </div>
-    </div>
-    <div class="tab-content" data-card="alethinos" data-tab="diff">
-      <p class="diff-h">The buyer's objection</p>
-      <div class="objection-block">"We have Jira. We have Advanced Roadmaps. Our delivery managers do weekly status updates. We have dashboards in Confluence. What exactly does Alethinos do that we don't already have?"</div>
-      <p class="diff-h">The architectural answer</p>
-      <ul class="bullets gap">
-        <li>Jira is a recording stack. It records what a human entered and displays it back accurately. That is its architectural boundary.</li>
-        <li>It does not read comments, recompute forecast dates when stories change, or detect that an engineer hasn't committed code in five days.</li>
-        <li class="punch">The gap between a Jira record and an accurate delivery forecast is filled by 4–8 hours of manual human work every week. Alethinos closes that gap.</li>
-      </ul>
-      <div class="arch-diffs">
-        <div class="arch-diff"><span class="arch-diff-label">Computation, not display</span><ul class="bullets" style="margin:4px 0 0"><li>Alethinos computes data no human entered. The cascade date engine derives the correct forecast from story-level actuals, every time anything changes.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Three planes, not one</span><ul class="bullets" style="margin:4px 0 0"><li>Jira reads structured data. Repos read code activity. Neither reads the other, and neither reads comment language. Alethinos reads all three simultaneously.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Explanations, not metrics</span><ul class="bullets" style="margin:4px 0 0"><li>Every root cause has an evidence quote. Every health score has a cited reason. A briefing to act on, not a chart to interpret.</li></ul></div>
-      </div>
-      <div class="one-liner">Every tool in your stack records what happened; Alethinos is the system that reads your tickets, comments, and code simultaneously to tell you why your projects are actually behind and what to do about it, before your next sprint review.</div>
-    </div>
-    <div class="tab-content" data-card="alethinos" data-tab="layers">
-      <span class="s-label">Three intelligence layers</span>
-      <div class="layers-grid">
-        <div class="layer-card"><p class="layer-name">Structured Jira Data</p><p class="layer-desc">Projects, epics, stories, velocity: the mathematically correct forecast date computed bottom-up, continuously. Not what someone entered. What is actually true.</p></div>
-        <div class="layer-card"><p class="layer-name">Human Language in Comments</p><p class="layer-desc">Every comment on every ticket, LLM-processed on each sync. Blocker signals, scope expansion, capacity leakage, hidden decisions, the actual causes of slippage, invisible to Jira.</p></div>
-        <div class="layer-card"><p class="layer-name">Code Signals</p><p class="layer-desc">PRs open 14+ days with no reviewer. Zero commits to an in-progress branch for 5+ days. 40+ files changed on a 3-point story. The signals Jira will never see.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- POIESIS -->
-<div class="product-card" id="card-poiesis">
-  <div class="product-header" onclick="toggle('poiesis')">
-    <div class="product-left"><span class="product-name">Poiesis</span><span class="product-domain">poiesis.dev</span></div>
-    <div class="product-right"><span class="product-tagline" style="font-size:13px;color:var(--text-body);white-space:nowrap;">What if software delivered itself, from issue to production?</span><span class="product-tag tag-spec">Agentic SDLC</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-  </div>
-  <div style="padding:10px 24px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface-alt)"><span style="font-family:var(--mono);font-size:11px;color:var(--text-ter);letter-spacing:.06em;">&#9679; Building</span></div>
-  <div class="product-body">
-    <div class="product-tabs">
-      <button class="tab-btn active" onclick="switchTab(this,'poiesis','name')">Name</button>
-      <button class="tab-btn" onclick="switchTab(this,'poiesis','story')">Pitch</button>
-      <button class="tab-btn" onclick="switchTab(this,'poiesis','features')">Features</button>
-      <button class="tab-btn" onclick="switchTab(this,'poiesis','diff')">What's Different</button>
-      <button class="tab-btn" onclick="switchTab(this,'poiesis','layers')">Agentic Intelligence</button>
-    </div>
-    <div class="tab-content active" data-card="poiesis" data-tab="name">
-      <div class="name-block">Poiesis (ποίησις) is the ancient Greek word for the act of bringing something forth that did not previously exist, not mere making in the mechanical sense, but the creative act of imposing form on matter. Aristotle distinguished poiesis (making) from praxis (doing): praxis is activity whose end is within itself; poiesis is activity whose end is the thing produced.<br><br>Software development is the purest modern form of poiesis, the act of bringing working systems into being from nothing but intent. But the word also carries a commitment: that what is produced must be real. Not a plan. Not a Jira ticket marked "In Progress." A thing that exists, runs, and can be used.<br><br>Every agent in the pipeline is defined by what it produces, not what it does. Together, they produce software.</div>
-    </div>
-    <div class="tab-content" data-card="poiesis" data-tab="story">
-      <span class="s-label">What it is</span>
-      <ul class="bullets">
-        <li>Agentic SDLC platform with six coordinated MCP agents that take a GitHub issue from intent to production without a sprint ceremony, a Slack thread, or a deployment runbook.</li>
-        <li>It is not a copilot. It is not an assistant. It is a complete, autonomous delivery pipeline that writes the code, reviews the PR, scans for risk, ships the release, watches production, and recovers from incidents.</li>
-        <li class="punch">And documents everything it did.</li>
-      </ul>
-      <span class="s-label">The core problem</span>
-      <ul class="bullets">
-        <li>Software delivery is still a coordination tax. A developer writes a ticket, waits for sprint planning, writes the code, waits for review, addresses comments, waits for CI, chases a deployment approval, monitors Slack for prod alerts, writes a postmortem.</li>
-        <li>Average lead time from committed code to production: 3–7 days. Not because the code is hard to write, but because the coordination machinery is entirely manual.</li>
-        <li>A CPU spike at 2am requires someone to wake up, triage, roll back, diagnose, and document.</li>
-        <li class="punch">The engineering organisation spends more energy managing the pipeline than building the product. Poiesis ends this.</li>
-      </ul>
-    </div>
-    <div class="tab-content" data-card="poiesis" data-tab="features">
-      <div class="features-list">
-        <div class="feature-row"><span class="feature-name">OPA policy gate</span><span class="feature-desc">8 automated checks evaluated before any environment is touched: no CVEs, all artifacts signed, ticket linked, PR approved, no freeze window, lint clean, tests passing, license clean.</span></div>
-        <div class="feature-row"><span class="feature-name">Blue/green + auto-rollback</span><span class="feature-desc">Production flips only when all health checks pass. WATCHTOWER fires within 12 seconds of a metric breach. MEDIC restores in 45 seconds. On-call engineer optional.</span></div>
-        <div class="feature-row"><span class="feature-name">Parallel security wall</span><span class="feature-desc">CodeQL, Checkmarx, Dependabot, and SonarQube fire simultaneously on every push. Findings stream into the PR before review starts, not sequential.</span></div>
-        <div class="feature-row"><span class="feature-name">AI root cause diagnosis</span><span class="feature-desc">MEDIC produces a precise, file-level root cause. No guessing, no grep, no war room. Names the file, the function, and the missing optimization.</span></div>
-        <div class="feature-row"><span class="feature-name">Auto-generated release receipts</span><span class="feature-desc">GitHub Release includes rollback notice, component statuses, DORA metrics, and OPA results. Nobody writes a postmortem; it is a byproduct of the pipeline running.</span></div>
-      </div>
-    </div>
-    <div class="tab-content" data-card="poiesis" data-tab="diff">
-      <p class="diff-h">The buyer's objection</p>
-      <div class="objection-block">"We already have GitHub Actions. We have Harness for deployments. We run CodeQL and Dependabot on every PR. We have Splunk watching production. We even have an on-call rotation with runbooks. What exactly does Poiesis do that we don't already have?"</div>
-      <p class="diff-h">The architectural answer</p>
-      <ul class="bullets gap">
-        <li>GitHub Actions detects whether the build passes. Harness executes the deployment you defined. Splunk fires an alert.</li>
-        <li>Every tool answers one question and hands the result to someone.</li>
-        <li class="punch">Poiesis owns the chain between those answers and the resolution. Not detection. Action.</li>
-      </ul>
-      <div class="arch-diffs">
-        <div class="arch-diff"><span class="arch-diff-label">Action chain, not signal chain</span><ul class="bullets" style="margin:4px 0 0"><li>Every existing tool produces a signal that terminates at a human who must decide what to do. Poiesis's agents own the consequent action, as an executed operation, not a recommendation.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Shared run context across all six agents</span><ul class="bullets" style="margin:4px 0 0"><li>When MEDIC diagnoses a production incident, it reads the deployment manifest, the Splunk metric snapshot, and the PR diff simultaneously. No single tool in your stack has access to all three.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Self-generating audit trail</span><ul class="bullets" style="margin:4px 0 0"><li>After every run, Poiesis emits a complete GitHub Release: rollback notice, component statuses, DORA metrics, OPA results. Nobody writes this. The pipeline writes it.</li></ul></div>
-      </div>
-      <div class="one-liner">Every tool you have detects something and hands the result to a person. Poiesis is the system that reads those results, takes the next action, and hands you a receipt, while you approve anything that isn't routine.</div>
-    </div>
-    <div class="tab-content" data-card="poiesis" data-tab="layers">
-      <span class="s-label">Six coordinated agents</span>
-      <div class="layers-grid">
-        <div class="layer-card"><p class="layer-name">CODER</p><p class="layer-desc">Reads the GitHub issue, pulls live codebase state via MCP, writes across multiple files, builds, lints, self-verifies. Branches from issue automatically. No manual branch creation.</p></div>
-        <div class="layer-card"><p class="layer-name">REVIEWER</p><p class="layer-desc">Reads PR diffs, files inline comments, catches logic gaps a linter cannot, such as a discount applied on one route but not another. Proposes specific line-level fixes.</p></div>
-        <div class="layer-card"><p class="layer-name">SENTINEL</p><p class="layer-desc">Runs CodeQL, Checkmarx SAST, Dependabot, SonarQube in parallel before merge. Generates signed SBOM for every artifact. Blocks deployment if unsigned.</p></div>
-        <div class="layer-card"><p class="layer-name">PILOT</p><p class="layer-desc">Harness CD pipeline: DEV to SIT to PROD, blue/green swap, OPA policy gate. Evaluates 8 automated checks before touching any environment.</p></div>
-        <div class="layer-card"><p class="layer-name">WATCHTOWER</p><p class="layer-desc">Watches production metrics via Splunk. Detects CPU, latency, and error rate anomalies within seconds of swap. Fires incident playbook before error rate reaches customers.</p></div>
-        <div class="layer-card"><p class="layer-name">MEDIC</p><p class="layer-desc">Reads deployment manifest, metric spike, code diff. Identifies root cause. Issues rollback command. MTTR: 45 seconds from alert to traffic restored. Auto-generates the full release note and DORA metrics.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- ── Layout ───────────────────────────────────── -->
+<div class="layout">
 
+  <!-- ── Sidebar ────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="avatar">
+      <svg viewBox="0 0 270 270" xmlns="http://www.w3.org/2000/svg">
+        <rect width="270" height="270" fill="#161b22"/>
+        <!-- contribution-graph aesthetic pattern -->
+        <g opacity="0.08">
+          <rect x="20" y="20" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="34" y="20" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="48" y="20" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="20" y="34" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="34" y="34" width="10" height="10" rx="2" fill="#d4622a"/>
+          <rect x="48" y="34" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="62" y="20" width="10" height="10" rx="2" fill="#d4622a"/>
+          <rect x="62" y="34" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="76" y="20" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="76" y="34" width="10" height="10" rx="2" fill="#d4622a"/>
+          <rect x="220" y="230" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="234" y="230" width="10" height="10" rx="2" fill="#d4622a"/>
+          <rect x="248" y="230" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="220" y="244" width="10" height="10" rx="2" fill="#d4622a"/>
+          <rect x="234" y="244" width="10" height="10" rx="2" fill="#58a6ff"/>
+          <rect x="248" y="244" width="10" height="10" rx="2" fill="#58a6ff"/>
+        </g>
+        <!-- PD monogram -->
+        <text x="135" y="155" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="72" font-weight="300" fill="#d4622a" opacity="0.9">PD</text>
+        <!-- subtle ring -->
+        <circle cx="135" cy="135" r="90" fill="none" stroke="#d4622a" stroke-width="1" opacity="0.12"/>
+        <circle cx="135" cy="135" r="100" fill="none" stroke="#30363d" stroke-width="1" opacity="0.5"/>
+      </svg>
+    </div>
 
-<!-- PISTIS -->
-<div class="product-card" id="card-pistis">
-  <div class="product-header" onclick="toggle('pistis')">
-    <div class="product-left"><span class="product-name">Pistis</span><span class="product-domain">pistis.dev</span></div>
-    <div class="product-right"><span class="product-tagline" style="font-size:13px;color:var(--text-body);white-space:nowrap;">What if access granted itself only when trust could be proved?</span><span class="product-tag tag-spec">Agentic IAM</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-  </div>
-  <div style="padding:10px 24px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface-alt)"><span style="font-family:var(--mono);font-size:11px;color:var(--text-ter);letter-spacing:.06em;">&#9679; Building</span></div>
-  <div class="product-body">
-    <div class="product-tabs">
-      <button class="tab-btn active" onclick="switchTab(this,'pistis','name')">Name</button>
-      <button class="tab-btn" onclick="switchTab(this,'pistis','story')">Pitch</button>
-      <button class="tab-btn" onclick="switchTab(this,'pistis','features')">Features</button>
-      <button class="tab-btn" onclick="switchTab(this,'pistis','layers')">Agentic Intelligence</button>
-    </div>
-    <div class="tab-content active" data-card="pistis" data-tab="name">
-      <div class="name-block">Pistis (πίστις), Ancient Greek for "warranted trust" and "provable authority." In classical philosophy, pistis is not blind faith; it is trust grounded in evidence, earned through demonstration, and sustained by continued proof. The Roman world rendered it fides: the foundation of every binding agreement, every contract, every institution that expected to endure.<br><br>That is exactly what enterprise identity governance has never had. Access is granted on assumption. Authority is asserted, not proven. Trust is implicit and never re-examined.<br><br>Pistis changes the premise: every grant of access is a claim of warranted trust. Every claim must be provable. Every claim that can no longer be proved is revoked.</div>
-    </div>
-    <div class="tab-content" data-card="pistis" data-tab="story">
-      <span class="s-label">What it is</span>
-      <ul class="bullets">
-        <li>AI-native identity platform that doesn't just enforce rules; it understands context, detects risk, reasons about intent, and acts autonomously.</li>
-        <li>Standard tooling tells you who has access. Pistis tells you who should, who should not anymore, and what to do about it; now, not at the next quarterly review.</li>
-      </ul>
-      <span class="s-label">The core problem</span>
-      <ul class="bullets">
-        <li>Traditional IAM is a rule engine pretending to be a governance system. It enforces static policies written years ago.</li>
-        <li>Quarterly certification campaigns where reviewers rubber-stamp 96% of entitlements with no information to make a real decision.</li>
-        <li>SoD violations caught only after an auditor surfaces them in a finding.</li>
-        <li>Joiners wait three days for access because someone has to approve a ticket. Leavers leave ghost accounts behind.</li>
-        <li class="punch">Access creep accumulates silently for 90 days before anyone notices.</li>
-      </ul>
-    </div>
-    <div class="tab-content" data-card="pistis" data-tab="features">
-      <div class="features-list">
-        <div class="feature-row"><span class="feature-name">AI reasoning engine</span><span class="feature-desc">Every access decision carries a natural language explanation and confidence score, cited by evidence, reviewable by any auditor.</span></div>
-        <div class="feature-row"><span class="feature-name">Continuous SoD detection</span><span class="feature-desc">Cross-app conflict graph built and monitored in real time. Violations surface the moment they form, not at the next quarterly review.</span></div>
-        <div class="feature-row"><span class="feature-name">Use-it-or-lose-it</span><span class="feature-desc">90-day utilisation scoring against peer group norms. Not a calendar trigger a reviewer can click past; a signal derived from actual behaviour.</span></div>
-        <div class="feature-row"><span class="feature-name">JML automation</span><span class="feature-desc">HR event to fully provisioned or fully deprovisioned in under 60 seconds across all connected apps. No ticket. No wait.</span></div>
-        <div class="feature-row"><span class="feature-name">Scenario simulator</span><span class="feature-desc">"What happens if I give this user this permission?" Shows SoD conflicts before the change is made, not after the audit finding.</span></div>
-      </div>
-    </div>
-    <div class="tab-content" data-card="pistis" data-tab="layers">
-      <span class="s-label">Three intelligence layers</span>
-      <div class="layers-grid">
-        <div class="layer-card"><p class="layer-name">Structured Access Data</p><p class="layer-desc">Current entitlements, last-used timestamps per permission, role assignments, hire date, department. The record layer: what the system knows exists.</p></div>
-        <div class="layer-card"><p class="layer-name">Behavioural Signals</p><p class="layer-desc">Permission utilisation vs what users actually hold. Peer group benchmarking. Anomaly scoring: impossible travel, off-hours bulk exports, unusual API call volumes.</p></div>
-        <div class="layer-card"><p class="layer-name">Contextual Signals</p><p class="layer-desc">HR lifecycle events, access request comments, manager approval context, project context, cross-app SoD context. The intent layer: why access was needed, and whether it still is.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
+    <h1 class="profile-name">Pinak Dutta</h1>
+    <p class="profile-username">myproductlab26</p>
 
-<!-- NEXUS -->
-<div class="product-card" id="card-nexus">
-  <div class="product-header" onclick="toggle('nexus')">
-    <div class="product-left"><span class="product-name">Nexus</span><span class="product-domain">nexus.dev</span></div>
-    <div class="product-right"><span class="product-tagline" style="font-size:13px;color:var(--text-body);white-space:nowrap;">What if one request resolved itself across every platform?</span><span class="product-tag tag-spec">Agentic Support</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-  </div>
-  <div style="padding:10px 24px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface-alt)"><span style="font-family:var(--mono);font-size:11px;color:var(--text-ter);letter-spacing:.06em;">&#9679; Building</span></div>
-  <div class="product-body">
-    <div class="product-tabs">
-      <button class="tab-btn active" onclick="switchTab(this,'nexus','name')">Name</button>
-      <button class="tab-btn" onclick="switchTab(this,'nexus','story')">Pitch</button>
-      <button class="tab-btn" onclick="switchTab(this,'nexus','features')">Features</button>
-      <button class="tab-btn" onclick="switchTab(this,'nexus','diff')">What's Different</button>
-      <button class="tab-btn" onclick="switchTab(this,'nexus','layers')">Agentic Intelligence</button>
-    </div>
-    <div class="tab-content active" data-card="nexus" data-tab="name">
-      <div class="name-block">Nexus, classical Latin for connection, link, bond. The nexus of something is not a tool or a team; it is the convergence point where all threads meet and become action.<br><br>That precision of meaning is exactly what this product commits to: not another portal, not another ticketing layer, but the single point where every associate request finds its platform and its resolution, without a human intermediary standing in between.<br><br>The name commits Nexus to three non-negotiable promises: that every request can be handled here, that no connected platform is out of reach, and that the resolution is instantaneous.</div>
-    </div>
-    <div class="tab-content" data-card="nexus" data-tab="story">
-      <span class="s-label">What it is</span>
-      <ul class="bullets">
-        <li>AI-native self-service platform across every enterprise engineering tool: Jira, GitHub, Artifactory, Jenkins, Ansible Tower, resolving associate requests in plain English, in seconds, without a support ticket ever being raised.</li>
-        <li>Associates describe what they need; Nexus does it. Before a queue is joined. Before an L2 engineer is paged. Before anyone waits two days for something that should take thirty seconds.</li>
-      </ul>
-      <span class="s-label">The core problem</span>
-      <ul class="bullets">
-        <li>Enterprise platform support is a queue of solved problems. Every week, thousands of associates raise tickets for access grants, build retries, artifact promotions, mechanically identical to the ten thousand before them.</li>
-        <li>L2 platform engineers spend their days processing requests a machine could handle in under a minute.</li>
-        <li class="punch">They are not solving hard problems. They are being human API wrappers for systems that already have APIs.</li>
-      </ul>
-    </div>
-    <div class="tab-content" data-card="nexus" data-tab="features">
-      <div class="features-list">
-        <div class="feature-row"><span class="feature-name">Natural language resolution</span><span class="feature-desc">"I need read access to the payments repo": policy checked, blast radius scored, access granted via API, logged, in under 5 seconds.</span></div>
-        <div class="feature-row"><span class="feature-name">Policy engine</span><span class="feature-desc">High-blast-radius actions route to a named human approver. Low-blast-radius actions resolve automatically. 97% resolved without touching a human queue.</span></div>
-        <div class="feature-row"><span class="feature-name">Lifecycle scanner</span><span class="feature-desc">Detects offboarded engineers with lingering access across all connected platforms within 60 minutes. Alerts admin, enables one-click revocation.</span></div>
-        <div class="feature-row"><span class="feature-name">Cross-platform audit stream</span><span class="feature-desc">First time "what did r.patel do across all platforms in the last 7 days?" has a single answer, because every Nexus action streams to one Splunk index.</span></div>
-      </div>
-    </div>
-    <div class="tab-content" data-card="nexus" data-tab="diff">
-      <p class="diff-h">The buyer's objection</p>
-      <div class="objection-block">"We already have a ticketing system, ServiceNow. We have runbooks in Confluence. Our Jenkins jobs have build triggers. Our GitHub admins handle access requests same-day. What exactly does Nexus do that we don't already have covered?"</div>
-      <p class="diff-h">The architectural answer</p>
-      <ul class="bullets gap">
-        <li>ServiceNow, Confluence, and your platform admin workflows all terminate at the record. Resolution lives somewhere else, in someone's hands.</li>
-        <li>Every ServiceNow ticket for a build retry or access grant requires a platform engineer to open it, context-switch to the target tool, execute manually, update, and close. Median resolution time: 14 hours.</li>
-        <li class="punch">Nexus closes the gap between the record and the resolution. Not smarter documentation; actual action.</li>
-      </ul>
-      <div class="arch-diffs">
-        <div class="arch-diff"><span class="arch-diff-label">Action, not record</span><ul class="bullets" style="margin:4px 0 0"><li>Nexus holds live service identities for each connected platform, validated credentials scoped to minimum required permissions, and the ability to execute and roll back any action. No existing tool holds all three.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Policy before action</span><ul class="bullets" style="margin:4px 0 0"><li>Blast radius, role permissions, and approval requirements are evaluated on every single request in under 200ms, before any API call executes. Not after the complaint.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Cross-platform audit stream</span><ul class="bullets" style="margin:4px 0 0"><li>Events across five platforms, one Splunk index, consistent schema. As a byproduct of execution, not a separate logging project someone has to build and maintain.</li></ul></div>
-      </div>
-      <div class="one-liner">Every support tool you have records the request and stops; Nexus is the layer that reads the request in plain English, checks your policy, executes the action against the right platform, and logs the outcome to Splunk, while you approve anything that matters.</div>
-    </div>
-    <div class="tab-content" data-card="nexus" data-tab="layers">
-      <span class="s-label">Five intelligence layers</span>
-      <div class="layers-grid">
-        <div class="layer-card"><p class="layer-name">Natural Language Intent</p><p class="layer-desc">LLM-based parsing converts plain English into precise API calls. "My build is failing on QA": Jenkins: fetch logs, diagnose root cause, trigger rebuild.</p></div>
-        <div class="layer-card"><p class="layer-name">Policy &amp; Authorisation</p><p class="layer-desc">Every request evaluated before any action fires: role-based check, approval routing, blast-radius scoring (low / medium / high / critical), rate limiting.</p></div>
-        <div class="layer-card"><p class="layer-name">Platform Action Execution</p><p class="layer-desc">Five purpose-built agents with scoped service identities: Jira, GitHub, Artifactory, Jenkins, Ansible Tower. Full API coverage, minimum required permissions.</p></div>
-        <div class="layer-card"><p class="layer-name">Splunk Observability</p><p class="layer-desc">Every action, outcome, and escalation streamed to Splunk in real time. Full cross-platform audit trail per associate, a stream that did not previously exist.</p></div>
-        <div class="layer-card"><p class="layer-name">Continuous Learning</p><p class="layer-desc">Every human escalation tagged with outcome and fed back into the knowledge base. Escalation rate trends down as the knowledge base grows with every resolved case.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
+    <p class="profile-bio">
+      Rethinking nine years of enterprise AI work as deployable agentic products. Each one starts from the same premise: the coordination layer was never supposed to be human.
+      <br><br>
+      <span class="thesis-badge">agentic everything</span>
+    </p>
 
-<!-- NOMOS -->
-<div class="product-card" id="card-nomos">
-  <div class="product-header" onclick="toggle('nomos')">
-    <div class="product-left"><span class="product-name">Nomos</span><span class="product-domain">nomos.dev</span></div>
-    <div class="product-right"><span class="product-tagline" style="font-size:13px;color:var(--text-body);white-space:nowrap;">What if compliance proved itself before the auditor asked?</span><span class="product-tag tag-spec">Agentic Compliance</span><svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg></div>
-  </div>
-  <div style="padding:10px 24px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--surface-alt)"><span style="font-family:var(--mono);font-size:11px;color:var(--text-ter);letter-spacing:.06em;">&#9679; Building</span></div>
-  <div class="product-body">
-    <div class="product-tabs">
-      <button class="tab-btn active" onclick="switchTab(this,'nomos','name')">Name</button>
-      <button class="tab-btn" onclick="switchTab(this,'nomos','story')">Pitch</button>
-      <button class="tab-btn" onclick="switchTab(this,'nomos','features')">Features</button>
-      <button class="tab-btn" onclick="switchTab(this,'nomos','diff')">What's Different</button>
-      <button class="tab-btn" onclick="switchTab(this,'nomos','layers')">Agentic Intelligence</button>
+    <div class="profile-stat-row">
+      <a href="#products">
+        <strong>7</strong>&nbsp;products
+      </a>
+      <a href="#products">
+        <strong>3</strong>&nbsp;live
+      </a>
     </div>
-    <div class="tab-content active" data-card="nomos" data-tab="name">
-      <div class="name-block">Nomos (νόμος) is the ancient Greek word for law, but not law imposed by a ruler. In Athenian political philosophy, nomos was the rational, self-sustaining order of the city. It was law that did not require a tyrant to enforce it because it was constituted into the structure of how things worked. The opposite of nomos was physis, the state of things before rational order had been imposed.<br><br>An enterprise without Nomos lives in physis: controls that exist in principle, security that works in practice, but no sustained, provable order that can speak for itself to an auditor.<br><br>Nomos commits the product to a single architectural claim: compliance is not an event. It is a state.</div>
-    </div>
-    <div class="tab-content" data-card="nomos" data-tab="story">
-      <span class="s-label">What it is</span>
-      <ul class="bullets">
-        <li>Agentic compliance platform that replaces the audit scramble with a compliance agent that runs continuously, maps every deployment to your control framework in real time, and hands a complete, signed evidence package to the auditor without a single human step.</li>
-        <li>Traditional tools (Vanta, Drata) automate the checklist. They still rely on humans to collect evidence, interpret gaps, and run the audit conversation.</li>
-        <li class="punch">Nomos eliminates all of that.</li>
-      </ul>
-      <span class="s-label">The core problem</span>
-      <ul class="bullets">
-        <li>The auditor's request letter arrives. Engineers get Slacked for screenshots. Compliance managers export CSVs from six tools.</li>
-        <li>A consultant bills $120/hour to assemble a binder. Three weeks later the auditor receives a PDF that is already partially stale.</li>
-        <li>The evidence exists: in GitHub, in Kubernetes, in AWS CloudTrail, in OPA decision logs; but it is scattered, unsigned, and unindexed against the control framework.</li>
-        <li class="punch">The gap between "we have good security" and "we can prove it" costs the average enterprise $180,000 per year.</li>
-      </ul>
-    </div>
-    <div class="tab-content" data-card="nomos" data-tab="features">
-      <div class="features-list">
-        <div class="feature-row"><span class="feature-name">Continuous control mapping</span><span class="feature-desc">Every ingested signal tagged to control IDs across all active frameworks automatically. No manual mapping required.</span></div>
-        <div class="feature-row"><span class="feature-name">Signed artifact vault</span><span class="feature-desc">Every piece of evidence cryptographically timestamped. Auditors can verify authenticity independently. Not screenshots: signed, immutable records.</span></div>
-        <div class="feature-row"><span class="feature-name">Agentic evidence assembly</span><span class="feature-desc">The agent assembles a complete evidence package for any audit scope in minutes. Weeks of manual work become 4 minutes of agent work.</span></div>
-        <div class="feature-row"><span class="feature-name">Auditor portal</span><span class="feature-desc">Read-only, time-scoped view shared directly with the auditor. They pull evidence themselves rather than requesting it by email.</span></div>
-        <div class="feature-row"><span class="feature-name">Multi-framework overlap engine</span><span class="feature-desc">Shows which controls satisfy SOC 2, ISO 27001, HIPAA, and FedRAMP simultaneously. Eliminate duplicated audit preparation.</span></div>
-      </div>
-    </div>
-    <div class="tab-content" data-card="nomos" data-tab="diff">
-      <p class="diff-h">The buyer's objection</p>
-      <div class="objection-block">"We already have Vanta. We have GitHub Actions running Snyk on every PR. Our CloudTrail is piped into Splunk. Our access reviews run in Vanta every quarter. What exactly does Nomos do that we don't already have?"</div>
-      <p class="diff-h">The architectural answer</p>
-      <ul class="bullets gap">
-        <li>Vanta, Drata, and every GRC tool answer one question: "does this thing exist?" They terminate at a status: green, passed, complete.</li>
-        <li>None of them answer: "can I prove it to an auditor, right now, in the format they need, with a signed chain of custody, assembled in one place?"</li>
-        <li class="punch">The scramble that follows every audit request is the gap. Nomos closes it.</li>
-      </ul>
-      <div class="arch-diffs">
-        <div class="arch-diff"><span class="arch-diff-label">Evidence chain, not status</span><ul class="bullets" style="margin:4px 0 0"><li>When the auditor asks for CC6.8 evidence for Q2, Nomos returns signed artifacts with a cryptographic timestamp. Vanta returns a green check.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Deployment event stream, not config checks</span><ul class="bullets" style="margin:4px 0 0"><li>Configuration checks tell you what is true now. Deployment event signals tell you what happened, at what cadence, and whether it satisfies the control's evidence requirement.</li></ul></div>
-        <div class="arch-diff"><span class="arch-diff-label">Replaces the assembly step</span><ul class="bullets" style="margin:4px 0 0"><li>The step nobody has automated is the human who takes all detections and turns them into an auditor-ready package. That is what the Nomos agent does.</li></ul></div>
-      </div>
-      <div class="one-liner">Every tool you have tells you whether your controls exist. Nomos is the system that collects the evidence that they worked, assembles it into a signed package when the auditor asks, and surfaces every gap before the auditor finds it, while your team approves each step.</div>
-    </div>
-    <div class="tab-content" data-card="nomos" data-tab="layers">
-      <span class="s-label">Three intelligence layers</span>
-      <div class="layers-grid">
-        <div class="layer-card"><p class="layer-name">Deployment Signals</p><p class="layer-desc">Every git commit, CI/CD run, OPA policy decision, SBOM generation, container scan, streamed in and tagged to control IDs automatically.</p></div>
-        <div class="layer-card"><p class="layer-name">Control State Engine</p><p class="layer-desc">Live control map against SOC 2, ISO 27001, HIPAA, FedRAMP. Controls are never manually marked green; status derives only from ingested signals.</p></div>
-        <div class="layer-card"><p class="layer-name">Compliance Agent</p><p class="layer-desc">Receives an audit request, pulls the evidence chain, generates a formatted signed report. "Assemble SOC 2 CC6.1 evidence for Jan–Jun 2026": 47 artifacts, 4 minutes.</p></div>
-      </div>
-    </div>
-  </div>
-</div>
 
-</div><!-- /products -->
+    <ul class="sidebar-meta">
+      <li>
+        <svg viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
+        <a href="https://github.com/myproductlab26" target="_blank">myproductlab26</a>
+      </li>
+      <li>
+        <svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm7-3.25a.75.75 0 00-1.5 0v4c0 .414.336.75.75.75h2.5a.75.75 0 000-1.5H8.5V4.75z"/></svg>
+        Enterprise AI / Agentic products
+      </li>
+      <li>
+        <svg viewBox="0 0 16 16"><path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5C0 2.784.784 2 1.75 2zM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 8.842a.75.75 0 01-.76 0L1.5 5.809v6.442zm13-8.181v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.74l6.5-3.67z"/></svg>
+        <a href="mailto:pduttahere@gmail.com">pduttahere@gmail.com</a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ── Main content ────────────────────────────── -->
+  <main class="main-content" id="products">
+
+    <div class="profile-tabs">
+      <a href="#products" class="profile-tab active">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8zm-4 7.75a.25.25 0 01.25-.25h3.5a.25.25 0 01.25.25v3.25a.25.25 0 01-.4.2l-1.45-1.087a.249.249 0 00-.3 0L5.4 15.7a.25.25 0 01-.4-.2z"/></svg>
+        Repositories
+        <span class="count">7</span>
+      </a>
+    </div>
+
+    <div class="contact-bar">
+      <p>Investors, builders, and collaborators welcome. If any of this resonates, reach out.</p>
+      <div class="contact-actions">
+        <a href="https://github.com/myproductlab26" target="_blank" class="btn-outline">&#8599; github.com/myproductlab26</a>
+        <a href="mailto:pduttahere@gmail.com?subject=Interested" title="Get in touch" class="btn-icon">
+          <svg viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 4l7 5 7-5"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="repo-list">
+
+      <!-- OPTIKON -->
+      <div class="repo-item" id="card-optikon">
+        <div class="repo-header" onclick="toggle('optikon')">
+          <div class="repo-left">
+            <div class="repo-name-row">
+              <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
+              <a class="repo-name" onclick="event.stopPropagation()">Optikon</a>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-live">Live</span>
+              <a href="https://optikon.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; optikon.dev</a>
+            </div>
+            <p class="repo-desc">What if every AI dollar spent was visible, down to the team? AI spend intelligence platform for FinOps - real-time cost allocation across every LLM provider.</p>
+            <div class="repo-meta">
+              <span class="repo-lang"><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span>
+              <div class="repo-topics">
+                <span class="topic-pill">finops</span>
+                <span class="topic-pill">ai-spend</span>
+                <span class="topic-pill">llm-cost</span>
+                <span class="topic-pill">enterprise</span>
+              </div>
+            </div>
+          </div>
+          <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="repo-body">
+          <div class="repo-quick-links">
+            <a href="https://optikon.dev" target="_blank" class="quick-link">&#8599; optikon.dev</a>
+            <a href="https://github.com/myproductlab26" target="_blank" class="quick-link-dim">
+              <svg viewBox="0 0 16 16" width="12" height="12"><path d="M4 4.75C4 3.784 4.784 3 5.75 3h4.5c.966 0 1.75.784 1.75 1.75v9a.75.75 0 01-1.275.53L8 12.06l-2.725 2.22A.75.75 0 014 13.75zm1.75-1.25a.25.25 0 00-.25.25v7.69l1.975-1.608a.75.75 0 01.95 0L10.5 11.44V3.75a.25.25 0 00-.25-.25z"/></svg>
+              github / private
+            </a>
+          </div>
+          <div class="product-tabs">
+            <button class="tab-btn active" onclick="switchTab(this,'optikon','name')">Name</button>
+            <button class="tab-btn" onclick="switchTab(this,'optikon','story')">Pitch</button>
+            <button class="tab-btn" onclick="switchTab(this,'optikon','features')">Features</button>
+            <button class="tab-btn" onclick="switchTab(this,'optikon','diff')">What's Different</button>
+            <button class="tab-btn" onclick="switchTab(this,'optikon','layers')">Agentic Intelligence</button>
+          </div>
+          <div class="tab-content active" data-card="optikon" data-tab="name">
+            <div class="name-block">Optikon commits to one architectural promise: every AI dollar must leave a trace. Not a summary. Not a category. A trace, attributable, timestamped, owned, explainable.<br><br>The name reaches toward the idea of making something visible that was never designed to be seen. Most enterprises receive AI spend as a single line on an invoice. Optikon insists that if a dollar was spent, you can say whose hand spent it.</div>
+          </div>
+          <div class="tab-content" data-card="optikon" data-tab="story">
+            <span class="s-label">What it is</span>
+            <ul class="bullets">
+              <li>AI spend intelligence platform for FinOps teams: real-time cost allocation, variance detection, and governance across every LLM provider an enterprise uses.</li>
+              <li>Pulls spend from OpenAI, Anthropic, Google, and every other AI API. Maps every dollar to a cost center, team, use case, and owner.</li>
+              <li>Most enterprises today receive AI spend as a single-line invoice with no decomposition, no attribution, and no governance.</li>
+              <li class="punch">Optikon eliminates all of that.</li>
+            </ul>
+            <span class="s-label">The core problem</span>
+            <ul class="bullets">
+              <li>Finance teams are discovering AI spend at month-end close, weeks after the variance compounded, long after any corrective action is possible.</li>
+              <li>OpenAI's invoice says "$214,000." It does not say which team, which product, which use case, or which model.</li>
+              <li>One enterprise ran up $500M in charges before anyone noticed.</li>
+              <li class="punch">This is not a tooling gap. It is a visibility gap: the total absence of a ledger between what AI providers charge and what finance can explain.</li>
+            </ul>
+          </div>
+          <div class="tab-content" data-card="optikon" data-tab="features">
+            <div class="features-list">
+              <div class="feature-row"><span class="feature-name">Real-time allocation</span><span class="feature-desc">Every AI dollar mapped to a cost center, team, use case, and provider, updated every 5 minutes. Budget-to-actual you can trust between closes.</span></div>
+              <div class="feature-row"><span class="feature-name">Variance alerting</span><span class="feature-desc">Anomalies and unattributed usage flagged against rolling forecast. Alerts route to the right owner before the variance compounds.</span></div>
+              <div class="feature-row"><span class="feature-name">Unit economics dashboard</span><span class="feature-desc">Cost per request, cost per use case, model cost comparison. Identifies 30-40% savings opportunities without touching quality.</span></div>
+              <div class="feature-row"><span class="feature-name">Chargeback reports</span><span class="feature-desc">Finance-ready exports showing AI spend by business unit, period-over-period. The allocation model FinOps teams actually need.</span></div>
+              <div class="feature-row"><span class="feature-name">Unattributed usage queue</span><span class="feature-desc">All spend with no cost center mapping surfaced with suggested attribution, routed to owners for confirmation. Phantom spend made visible.</span></div>
+            </div>
+          </div>
+          <div class="tab-content" data-card="optikon" data-tab="diff">
+            <p class="diff-h">The buyer's objection</p>
+            <div class="objection-block">"We already have Datadog. We have our cloud cost management in Apptio. We track OpenAI spend in our billing dashboard. What exactly does Optikon do that we don't already have?"</div>
+            <p class="diff-h">The architectural answer</p>
+            <ul class="bullets gap">
+              <li>The tools FinOps teams already use are observability stacks. They tell you what happened.</li>
+              <li>They do not answer: who is responsible, does this match the forecast, and what should change.</li>
+              <li class="punch">Those questions live entirely unmapped in the existing stack. Optikon owns them.</li>
+            </ul>
+            <div class="arch-diffs">
+              <div class="arch-diff"><span class="arch-diff-label">Attribution layer, not measurement layer</span><ul class="bullets" style="margin:4px 0 0"><li>Datadog tells engineering the call was made. It cannot tell finance who pays for it. Attribution requires: API key to cost center mapping, a budget baseline FinOps owns, and real-time comparison with alert routing. No existing tool provides all three.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">5-minute cadence, not monthly</span><ul class="bullets" style="margin:4px 0 0"><li>The root cause of invoice shock is that every existing tool operates on daily or monthly summaries. The variance compounds for weeks before it is visible. Optikon updates every 5 minutes.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Org structure, not cloud accounts</span><ul class="bullets" style="margin:4px 0 0"><li>Finance thinks in cost centers. Datadog, Apptio, and cloud billing tools use different primitives. Optikon maintains the mapping layer between them, configurable, applied retroactively.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Unit economics, not spend totals</span><ul class="bullets" style="margin:4px 0 0"><li>Knowing a cost center spent $50,000 last month is useful. Knowing the customer support use case costs $0.023 per ticket, and switching to Claude Haiku cuts it 60%, is actionable.</li></ul></div>
+            </div>
+            <div class="one-liner">Every cost management tool you have was built for cloud infrastructure: they can tell you what your AI APIs charged, but not which team, which use case, or whether it matched the budget. Optikon is the allocation layer that maps every AI dollar to a cost center and alerts you before the variance becomes an invoice.</div>
+          </div>
+          <div class="tab-content" data-card="optikon" data-tab="layers">
+            <span class="s-label">Three intelligence layers</span>
+            <div class="layers-grid">
+              <div class="layer-card"><p class="layer-name">Provider Ingestion</p><p class="layer-desc">Direct connections to OpenAI, Anthropic, Google Vertex, Azure OpenAI, pulling usage and spend data on a 5-minute cadence. Token counts by model, by project, by API key.</p></div>
+              <div class="layer-card"><p class="layer-name">Allocation Engine</p><p class="layer-desc">Raw spend mapped to the enterprise's cost center tree: team, product, environment, use case. Rules configurable and applied retroactively. Unattributed spend surfaced automatically.</p></div>
+              <div class="layer-card"><p class="layer-name">Variance &amp; Governance</p><p class="layer-desc">Budget baselines per cost center. Statistical spike detection vs. rolling 30-day baseline. Real-time comparison against forecast. Approval workflow for overruns.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ICHNOS -->
+      <div class="repo-item" id="card-ichnos">
+        <div class="repo-header" onclick="toggle('ichnos')">
+          <div class="repo-left">
+            <div class="repo-name-row">
+              <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
+              <a class="repo-name" onclick="event.stopPropagation()">Ichnos</a>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-live">Live</span>
+              <a href="https://ichnos.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; ichnos.dev</a>
+            </div>
+            <p class="repo-desc">What if every AI decision left a permanent, signed trace? Compliance infrastructure for AI-generated code. Captures provenance, reasoning, and human disposition behind every AI-written change.</p>
+            <div class="repo-meta">
+              <span class="repo-lang"><span class="lang-dot" style="background:#00add8"></span>Go</span>
+              <div class="repo-topics">
+                <span class="topic-pill">ai-provenance</span>
+                <span class="topic-pill">eu-ai-act</span>
+                <span class="topic-pill">compliance</span>
+                <span class="topic-pill">git-extension</span>
+              </div>
+            </div>
+          </div>
+          <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="repo-body">
+          <div class="repo-quick-links">
+            <a href="https://ichnos.dev" target="_blank" class="quick-link">&#8599; ichnos.dev</a>
+            <a href="https://github.com/myproductlab26" target="_blank" class="quick-link-dim">
+              <svg viewBox="0 0 16 16" width="12" height="12"><path d="M4 4.75C4 3.784 4.784 3 5.75 3h4.5c.966 0 1.75.784 1.75 1.75v9a.75.75 0 01-1.275.53L8 12.06l-2.725 2.22A.75.75 0 014 13.75zm1.75-1.25a.25.25 0 00-.25.25v7.69l1.975-1.608a.75.75 0 01.95 0L10.5 11.44V3.75a.25.25 0 00-.25-.25z"/></svg>
+              github / private
+            </a>
+          </div>
+          <div class="product-tabs">
+            <button class="tab-btn active" onclick="switchTab(this,'ichnos','name')">Name</button>
+            <button class="tab-btn" onclick="switchTab(this,'ichnos','story')">Pitch</button>
+            <button class="tab-btn" onclick="switchTab(this,'ichnos','features')">Features</button>
+            <button class="tab-btn" onclick="switchTab(this,'ichnos','diff')">What's Different</button>
+            <button class="tab-btn" onclick="switchTab(this,'ichnos','layers')">Agentic Intelligence</button>
+          </div>
+          <div class="tab-content active" data-card="ichnos" data-tab="name">
+            <div class="name-block">ichnos (ίχνος), Ancient Greek for: a track, a footprint, a trace. In Homeric usage, the physical mark left by a passage, the evidence that an agent moved through space. Trackers read ichnos to reconstruct what happened. Forensic investigators follow ichnos to prove causation.<br><br>The name commits the product to a single, non-negotiable promise: every AI decision leaves a mark, and that mark must be preserved at the moment it is made, not reconstructed from diffs, not inferred from comments. Captured by the agent that made it, signed, and stored permanently alongside the code it produced.<br><br>If your AI assistant writes your code, your codebase must carry its footprint. That is not a compliance requirement. It is a first principle of accountable engineering.</div>
+          </div>
+          <div class="tab-content" data-card="ichnos" data-tab="story">
+            <span class="s-label">What it is</span>
+            <ul class="bullets">
+              <li>Compliance infrastructure layer for AI-generated code. Captures, automatically, immutably, stored in git, the provenance, reasoning, assumptions, and human disposition behind every AI-written change.</li>
+              <li>25-42% of production code is already AI-authored, and none of it shows its work: no record of what the model chose, what it assumed, what it skipped, or which human reviewed it.</li>
+              <li>The EU AI Act begins enforcement on August 2, 2026, with fines reaching 7% of global revenue for teams that cannot produce documented AI provenance.</li>
+              <li class="punch">Almost no engineering team can produce that record today. Ichnos eliminates all of that.</li>
+            </ul>
+            <span class="s-label">The core problem</span>
+            <ul class="bullets">
+              <li>An AI coding assistant produces a change. Six months later, in a production incident: why did we use polling instead of webhooks? Why did we skip the idempotency retry?</li>
+              <li>There is no answer, not in git history, not in the PR description, not anywhere. The model made those choices in milliseconds and wrote none of them down.</li>
+              <li class="punch">Multiply that across 25-42% of the codebase. The result: a growing fraction of decisions that are permanently unrecoverable, invisible during maintenance, invisible to the regulator.</li>
+            </ul>
+          </div>
+          <div class="tab-content" data-card="ichnos" data-tab="features">
+            <div class="features-list">
+              <div class="feature-row"><span class="feature-name">PostToolUse capture</span><span class="feature-desc">Fires before the engineer sees the diff. The decision record is written when reasoning is still structurally present. There is no later point at which this information is recoverable.</span></div>
+              <div class="feature-row"><span class="feature-name">Git-native storage</span><span class="feature-desc">Decision records as JSON files committed directly into the repository in .decisions/. Versioned with the code. Survives Ichnos as a company.</span></div>
+              <div class="feature-row"><span class="feature-name">Disposition layer</span><span class="feature-desc">accepted / accepted_with_modifications / rejected; the EU AI Act requires evidence of human oversight per change. This is that record, timestamped and cryptographically linked.</span></div>
+              <div class="feature-row"><span class="feature-name">Regulatory export</span><span class="feature-desc">git why log --export eu-ai-act produces a PDF structured for Article 13: AI system identification, full decision index, human oversight summary, integrity manifest.</span></div>
+              <div class="feature-row"><span class="feature-name">CI coverage gate</span><span class="feature-desc">Blocks deploys when undocumented AI changes are detected. Dashboard shows gaps by repo and engineer. Designed to drive to 100%, not to report and stop.</span></div>
+            </div>
+          </div>
+          <div class="tab-content" data-card="ichnos" data-tab="diff">
+            <p class="diff-h">The buyer's objection</p>
+            <div class="objection-block">"We already have GitHub Copilot. We have Snyk scanning our PRs. Our engineers write PR descriptions. We have a code review process. We even have Datadog tracing our services in production. What exactly does Ichnos do that we don't already have?"</div>
+            <p class="diff-h">The architectural answer</p>
+            <ul class="bullets gap">
+              <li>Every tool in that list was designed to answer one question and stop. None were designed to answer the question regulators are now asking.</li>
+              <li class="punch">"What did the AI reason about when it wrote this code, and what did a human decide to do with that reasoning?"</li>
+              <li>The PR description documents what the engineer intended. It does not document what the AI assumed, what it considered and rejected, or what it explicitly skipped.</li>
+            </ul>
+            <div class="arch-diffs">
+              <div class="arch-diff"><span class="arch-diff-label">Generation time, not review time</span><ul class="bullets" style="margin:4px 0 0"><li>Every existing tool operates after the code has been written. By that point, the AI's reasoning is gone. Ichnos fires at the PostToolUse boundary, before the engineer sees the diff.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Human layer, not code layer</span><ul class="bullets" style="margin:4px 0 0"><li>The disposition layer records what the human decided to do with the AI's specific reasoning. This is what the EU AI Act requires. A GitHub PR approval is not a provenance record under Article 13.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Git-native, not vendor-locked</span><ul class="bullets" style="margin:4px 0 0"><li>Decision records are in your repository, committed alongside the code. The record for code written in June 2026 will still be there in 2036, regardless of whether Ichnos exists as a company.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Regulatory schema, not custom schema</span><ul class="bullets" style="margin:4px 0 0"><li>Every other tool produces output in its own format. Ichnos ships EU AI Act Article 13 as a first-class export target. The regulator reads it directly, no translation layer needed.</li></ul></div>
+            </div>
+            <div class="one-liner">Every tool you have watches what the code does: Copilot writes it, Snyk scans it, reviewers read it, Datadog monitors it. Ichnos is the layer that records what the AI decided when it wrote it, what the human chose to do with that decision, and hands you a signed PDF when the auditor asks, while your engineers keep working exactly as they do today.</div>
+          </div>
+          <div class="tab-content" data-card="ichnos" data-tab="layers">
+            <span class="s-label">Three capture layers</span>
+            <div class="layers-grid">
+              <div class="layer-card"><p class="layer-name">Hook Interception</p><p class="layer-desc">Fires on the PostToolUse event immediately after every AI code edit, before the engineer sees the diff. Model identifier, timestamp, file path, decision payload, captured at the moment of generation.</p></div>
+              <div class="layer-card"><p class="layer-name">Human Disposition Tracking</p><p class="layer-desc">Records what the engineer did with the AI output: accepted, accepted with modifications, or rejected. The evidence that a person reviewed the change and made a deliberate decision.</p></div>
+              <div class="layer-card"><p class="layer-name">Compliance Export Engine</p><p class="layer-desc">EU AI Act Article 13, California AB 2013. One command: <code style="font-family:var(--mono);font-size:10px">git why log --export eu-ai-act</code>. Signed PDF, delivered. No manual assembly.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALETHINOS -->
+      <div class="repo-item" id="card-alethinos">
+        <div class="repo-header" onclick="toggle('alethinos')">
+          <div class="repo-left">
+            <div class="repo-name-row">
+              <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
+              <a class="repo-name" onclick="event.stopPropagation()">Alethinos</a>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-live">Live</span>
+              <a href="https://alethinos.vercel.app/" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; alethinos.vercel.app</a>
+            </div>
+            <p class="repo-desc">What if your projects told you the truth without being asked? AI project intelligence that reads Jira tickets, comments, and code simultaneously to tell you why deliverables are at risk.</p>
+            <div class="repo-meta">
+              <span class="repo-lang"><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span>
+              <div class="repo-topics">
+                <span class="topic-pill">project-management</span>
+                <span class="topic-pill">jira</span>
+                <span class="topic-pill">agentic</span>
+                <span class="topic-pill">pmo</span>
+              </div>
+            </div>
+          </div>
+          <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="repo-body">
+          <div class="repo-quick-links">
+            <a href="https://alethinos.vercel.app/" target="_blank" class="quick-link">&#8599; alethinos.vercel.app</a>
+            <a href="https://github.com/myproductlab26" target="_blank" class="quick-link-dim">
+              <svg viewBox="0 0 16 16" width="12" height="12"><path d="M4 4.75C4 3.784 4.784 3 5.75 3h4.5c.966 0 1.75.784 1.75 1.75v9a.75.75 0 01-1.275.53L8 12.06l-2.725 2.22A.75.75 0 014 13.75zm1.75-1.25a.25.25 0 00-.25.25v7.69l1.975-1.608a.75.75 0 01.95 0L10.5 11.44V3.75a.25.25 0 00-.25-.25z"/></svg>
+              github / private
+            </a>
+          </div>
+          <div class="product-tabs">
+            <button class="tab-btn active" onclick="switchTab(this,'alethinos','name')">Name</button>
+            <button class="tab-btn" onclick="switchTab(this,'alethinos','story')">Pitch</button>
+            <button class="tab-btn" onclick="switchTab(this,'alethinos','features')">Features</button>
+            <button class="tab-btn" onclick="switchTab(this,'alethinos','diff')">What's Different</button>
+            <button class="tab-btn" onclick="switchTab(this,'alethinos','layers')">Agentic Intelligence</button>
+          </div>
+          <div class="tab-content active" data-card="alethinos" data-tab="name">
+            <div class="name-block">Alethinos (ἀληθινός) is biblical and classical Greek for "true," "real," "genuine," but not in the ordinary sense. In classical usage, alethinos does not mean accurate or correct. It means the thing that is the perfect embodiment of its own nature: the true bread versus bread that merely resembles it, the true light versus a reflection of light. It stands in stark contrast to shadows, copies, and incomplete representations.<br><br>Jira gives you the shadow of your project: a list of what exists, frozen at the moment someone last updated it. Alethinos gives you the alethinos version: what is actually true right now, derived from every signal the project is emitting.</div>
+          </div>
+          <div class="tab-content" data-card="alethinos" data-tab="story">
+            <span class="s-label">What it is</span>
+            <ul class="bullets">
+              <li>AI project intelligence platform that sits on top of Jira and tells engineering organisations, in plain English, why their deliverables are at risk and what to do about it, before deadlines slip.</li>
+              <li>Reads three signal layers Jira ignores: structured ticket data, human language in comments, and code signals in connected repositories.</li>
+              <li>Cascades intelligence bottom-up, story to epic to deliverable, and produces a real forecast against every committed date, with cited root causes and recommended actions.</li>
+              <li class="punch">Every Monday morning, PMO teams spend 4-6 hours manually assembling this picture from Jira exports, Slack threads, and gut feel. Alethinos eliminates all of that.</li>
+            </ul>
+            <span class="s-label">The core problem</span>
+            <ul class="bullets">
+              <li>A delivery manager opens a spreadsheet. Exports stories. Manually tags each one red, amber, or green based on gut feel.</li>
+              <li>If a story slipped because an engineer mentioned in a comment that she'd been pulled onto a production incident, the delivery manager almost certainly missed it.</li>
+              <li>Jira recorded the comment. Nobody read it.</li>
+              <li class="punch">The VP's deck is wrong. The committed date is a fiction. And nobody knows until the sprint ends.</li>
+            </ul>
+          </div>
+          <div class="tab-content" data-card="alethinos" data-tab="features">
+            <div class="features-list">
+              <div class="feature-row"><span class="feature-name">Cascade date engine</span><span class="feature-desc">When a story changes, every epic and deliverable date recomputes bottom-up automatically. No human updates the forecast; it is always current.</span></div>
+              <div class="feature-row"><span class="feature-name">Comment NLP pipeline</span><span class="feature-desc">Reads every ticket comment to detect blockers, scope expansion, capacity leakage, and hidden decisions that delivery managers cannot read at scale.</span></div>
+              <div class="feature-row"><span class="feature-name">Why Reports</span><span class="feature-desc">Named root causes with cited evidence. Not "the epic is late," but "MER-881 is blocked on a contract outstanding 6 days" with the comment quote attached.</span></div>
+              <div class="feature-row"><span class="feature-name">Natural language queries</span><span class="feature-desc">"Why is the Authentication overhaul 22 days behind?" returns a cited, plain-English answer referencing specific tickets, comments, and engineers.</span></div>
+              <div class="feature-row"><span class="feature-name">Scenario modelling</span><span class="feature-desc">What happens to the Q3 deliverable if we add one engineer to this epic? Modelled against real velocity data, not planning-poker guesses.</span></div>
+            </div>
+          </div>
+          <div class="tab-content" data-card="alethinos" data-tab="diff">
+            <p class="diff-h">The buyer's objection</p>
+            <div class="objection-block">"We have Jira. We have Advanced Roadmaps. Our delivery managers do weekly status updates. We have dashboards in Confluence. What exactly does Alethinos do that we don't already have?"</div>
+            <p class="diff-h">The architectural answer</p>
+            <ul class="bullets gap">
+              <li>Jira is a recording stack. It records what a human entered and displays it back accurately. That is its architectural boundary.</li>
+              <li>It does not read comments, recompute forecast dates when stories change, or detect that an engineer hasn't committed code in five days.</li>
+              <li class="punch">The gap between a Jira record and an accurate delivery forecast is filled by 4-8 hours of manual human work every week. Alethinos closes that gap.</li>
+            </ul>
+            <div class="arch-diffs">
+              <div class="arch-diff"><span class="arch-diff-label">Computation, not display</span><ul class="bullets" style="margin:4px 0 0"><li>Alethinos computes data no human entered. The cascade date engine derives the correct forecast from story-level actuals, every time anything changes.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Three planes, not one</span><ul class="bullets" style="margin:4px 0 0"><li>Jira reads structured data. Repos read code activity. Neither reads the other, and neither reads comment language. Alethinos reads all three simultaneously.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Explanations, not metrics</span><ul class="bullets" style="margin:4px 0 0"><li>Every root cause has an evidence quote. Every health score has a cited reason. A briefing to act on, not a chart to interpret.</li></ul></div>
+            </div>
+            <div class="one-liner">Every tool in your stack records what happened. Alethinos is the system that reads your tickets, comments, and code simultaneously to tell you why your projects are actually behind and what to do about it, before your next sprint review.</div>
+          </div>
+          <div class="tab-content" data-card="alethinos" data-tab="layers">
+            <span class="s-label">Three intelligence layers</span>
+            <div class="layers-grid">
+              <div class="layer-card"><p class="layer-name">Structured Jira Data</p><p class="layer-desc">Projects, epics, stories, velocity: the mathematically correct forecast date computed bottom-up, continuously. Not what someone entered. What is actually true.</p></div>
+              <div class="layer-card"><p class="layer-name">Human Language in Comments</p><p class="layer-desc">Every comment on every ticket, LLM-processed on each sync. Blocker signals, scope expansion, capacity leakage, hidden decisions, the actual causes of slippage, invisible to Jira.</p></div>
+              <div class="layer-card"><p class="layer-name">Code Signals</p><p class="layer-desc">PRs open 14+ days with no reviewer. Zero commits to an in-progress branch for 5+ days. 40+ files changed on a 3-point story. The signals Jira will never see.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POIESIS -->
+      <div class="repo-item" id="card-poiesis">
+        <div class="repo-header" onclick="toggle('poiesis')">
+          <div class="repo-left">
+            <div class="repo-name-row">
+              <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
+              <a class="repo-name" onclick="event.stopPropagation()">Poiesis</a>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-building">Building</span>
+            </div>
+            <p class="repo-desc">What if software delivered itself, from issue to production? Agentic SDLC platform with six coordinated MCP agents that take a GitHub issue from intent to production without a sprint ceremony.</p>
+            <div class="repo-meta">
+              <span class="repo-lang"><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+              <div class="repo-topics">
+                <span class="topic-pill">agentic-sdlc</span>
+                <span class="topic-pill">ci-cd</span>
+                <span class="topic-pill">mcp</span>
+                <span class="topic-pill">devops</span>
+              </div>
+            </div>
+          </div>
+          <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="repo-body">
+          <div class="product-tabs">
+            <button class="tab-btn active" onclick="switchTab(this,'poiesis','name')">Name</button>
+            <button class="tab-btn" onclick="switchTab(this,'poiesis','story')">Pitch</button>
+            <button class="tab-btn" onclick="switchTab(this,'poiesis','features')">Features</button>
+            <button class="tab-btn" onclick="switchTab(this,'poiesis','diff')">What's Different</button>
+            <button class="tab-btn" onclick="switchTab(this,'poiesis','layers')">Agentic Intelligence</button>
+          </div>
+          <div class="tab-content active" data-card="poiesis" data-tab="name">
+            <div class="name-block">Poiesis (ποίησις) is the ancient Greek word for the act of bringing something forth that did not previously exist, not mere making in the mechanical sense, but the creative act of imposing form on matter. Aristotle distinguished poiesis (making) from praxis (doing): praxis is activity whose end is within itself; poiesis is activity whose end is the thing produced.<br><br>Software development is the purest modern form of poiesis, the act of bringing working systems into being from nothing but intent. But the word also carries a commitment: that what is produced must be real. Not a plan. Not a Jira ticket marked "In Progress." A thing that exists, runs, and can be used.<br><br>Every agent in the pipeline is defined by what it produces, not what it does. Together, they produce software.</div>
+          </div>
+          <div class="tab-content" data-card="poiesis" data-tab="story">
+            <span class="s-label">What it is</span>
+            <ul class="bullets">
+              <li>Agentic SDLC platform with six coordinated MCP agents that take a GitHub issue from intent to production without a sprint ceremony, a Slack thread, or a deployment runbook.</li>
+              <li>It is not a copilot. It is not an assistant. It is a complete, autonomous delivery pipeline that writes the code, reviews the PR, scans for risk, ships the release, watches production, and recovers from incidents.</li>
+              <li class="punch">And documents everything it did.</li>
+            </ul>
+            <span class="s-label">The core problem</span>
+            <ul class="bullets">
+              <li>Software delivery is still a coordination tax. A developer writes a ticket, waits for sprint planning, writes the code, waits for review, addresses comments, waits for CI, chases a deployment approval, monitors Slack for prod alerts, writes a postmortem.</li>
+              <li>Average lead time from committed code to production: 3-7 days. Not because the code is hard to write, but because the coordination machinery is entirely manual.</li>
+              <li>A CPU spike at 2am requires someone to wake up, triage, roll back, diagnose, and document.</li>
+              <li class="punch">The engineering organisation spends more energy managing the pipeline than building the product. Poiesis ends this.</li>
+            </ul>
+          </div>
+          <div class="tab-content" data-card="poiesis" data-tab="features">
+            <div class="features-list">
+              <div class="feature-row"><span class="feature-name">OPA policy gate</span><span class="feature-desc">8 automated checks evaluated before any environment is touched: no CVEs, all artifacts signed, ticket linked, PR approved, no freeze window, lint clean, tests passing, license clean.</span></div>
+              <div class="feature-row"><span class="feature-name">Blue/green + auto-rollback</span><span class="feature-desc">Production flips only when all health checks pass. WATCHTOWER fires within 12 seconds of a metric breach. MEDIC restores in 45 seconds. On-call engineer optional.</span></div>
+              <div class="feature-row"><span class="feature-name">Parallel security wall</span><span class="feature-desc">CodeQL, Checkmarx, Dependabot, and SonarQube fire simultaneously on every push. Findings stream into the PR before review starts, not sequential.</span></div>
+              <div class="feature-row"><span class="feature-name">AI root cause diagnosis</span><span class="feature-desc">MEDIC produces a precise, file-level root cause. No guessing, no grep, no war room. Names the file, the function, and the missing optimization.</span></div>
+              <div class="feature-row"><span class="feature-name">Auto-generated release receipts</span><span class="feature-desc">GitHub Release includes rollback notice, component statuses, DORA metrics, and OPA results. Nobody writes a postmortem; it is a byproduct of the pipeline running.</span></div>
+            </div>
+          </div>
+          <div class="tab-content" data-card="poiesis" data-tab="diff">
+            <p class="diff-h">The buyer's objection</p>
+            <div class="objection-block">"We already have GitHub Actions. We have Harness for deployments. We run CodeQL and Dependabot on every PR. We have Splunk watching production. We even have an on-call rotation with runbooks. What exactly does Poiesis do that we don't already have?"</div>
+            <p class="diff-h">The architectural answer</p>
+            <ul class="bullets gap">
+              <li>GitHub Actions detects whether the build passes. Harness executes the deployment you defined. Splunk fires an alert.</li>
+              <li>Every tool answers one question and hands the result to someone.</li>
+              <li class="punch">Poiesis owns the chain between those answers and the resolution. Not detection. Action.</li>
+            </ul>
+            <div class="arch-diffs">
+              <div class="arch-diff"><span class="arch-diff-label">Action chain, not signal chain</span><ul class="bullets" style="margin:4px 0 0"><li>Every existing tool produces a signal that terminates at a human who must decide what to do. Poiesis's agents own the consequent action, as an executed operation, not a recommendation.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Shared run context across all six agents</span><ul class="bullets" style="margin:4px 0 0"><li>When MEDIC diagnoses a production incident, it reads the deployment manifest, the Splunk metric snapshot, and the PR diff simultaneously. No single tool in your stack has access to all three.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Self-generating audit trail</span><ul class="bullets" style="margin:4px 0 0"><li>After every run, Poiesis emits a complete GitHub Release: rollback notice, component statuses, DORA metrics, OPA results. Nobody writes this. The pipeline writes it.</li></ul></div>
+            </div>
+            <div class="one-liner">Every tool you have detects something and hands the result to a person. Poiesis is the system that reads those results, takes the next action, and hands you a receipt, while you approve anything that isn't routine.</div>
+          </div>
+          <div class="tab-content" data-card="poiesis" data-tab="layers">
+            <span class="s-label">Six coordinated agents</span>
+            <div class="layers-grid">
+              <div class="layer-card"><p class="layer-name">CODER</p><p class="layer-desc">Reads the GitHub issue, pulls live codebase state via MCP, writes across multiple files, builds, lints, self-verifies. Branches from issue automatically. No manual branch creation.</p></div>
+              <div class="layer-card"><p class="layer-name">REVIEWER</p><p class="layer-desc">Reads PR diffs, files inline comments, catches logic gaps a linter cannot, such as a discount applied on one route but not another. Proposes specific line-level fixes.</p></div>
+              <div class="layer-card"><p class="layer-name">SENTINEL</p><p class="layer-desc">Runs CodeQL, Checkmarx SAST, Dependabot, SonarQube in parallel before merge. Generates signed SBOM for every artifact. Blocks deployment if unsigned.</p></div>
+              <div class="layer-card"><p class="layer-name">PILOT</p><p class="layer-desc">Harness CD pipeline: DEV to SIT to PROD, blue/green swap, OPA policy gate. Evaluates 8 automated checks before touching any environment.</p></div>
+              <div class="layer-card"><p class="layer-name">WATCHTOWER</p><p class="layer-desc">Watches production metrics via Splunk. Detects CPU, latency, and error rate anomalies within seconds of swap. Fires incident playbook before error rate reaches customers.</p></div>
+              <div class="layer-card"><p class="layer-name">MEDIC</p><p class="layer-desc">Reads deployment manifest, metric spike, code diff. Identifies root cause. Issues rollback command. MTTR: 45 seconds from alert to traffic restored. Auto-generates the full release note and DORA metrics.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PISTIS -->
+      <div class="repo-item" id="card-pistis">
+        <div class="repo-header" onclick="toggle('pistis')">
+          <div class="repo-left">
+            <div class="repo-name-row">
+              <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
+              <a class="repo-name" onclick="event.stopPropagation()">Pistis</a>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-building">Building</span>
+            </div>
+            <p class="repo-desc">What if access granted itself only when trust could be proved? AI-native identity platform that understands context, detects risk, reasons about intent, and acts autonomously on access governance.</p>
+            <div class="repo-meta">
+              <span class="repo-lang"><span class="lang-dot" style="background:#dea584"></span>Rust</span>
+              <div class="repo-topics">
+                <span class="topic-pill">iam</span>
+                <span class="topic-pill">identity-governance</span>
+                <span class="topic-pill">zero-trust</span>
+                <span class="topic-pill">enterprise-security</span>
+              </div>
+            </div>
+          </div>
+          <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="repo-body">
+          <div class="product-tabs">
+            <button class="tab-btn active" onclick="switchTab(this,'pistis','name')">Name</button>
+            <button class="tab-btn" onclick="switchTab(this,'pistis','story')">Pitch</button>
+            <button class="tab-btn" onclick="switchTab(this,'pistis','features')">Features</button>
+            <button class="tab-btn" onclick="switchTab(this,'pistis','layers')">Agentic Intelligence</button>
+          </div>
+          <div class="tab-content active" data-card="pistis" data-tab="name">
+            <div class="name-block">Pistis (πίστις), Ancient Greek for "warranted trust" and "provable authority." In classical philosophy, pistis is not blind faith; it is trust grounded in evidence, earned through demonstration, and sustained by continued proof. The Roman world rendered it fides: the foundation of every binding agreement, every contract, every institution that expected to endure.<br><br>That is exactly what enterprise identity governance has never had. Access is granted on assumption. Authority is asserted, not proven. Trust is implicit and never re-examined.<br><br>Pistis changes the premise: every grant of access is a claim of warranted trust. Every claim must be provable. Every claim that can no longer be proved is revoked.</div>
+          </div>
+          <div class="tab-content" data-card="pistis" data-tab="story">
+            <span class="s-label">What it is</span>
+            <ul class="bullets">
+              <li>AI-native identity platform that doesn't just enforce rules; it understands context, detects risk, reasons about intent, and acts autonomously.</li>
+              <li>Standard tooling tells you who has access. Pistis tells you who should, who should not anymore, and what to do about it: now, not at the next quarterly review.</li>
+            </ul>
+            <span class="s-label">The core problem</span>
+            <ul class="bullets">
+              <li>Traditional IAM is a rule engine pretending to be a governance system. It enforces static policies written years ago.</li>
+              <li>Quarterly certification campaigns where reviewers rubber-stamp 96% of entitlements with no information to make a real decision.</li>
+              <li>SoD violations caught only after an auditor surfaces them in a finding.</li>
+              <li>Joiners wait three days for access because someone has to approve a ticket. Leavers leave ghost accounts behind.</li>
+              <li class="punch">Access creep accumulates silently for 90 days before anyone notices.</li>
+            </ul>
+          </div>
+          <div class="tab-content" data-card="pistis" data-tab="features">
+            <div class="features-list">
+              <div class="feature-row"><span class="feature-name">AI reasoning engine</span><span class="feature-desc">Every access decision carries a natural language explanation and confidence score, cited by evidence, reviewable by any auditor.</span></div>
+              <div class="feature-row"><span class="feature-name">Continuous SoD detection</span><span class="feature-desc">Cross-app conflict graph built and monitored in real time. Violations surface the moment they form, not at the next quarterly review.</span></div>
+              <div class="feature-row"><span class="feature-name">Use-it-or-lose-it</span><span class="feature-desc">90-day utilisation scoring against peer group norms. Not a calendar trigger a reviewer can click past; a signal derived from actual behaviour.</span></div>
+              <div class="feature-row"><span class="feature-name">JML automation</span><span class="feature-desc">HR event to fully provisioned or fully deprovisioned in under 60 seconds across all connected apps. No ticket. No wait.</span></div>
+              <div class="feature-row"><span class="feature-name">Scenario simulator</span><span class="feature-desc">"What happens if I give this user this permission?" Shows SoD conflicts before the change is made, not after the audit finding.</span></div>
+            </div>
+          </div>
+          <div class="tab-content" data-card="pistis" data-tab="layers">
+            <span class="s-label">Three intelligence layers</span>
+            <div class="layers-grid">
+              <div class="layer-card"><p class="layer-name">Structured Access Data</p><p class="layer-desc">Current entitlements, last-used timestamps per permission, role assignments, hire date, department. The record layer: what the system knows exists.</p></div>
+              <div class="layer-card"><p class="layer-name">Behavioural Signals</p><p class="layer-desc">Permission utilisation vs what users actually hold. Peer group benchmarking. Anomaly scoring: impossible travel, off-hours bulk exports, unusual API call volumes.</p></div>
+              <div class="layer-card"><p class="layer-name">Contextual Signals</p><p class="layer-desc">HR lifecycle events, access request comments, manager approval context, project context, cross-app SoD context. The intent layer: why access was needed, and whether it still is.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEXUS -->
+      <div class="repo-item" id="card-nexus">
+        <div class="repo-header" onclick="toggle('nexus')">
+          <div class="repo-left">
+            <div class="repo-name-row">
+              <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
+              <a class="repo-name" onclick="event.stopPropagation()">Nexus</a>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-building">Building</span>
+            </div>
+            <p class="repo-desc">What if one request resolved itself across every platform? AI-native self-service across Jira, GitHub, Artifactory, Jenkins, Ansible Tower - resolving associate requests in plain English, in seconds.</p>
+            <div class="repo-meta">
+              <span class="repo-lang"><span class="lang-dot" style="background:#3178c6"></span>TypeScript</span>
+              <div class="repo-topics">
+                <span class="topic-pill">enterprise-support</span>
+                <span class="topic-pill">agentic</span>
+                <span class="topic-pill">self-service</span>
+                <span class="topic-pill">platform-engineering</span>
+              </div>
+            </div>
+          </div>
+          <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="repo-body">
+          <div class="product-tabs">
+            <button class="tab-btn active" onclick="switchTab(this,'nexus','name')">Name</button>
+            <button class="tab-btn" onclick="switchTab(this,'nexus','story')">Pitch</button>
+            <button class="tab-btn" onclick="switchTab(this,'nexus','features')">Features</button>
+            <button class="tab-btn" onclick="switchTab(this,'nexus','diff')">What's Different</button>
+            <button class="tab-btn" onclick="switchTab(this,'nexus','layers')">Agentic Intelligence</button>
+          </div>
+          <div class="tab-content active" data-card="nexus" data-tab="name">
+            <div class="name-block">Nexus, classical Latin for connection, link, bond. The nexus of something is not a tool or a team; it is the convergence point where all threads meet and become action.<br><br>That precision of meaning is exactly what this product commits to: not another portal, not another ticketing layer, but the single point where every associate request finds its platform and its resolution, without a human intermediary standing in between.<br><br>The name commits Nexus to three non-negotiable promises: that every request can be handled here, that no connected platform is out of reach, and that the resolution is instantaneous.</div>
+          </div>
+          <div class="tab-content" data-card="nexus" data-tab="story">
+            <span class="s-label">What it is</span>
+            <ul class="bullets">
+              <li>AI-native self-service platform across every enterprise engineering tool: Jira, GitHub, Artifactory, Jenkins, Ansible Tower, resolving associate requests in plain English, in seconds, without a support ticket ever being raised.</li>
+              <li>Associates describe what they need; Nexus does it. Before a queue is joined. Before an L2 engineer is paged. Before anyone waits two days for something that should take thirty seconds.</li>
+            </ul>
+            <span class="s-label">The core problem</span>
+            <ul class="bullets">
+              <li>Enterprise platform support is a queue of solved problems. Every week, thousands of associates raise tickets for access grants, build retries, artifact promotions, mechanically identical to the ten thousand before them.</li>
+              <li>L2 platform engineers spend their days processing requests a machine could handle in under a minute.</li>
+              <li class="punch">They are not solving hard problems. They are being human API wrappers for systems that already have APIs.</li>
+            </ul>
+          </div>
+          <div class="tab-content" data-card="nexus" data-tab="features">
+            <div class="features-list">
+              <div class="feature-row"><span class="feature-name">Natural language resolution</span><span class="feature-desc">"I need read access to the payments repo": policy checked, blast radius scored, access granted via API, logged, in under 5 seconds.</span></div>
+              <div class="feature-row"><span class="feature-name">Policy engine</span><span class="feature-desc">High-blast-radius actions route to a named human approver. Low-blast-radius actions resolve automatically. 97% resolved without touching a human queue.</span></div>
+              <div class="feature-row"><span class="feature-name">Lifecycle scanner</span><span class="feature-desc">Detects offboarded engineers with lingering access across all connected platforms within 60 minutes. Alerts admin, enables one-click revocation.</span></div>
+              <div class="feature-row"><span class="feature-name">Cross-platform audit stream</span><span class="feature-desc">First time "what did r.patel do across all platforms in the last 7 days?" has a single answer, because every Nexus action streams to one Splunk index.</span></div>
+            </div>
+          </div>
+          <div class="tab-content" data-card="nexus" data-tab="diff">
+            <p class="diff-h">The buyer's objection</p>
+            <div class="objection-block">"We already have a ticketing system, ServiceNow. We have runbooks in Confluence. Our Jenkins jobs have build triggers. Our GitHub admins handle access requests same-day. What exactly does Nexus do that we don't already have covered?"</div>
+            <p class="diff-h">The architectural answer</p>
+            <ul class="bullets gap">
+              <li>ServiceNow, Confluence, and your platform admin workflows all terminate at the record. Resolution lives somewhere else, in someone's hands.</li>
+              <li>Every ServiceNow ticket for a build retry or access grant requires a platform engineer to open it, context-switch to the target tool, execute manually, update, and close. Median resolution time: 14 hours.</li>
+              <li class="punch">Nexus closes the gap between the record and the resolution. Not smarter documentation; actual action.</li>
+            </ul>
+            <div class="arch-diffs">
+              <div class="arch-diff"><span class="arch-diff-label">Action, not record</span><ul class="bullets" style="margin:4px 0 0"><li>Nexus holds live service identities for each connected platform, validated credentials scoped to minimum required permissions, and the ability to execute and roll back any action. No existing tool holds all three.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Policy before action</span><ul class="bullets" style="margin:4px 0 0"><li>Blast radius, role permissions, and approval requirements are evaluated on every single request in under 200ms, before any API call executes. Not after the complaint.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Cross-platform audit stream</span><ul class="bullets" style="margin:4px 0 0"><li>Events across five platforms, one Splunk index, consistent schema. As a byproduct of execution, not a separate logging project someone has to build and maintain.</li></ul></div>
+            </div>
+            <div class="one-liner">Every support tool you have records the request and stops. Nexus is the layer that reads the request in plain English, checks your policy, executes the action against the right platform, and logs the outcome to Splunk, while you approve anything that matters.</div>
+          </div>
+          <div class="tab-content" data-card="nexus" data-tab="layers">
+            <span class="s-label">Five intelligence layers</span>
+            <div class="layers-grid">
+              <div class="layer-card"><p class="layer-name">Natural Language Intent</p><p class="layer-desc">LLM-based parsing converts plain English into precise API calls. "My build is failing on QA": Jenkins: fetch logs, diagnose root cause, trigger rebuild.</p></div>
+              <div class="layer-card"><p class="layer-name">Policy &amp; Authorisation</p><p class="layer-desc">Every request evaluated before any action fires: role-based check, approval routing, blast-radius scoring (low / medium / high / critical), rate limiting.</p></div>
+              <div class="layer-card"><p class="layer-name">Platform Action Execution</p><p class="layer-desc">Five purpose-built agents with scoped service identities: Jira, GitHub, Artifactory, Jenkins, Ansible Tower. Full API coverage, minimum required permissions.</p></div>
+              <div class="layer-card"><p class="layer-name">Splunk Observability</p><p class="layer-desc">Every action, outcome, and escalation streamed to Splunk in real time. Full cross-platform audit trail per associate, a stream that did not previously exist.</p></div>
+              <div class="layer-card"><p class="layer-name">Continuous Learning</p><p class="layer-desc">Every human escalation tagged with outcome and fed back into the knowledge base. Escalation rate trends down as the knowledge base grows with every resolved case.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOMOS -->
+      <div class="repo-item" id="card-nomos">
+        <div class="repo-header" onclick="toggle('nomos')">
+          <div class="repo-left">
+            <div class="repo-name-row">
+              <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
+              <a class="repo-name" onclick="event.stopPropagation()">Nomos</a>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-building">Building</span>
+            </div>
+            <p class="repo-desc">What if compliance proved itself before the auditor asked? Agentic compliance platform that maps every deployment to your control framework in real time and hands a signed evidence package to the auditor.</p>
+            <div class="repo-meta">
+              <span class="repo-lang"><span class="lang-dot" style="background:#3572A5"></span>Python</span>
+              <div class="repo-topics">
+                <span class="topic-pill">compliance</span>
+                <span class="topic-pill">soc2</span>
+                <span class="topic-pill">audit-automation</span>
+                <span class="topic-pill">iso27001</span>
+              </div>
+            </div>
+          </div>
+          <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
+        </div>
+        <div class="repo-body">
+          <div class="product-tabs">
+            <button class="tab-btn active" onclick="switchTab(this,'nomos','name')">Name</button>
+            <button class="tab-btn" onclick="switchTab(this,'nomos','story')">Pitch</button>
+            <button class="tab-btn" onclick="switchTab(this,'nomos','features')">Features</button>
+            <button class="tab-btn" onclick="switchTab(this,'nomos','diff')">What's Different</button>
+            <button class="tab-btn" onclick="switchTab(this,'nomos','layers')">Agentic Intelligence</button>
+          </div>
+          <div class="tab-content active" data-card="nomos" data-tab="name">
+            <div class="name-block">Nomos (νόμος) is the ancient Greek word for law, but not law imposed by a ruler. In Athenian political philosophy, nomos was the rational, self-sustaining order of the city. It was law that did not require a tyrant to enforce it because it was constituted into the structure of how things worked. The opposite of nomos was physis, the state of things before rational order had been imposed.<br><br>An enterprise without Nomos lives in physis: controls that exist in principle, security that works in practice, but no sustained, provable order that can speak for itself to an auditor.<br><br>Nomos commits the product to a single architectural claim: compliance is not an event. It is a state.</div>
+          </div>
+          <div class="tab-content" data-card="nomos" data-tab="story">
+            <span class="s-label">What it is</span>
+            <ul class="bullets">
+              <li>Agentic compliance platform that replaces the audit scramble with a compliance agent that runs continuously, maps every deployment to your control framework in real time, and hands a complete, signed evidence package to the auditor without a single human step.</li>
+              <li>Traditional tools (Vanta, Drata) automate the checklist. They still rely on humans to collect evidence, interpret gaps, and run the audit conversation.</li>
+              <li class="punch">Nomos eliminates all of that.</li>
+            </ul>
+            <span class="s-label">The core problem</span>
+            <ul class="bullets">
+              <li>The auditor's request letter arrives. Engineers get Slacked for screenshots. Compliance managers export CSVs from six tools.</li>
+              <li>A consultant bills $120/hour to assemble a binder. Three weeks later the auditor receives a PDF that is already partially stale.</li>
+              <li>The evidence exists: in GitHub, in Kubernetes, in AWS CloudTrail, in OPA decision logs; but it is scattered, unsigned, and unindexed against the control framework.</li>
+              <li class="punch">The gap between "we have good security" and "we can prove it" costs the average enterprise $180,000 per year.</li>
+            </ul>
+          </div>
+          <div class="tab-content" data-card="nomos" data-tab="features">
+            <div class="features-list">
+              <div class="feature-row"><span class="feature-name">Continuous control mapping</span><span class="feature-desc">Every ingested signal tagged to control IDs across all active frameworks automatically. No manual mapping required.</span></div>
+              <div class="feature-row"><span class="feature-name">Signed artifact vault</span><span class="feature-desc">Every piece of evidence cryptographically timestamped. Auditors can verify authenticity independently. Not screenshots: signed, immutable records.</span></div>
+              <div class="feature-row"><span class="feature-name">Agentic evidence assembly</span><span class="feature-desc">The agent assembles a complete evidence package for any audit scope in minutes. Weeks of manual work become 4 minutes of agent work.</span></div>
+              <div class="feature-row"><span class="feature-name">Auditor portal</span><span class="feature-desc">Read-only, time-scoped view shared directly with the auditor. They pull evidence themselves rather than requesting it by email.</span></div>
+              <div class="feature-row"><span class="feature-name">Multi-framework overlap engine</span><span class="feature-desc">Shows which controls satisfy SOC 2, ISO 27001, HIPAA, and FedRAMP simultaneously. Eliminate duplicated audit preparation.</span></div>
+            </div>
+          </div>
+          <div class="tab-content" data-card="nomos" data-tab="diff">
+            <p class="diff-h">The buyer's objection</p>
+            <div class="objection-block">"We already have Vanta. We have GitHub Actions running Snyk on every PR. Our CloudTrail is piped into Splunk. Our access reviews run in Vanta every quarter. What exactly does Nomos do that we don't already have?"</div>
+            <p class="diff-h">The architectural answer</p>
+            <ul class="bullets gap">
+              <li>Vanta, Drata, and every GRC tool answer one question: "does this thing exist?" They terminate at a status: green, passed, complete.</li>
+              <li>None of them answer: "can I prove it to an auditor, right now, in the format they need, with a signed chain of custody, assembled in one place?"</li>
+              <li class="punch">The scramble that follows every audit request is the gap. Nomos closes it.</li>
+            </ul>
+            <div class="arch-diffs">
+              <div class="arch-diff"><span class="arch-diff-label">Evidence chain, not status</span><ul class="bullets" style="margin:4px 0 0"><li>When the auditor asks for CC6.8 evidence for Q2, Nomos returns signed artifacts with a cryptographic timestamp. Vanta returns a green check.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Deployment event stream, not config checks</span><ul class="bullets" style="margin:4px 0 0"><li>Configuration checks tell you what is true now. Deployment event signals tell you what happened, at what cadence, and whether it satisfies the control's evidence requirement.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Replaces the assembly step</span><ul class="bullets" style="margin:4px 0 0"><li>The step nobody has automated is the human who takes all detections and turns them into an auditor-ready package. That is what the Nomos agent does.</li></ul></div>
+            </div>
+            <div class="one-liner">Every tool you have tells you whether your controls exist. Nomos is the system that collects the evidence that they worked, assembles it into a signed package when the auditor asks, and surfaces every gap before the auditor finds it, while your team approves each step.</div>
+          </div>
+          <div class="tab-content" data-card="nomos" data-tab="layers">
+            <span class="s-label">Three intelligence layers</span>
+            <div class="layers-grid">
+              <div class="layer-card"><p class="layer-name">Deployment Signals</p><p class="layer-desc">Every git commit, CI/CD run, OPA policy decision, SBOM generation, container scan, streamed in and tagged to control IDs automatically.</p></div>
+              <div class="layer-card"><p class="layer-name">Control State Engine</p><p class="layer-desc">Live control map against SOC 2, ISO 27001, HIPAA, FedRAMP. Controls are never manually marked green; status derives only from ingested signals.</p></div>
+              <div class="layer-card"><p class="layer-name">Compliance Agent</p><p class="layer-desc">Receives an audit request, pulls the evidence chain, generates a formatted signed report. "Assemble SOC 2 CC6.1 evidence for Jan-Jun 2026": 47 artifacts, 4 minutes.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /repo-list -->
+  </main>
+</div><!-- /layout -->
+
 <footer>
-  <span>// my applied-ai-lab / github.com/myproductlab26</span>
-  <span>Eight products envisioned &mdash; June 2026.</span>
+  <div class="footer-links">
+    <a href="https://github.com/myproductlab26" target="_blank">github.com/myproductlab26</a>
+    <a href="mailto:pduttahere@gmail.com">Contact</a>
+  </div>
+  <span>Seven products envisioned. June 2026.</span>
 </footer>
+
 <script>
-  function toggle(id){document.getElementById('card-'+id).classList.toggle('open')}
-  function switchTab(btn,cardId,tabName){
-    var card=document.getElementById('card-'+cardId);
-    card.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  function toggle(id) {
+    document.getElementById('card-' + id).classList.toggle('open');
+  }
+  function switchTab(btn, cardId, tabName) {
+    var card = document.getElementById('card-' + cardId);
+    card.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
-    card.querySelectorAll('.tab-content').forEach(function(tc){tc.classList.toggle('active',tc.dataset.tab===tabName)});
+    card.querySelectorAll('.tab-content').forEach(function(tc) {
+      tc.classList.toggle('active', tc.dataset.tab === tabName);
+    });
   }
 </script>
 </body>
