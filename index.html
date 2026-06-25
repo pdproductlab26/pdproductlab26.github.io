@@ -604,7 +604,7 @@
           <div class="tab-content" data-card="ichnos" data-tab="story">
             <span class="s-label">What it is</span>
             <ul class="bullets">
-              <li>Compliance infrastructure layer for AI-generated code. Captures, automatically, immutably, stored in git, the provenance, reasoning, assumptions, and human disposition behind every AI-written change.</li>
+              <li>Compliance infrastructure layer for AI-generated code. Captures, automatically, immutably, stored in git, the provenance, decision context, assumptions, and human disposition behind every AI-written change.</li>
               <li>25-42% of production code is already AI-authored, and none of it shows its work: no record of what the model chose, what it assumed, what it skipped, or which human reviewed it.</li>
               <li>The EU AI Act begins enforcement on August 2, 2026, with fines reaching 7% of global revenue for teams that cannot produce documented AI provenance.</li>
               <li class="punch">Almost no engineering team can produce that record today. Ichnos eliminates all of that.</li>
@@ -618,7 +618,7 @@
           </div>
           <div class="tab-content" data-card="ichnos" data-tab="features">
             <div class="features-list">
-              <div class="feature-row"><span class="feature-name">At-generation decision capture</span><span class="feature-desc">Fires before the engineer sees the diff. The decision record is written when reasoning is still structurally present. There is no later point at which this information is recoverable.</span></div>
+              <div class="feature-row"><span class="feature-name">At-generation decision capture</span><span class="feature-desc">Fires before the engineer sees the diff. The decision record is written when generation context is still present. There is no later point at which this information is recoverable.</span></div>
               <div class="feature-row"><span class="feature-name">Permanent records in your own repository</span><span class="feature-desc">Decision records committed directly into the repository alongside the code. Versioned with the code. Survives Ichnos as a company.</span></div>
               <div class="feature-row"><span class="feature-name">Human oversight evidence per change</span><span class="feature-desc">accepted / accepted_with_modifications / rejected; the EU AI Act requires evidence of human oversight per change. This is that record, timestamped and cryptographically linked.</span></div>
               <div class="feature-row"><span class="feature-name">Regulatory export</span><span class="feature-desc">git why log --export eu-ai-act produces a PDF structured for EU AI Act transparency requirements: AI system identification, full decision index, human oversight summary, integrity manifest.</span></div>
@@ -635,8 +635,8 @@
               <li>The PR description documents what the engineer intended. It does not document what the AI assumed, what it considered and rejected, or what it explicitly skipped.</li>
             </ul>
             <div class="arch-diffs">
-              <div class="arch-diff"><span class="arch-diff-label">Generation time, not review time</span><ul class="bullets" style="margin:4px 0 0"><li>Every existing tool operates after the code has been written. By that point, the AI's reasoning is gone. Ichnos fires at the PostToolUse boundary, before the engineer sees the diff.</li></ul></div>
-              <div class="arch-diff"><span class="arch-diff-label">Human layer, not code layer</span><ul class="bullets" style="margin:4px 0 0"><li>The disposition layer records what the human decided to do with the AI's output. This is what the EU AI Act requires. A GitHub PR approval is not a provenance record under Article 13.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Generation time, not review time</span><ul class="bullets" style="margin:4px 0 0"><li>Every existing tool operates after the code has been written. By that point, the generation context is gone. Ichnos fires at the PostToolUse boundary, before the engineer sees the diff.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Human layer, not code layer</span><ul class="bullets" style="margin:4px 0 0"><li>The disposition layer records what the human decided to do with the AI's output. This is what the EU AI Act requires. A GitHub PR approval is not a provenance record under EU AI Act transparency requirements.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Permanent in your repository, not ours</span><ul class="bullets" style="margin:4px 0 0"><li>Decision records are in your repository, committed alongside the code. The record for code written in June 2026 will still be there in 2036, regardless of whether Ichnos exists as a company.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">The regulator's format, not a proprietary one</span><ul class="bullets" style="margin:4px 0 0"><li>Every other tool produces output in its own format. Ichnos ships EU AI Act transparency requirements as a first-class export target. The regulator reads it directly, no translation layer needed.</li></ul></div>
             </div>
