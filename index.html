@@ -611,7 +611,7 @@
               <span class="repo-badge-live">Live</span>
               <a href="https://ichnos.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; ichnos.dev</a>
             </div>
-            <p class="repo-desc">What if every AI decision left a signed, verifiable trace? Agentic provenance platform - captures and stores the decision record for every AI-written change directly in git. AI-accountability expectations are tightening. When your auditor asks, you need an answer.</p>
+            <p class="repo-desc">What if every AI decision left a tamper-evident, verifiable trace? Agentic provenance platform - captures and stores the decision record for every AI-written change directly in git. AI-accountability expectations are tightening, such as the EU AI Act and California AB 2013. When your auditor asks, you need an answer.</p>
             <span class="repo-lang"><span class="lang-dot" style="background:var(--ember)"></span>AI Provenance (Regulatory)</span>
           </div>
           <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
@@ -625,13 +625,13 @@
             <button class="tab-btn" onclick="switchTab(this,'ichnos','layers')">Agentic Intelligence</button>
           </div>
           <div class="tab-content active" data-card="ichnos" data-tab="name">
-            <div class="name-block">ichnos (ίχνος) is ancient Greek for a track, a footprint - the physical mark left by an agent that passed through a space.<br><br>Your AI assistant has already written code, reviewed PRs, and proposed architecture. None of it left a mark.<br><br>Ichnos captures the decision record for every AI-written change at the moment it is made - signed, timestamped, stored in git alongside the code it produced with a verifiable integrity hash.<br><br>AI-accountability expectations are tightening. When your auditor asks what the AI decided and why, ichnos is your answer.</div>
+            <div class="name-block">ichnos (ίχνος) is ancient Greek for a track, a footprint - the physical mark left by an agent that passed through a space.<br><br>Your AI assistant has already written code, reviewed PRs, and proposed architecture. None of it left a mark.<br><br>Ichnos captures the decision record for every AI-written change at the moment it is made: timestamped, stored in git alongside the code it produced, and carrying a verifiable integrity hash so any later edit to the trail is detectable.<br><br>AI-accountability expectations are tightening, such as the EU AI Act and California AB 2013. When your auditor asks what the AI decided and why, ichnos is your answer.</div>
           </div>
           <div class="tab-content" data-card="ichnos" data-tab="story">
             <span class="s-label">What it is</span>
             <ul class="bullets">
-              <li>Compliance infrastructure layer for AI-generated code. Captures, automatically, with a verifiable integrity hash, stored in git, the provenance, decision context, assumptions, and human disposition behind every AI-written change.</li>
-              <li>25-42% of production code is already AI-authored, and none of it shows its work: no record of what the model chose, what it assumed, what it skipped, or which human reviewed it.</li>
+              <li>Compliance infrastructure layer for AI-generated code. Captures, automatically, with a verifiable integrity hash, stored in git, the provenance, decision context, assumptions, and human disposition behind every AI-written change - starting with Claude Code (Cursor and GitHub Copilot on the roadmap).</li>
+              <li>Industry estimates put 25-42% of production code as already AI-authored, and none of it shows its work: no record of what the model chose, what it assumed, what it skipped, or which human reviewed it.</li>
               <li>AI-accountability expectations tighten through 2026, with regulators and customers increasingly asking what the AI decided and why.</li>
               <li class="punch">Almost no engineering team can produce that record today. Ichnos eliminates all of that.</li>
             </ul>
@@ -639,7 +639,7 @@
             <ul class="bullets">
               <li>An AI coding assistant produces a change. Six months later, in a production incident: why did we use polling instead of webhooks? Why did we skip the idempotency retry?</li>
               <li>There is no answer, not in git history, not in the PR description, not anywhere. The model made those choices in milliseconds and wrote none of them down.</li>
-              <li class="punch">Multiply that across 25-42% of the codebase. The result: a growing fraction of decisions that are permanently unrecoverable, invisible during maintenance, invisible to the regulator.</li>
+              <li class="punch">Multiply that across what industry estimates put at 25-42% of the codebase. The result: a growing fraction of decisions that are permanently unrecoverable, invisible during maintenance, invisible to the regulator.</li>
             </ul>
           </div>
           <div class="tab-content" data-card="ichnos" data-tab="features">
@@ -666,7 +666,7 @@
               <div class="arch-diff"><span class="arch-diff-label">Permanent in your repository, not ours</span><ul class="bullets" style="margin:4px 0 0"><li>Decision records are in your repository, committed alongside the code. The record for code written in June 2026 will still be there in 2036, regardless of whether Ichnos exists as a company.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Structured for accountability, not proprietary</span><ul class="bullets" style="margin:4px 0 0"><li>Every other tool produces output in its own format. Ichnos ships a structured provenance report as a first-class export. No manual assembly, no translation layer needed.</li></ul></div>
             </div>
-            <div class="one-liner">Every tool you have watches what the code does: Copilot writes it, Snyk scans it, reviewers read it, Datadog monitors it. Ichnos is the layer that records what the AI decided when it wrote it, what the human chose to do with that decision, and hands you a signed PDF when the auditor asks, while your engineers keep working exactly as they do today.</div>
+            <div class="one-liner">Every tool you have watches what the code does: Copilot writes it, Snyk scans it, reviewers read it, Datadog monitors it. Ichnos is the layer that records what the AI decided when it wrote it, what the human chose to do with that decision, and hands you a verifiable provenance report when the auditor asks, while your engineers keep working exactly as they do today.</div>
           </div>
           <div class="tab-content" data-card="ichnos" data-tab="layers">
             <span class="s-label">Three capture layers</span>
