@@ -551,11 +551,11 @@
           </div>
           <div class="tab-content" data-card="optikon" data-tab="features">
             <div class="features-list">
-              <div class="feature-row"><span class="feature-name">Real-time allocation</span><span class="feature-desc">Every AI dollar mapped to a cost center, team, use case, and provider, updated every 5 minutes. Budget-to-actual you can trust between closes.</span></div>
-              <div class="feature-row"><span class="feature-name">Variance alerting</span><span class="feature-desc">Anomalies and unattributed usage flagged against rolling forecast. Alerts route to the right owner before the variance compounds.</span></div>
-              <div class="feature-row"><span class="feature-name">Unit economics dashboard</span><span class="feature-desc">Cost per request, cost per use case, model cost comparison. Identifies up to 30-40% savings opportunities without touching quality.</span></div>
-              <div class="feature-row"><span class="feature-name">Chargeback reports</span><span class="feature-desc">Finance-ready exports showing AI spend by business unit, period-over-period. The allocation model FinOps teams actually need.</span></div>
-              <div class="feature-row"><span class="feature-name">Unattributed usage queue</span><span class="feature-desc">All spend with no cost center mapping surfaced with suggested attribution, routed to owners for confirmation. Phantom spend made visible.</span></div>
+              <!-- Four primary pillars matching the live app at optikon.dev -->
+              <div class="feature-row"><span class="feature-name">Real-time cost allocation</span><span class="feature-desc">Every AI dollar mapped to a cost center, team, use case, and provider, updated every 5 minutes. Budget-to-actual you can trust between closes.</span></div>
+              <div class="feature-row"><span class="feature-name">Variance alerts</span><span class="feature-desc">Anomalies flagged against rolling forecast. Alerts route automatically to the right owner before the variance compounds. Unattributed spend surfaced in the same flow.</span></div>
+              <div class="feature-row"><span class="feature-name">Unit economics</span><span class="feature-desc">Cost per request, cost per use case, model cost comparison. Identifies up to 30-40% savings opportunities without touching quality.</span></div>
+              <div class="feature-row"><span class="feature-name">Governance and audit</span><span class="feature-desc">Budget enforcement per cost center with spend-threshold alerts. Finance-ready chargeback exports showing AI spend by business unit, period-over-period - the allocation model FinOps teams actually need.</span></div>
             </div>
           </div>
           <div class="tab-content" data-card="optikon" data-tab="diff">
@@ -575,12 +575,26 @@
             </div>
             <div class="one-liner">Every cost management tool you have was built for cloud infrastructure: they can tell you what your AI APIs charged, but not which team, which use case, or whether it matched the budget. Optikon is the allocation layer that maps every AI dollar to a cost center and alerts you before the variance becomes an invoice.</div>
           </div>
+          <!-- DECISION: "Agentic Intelligence" tab name vs live app's "AI spend visibility" framing.
+               Option A (current): keep "Agentic Intelligence" tab label and describe each layer's
+               autonomous behavior explicitly (auto-surfacing, auto-routing) - stronger portfolio story.
+               Option B: rename tab to "How It Works" to match the live app's non-agentic framing -
+               more consistent with optikon.dev. Pick one and remove this comment. -->
+          <!-- EMAIL FLAG: portfolio contact is pduttahere@gmail.com; optikon.dev uses
+               pdproductlab@gmail.com. Confirm which is correct for this product before next deploy. -->
           <div class="tab-content" data-card="optikon" data-tab="layers">
             <span class="s-label">Three intelligence layers</span>
             <div class="layers-grid">
-              <div class="layer-card"><p class="layer-name">Provider Ingestion</p><p class="layer-desc">Direct connections to OpenAI, Anthropic, Google Vertex, Azure OpenAI, pulling usage and spend data on a 5-minute cadence. Token counts by model, by project, by API key.</p></div>
-              <div class="layer-card"><p class="layer-name">Allocation Engine</p><p class="layer-desc">Raw spend mapped to the enterprise's cost center tree: team, product, environment, use case. Rules configurable and applied retroactively. Unattributed spend surfaced automatically.</p></div>
-              <div class="layer-card"><p class="layer-name">Variance &amp; Governance</p><p class="layer-desc">Budget baselines per cost center. Statistical spike detection vs. rolling 30-day baseline. Real-time comparison against forecast. Approval workflow for overruns.</p></div>
+              <!-- CONFIRM: live app says "OpenAI, Anthropic, Google, and more" with no Azure OpenAI
+                   in the demo. Changed portfolio to match. Confirm whether Azure OpenAI is live
+                   in the product before restoring it to the provider list. -->
+              <div class="layer-card"><p class="layer-name">Provider Ingestion</p><p class="layer-desc">Route traffic through the Optikon gateway or connect per-team keys - most teams are live the same day. Pulls usage and spend from OpenAI, Anthropic, Google, and more on a 5-minute cadence. Token counts by model, by project, by API key.</p></div>
+              <div class="layer-card"><p class="layer-name">Allocation Engine</p><p class="layer-desc">Raw spend mapped automatically to the enterprise's cost center tree: team, product, environment, use case. Rules configurable and applied retroactively. Unattributed spend surfaced and routed to owners for confirmation.</p></div>
+              <!-- CONFIRM: portfolio previously claimed "Approval workflow for overruns." Live app
+                   frames the absence of approval workflow as part of the PROBLEM, and the solution
+                   claims alerts + budget enforcement only. Changed to "budget enforcement" to match.
+                   Restore approval-workflow claim only if the demo has it. -->
+              <div class="layer-card"><p class="layer-name">Variance &amp; Governance</p><p class="layer-desc">Budget baselines per cost center. Statistical spike detection vs. rolling 30-day baseline. Real-time comparison against forecast. Budget enforcement on overruns, with alerts routed to the right owner automatically.</p></div>
             </div>
           </div>
         </div>
