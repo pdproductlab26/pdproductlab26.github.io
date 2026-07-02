@@ -3,510 +3,409 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>pdproductlab26 | Enterprise AI Rethought</title>
+<title>Pinak Dutta | pdproductlab26 | Enterprise AI Rethought</title>
+<meta name="description" content="Eight enterprise AI products in one quarter. Agentic FinOps, provenance, project intelligence, SDLC, DevSecOps, IAM, support, and compliance, built and shipped by Pinak Dutta.">
+<meta property="og:title" content="Pinak Dutta | pdproductlab26">
+<meta property="og:description" content="Eight enterprise AI products in one quarter. Built by someone who would rather ship the thing than write a deck about it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pdproductlab26.github.io/">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
 
   :root {
-    --bg:            #0d1117;
-    --canvas-subtle: #161b22;
-    --canvas-inset:  #010409;
-    --border:        #30363d;
-    --border-muted:  #21262d;
-    --fg-default:    #e6edf3;
-    --fg-muted:      #8d96a0;
-    --fg-subtle:     #484f58;
-    --accent-fg:     #58a6ff;
-    --accent-subtle: rgba(56,139,253,.15);
-    --success-fg:    #3fb950;
-    --ember:         #d4622a;
-    --ember-subtle:  rgba(212,98,42,.10);
-    --ember-border:  rgba(212,98,42,.28);
-    --mono:   'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
-    --sans:   -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif;
+    --bg:           #0b0f14;
+    --surface:      #10151c;
+    --border:       #1d232b;
+    --border-soft:  #171d25;
+    --fg:           #e8edf3;
+    --muted:        #8a93a0;
+    --subtle:       #4c545e;
+    --ember:        #d4622a;
+    --ember-soft:   rgba(212,98,42,.08);
+    --ember-border: rgba(212,98,42,.25);
+    --live:         #3fb950;
+    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     --radius: 6px;
-    --nav-h:  56px;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--bg);
-    color: var(--fg-muted);
-    font-family: var(--sans);
-    font-size: 14px;
-    line-height: 1.5;
+    background: var(--bg); color: var(--muted);
+    font-family: var(--sans); font-size: 14px; line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
+  ::selection { background: var(--ember-border); color: var(--fg); }
+  a { color: var(--ember); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-  /* ── Nav ─────────────────────────────────────── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    height: var(--nav-h);
-    background: #161b22;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center;
-    padding: 0 16px; gap: 12px;
-  }
-  .nav-mark { color: var(--fg-default); display: flex; align-items: center; flex-shrink: 0; }
-  .nav-mark svg { fill: currentColor; }
-  .nav-crumb {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 14px; font-weight: 500;
-  }
-  .nav-crumb a { color: var(--accent-fg); text-decoration: none; }
-  .nav-crumb a:hover { text-decoration: underline; }
-  .nav-crumb .sep { color: var(--fg-subtle); }
-  .nav-links { display: flex; gap: 4px; list-style: none; margin-left: auto; align-items: center; }
-  .nav-links a {
-    font-size: 13px; color: var(--fg-default); text-decoration: none;
-    padding: 5px 10px; border-radius: var(--radius); transition: background .15s;
-  }
-  .nav-links a:hover { background: rgba(177,186,196,.08); }
-  .nav-btn {
-    font-size: 12px; font-weight: 500; color: var(--fg-default);
-    text-decoration: none; border: 1px solid rgba(240,246,252,.1);
-    background: rgba(33,139,55,.15); padding: 5px 12px;
-    border-radius: var(--radius); transition: background .15s;
-  }
-  .nav-btn:hover { background: rgba(46,160,67,.2); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 28px; }
 
-  /* ── Page layout ──────────────────────────────── */
-  .layout {
-    max-width: 1280px; margin: 0 auto;
-    padding: calc(var(--nav-h) + 24px) 32px 64px;
-    display: flex; gap: 24px; align-items: flex-start;
-  }
-
-  /* ── Sidebar ──────────────────────────────────── */
-  .sidebar {
-    width: 270px; flex-shrink: 0;
-    position: sticky; top: calc(var(--nav-h) + 24px);
-  }
-  .avatar {
-    width: 270px; height: 270px; border-radius: 50%;
-    background: var(--canvas-subtle);
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 16px; overflow: hidden; position: relative;
-  }
-  .avatar svg { width: 100%; height: 100%; }
-  .profile-name {
-    font-size: 20px; font-weight: 600; color: var(--fg-default);
-    line-height: 1.2; margin-bottom: 2px;
-  }
-  .profile-username {
-    font-size: 20px; font-weight: 300; color: var(--fg-muted);
-    margin-bottom: 16px;
-  }
-  .profile-bio {
-    font-size: 14px; color: var(--fg-muted); line-height: 1.6;
-    margin-bottom: 16px;
-    padding-bottom: 16px; border-bottom: 1px solid var(--border);
-  }
-  .thesis-badge {
-    display: inline-block;
-    background: var(--ember-subtle); color: var(--ember);
-    border: 1px solid var(--ember-border);
-    border-radius: 20px; font-size: 11px; font-weight: 500;
-    padding: 2px 10px; font-family: var(--mono);
-    margin-top: 8px;
-  }
-  .profile-stat-row {
-    display: flex; gap: 12px; flex-wrap: wrap;
-    font-size: 14px; color: var(--fg-muted); margin-bottom: 12px;
-  }
-  .profile-stat-row a {
-    color: var(--fg-muted); text-decoration: none;
-    display: flex; align-items: center; gap: 4px;
-  }
-  .profile-stat-row a:hover { color: var(--accent-fg); }
-  .profile-stat-row strong { color: var(--fg-default); font-weight: 600; }
-  .sidebar-meta { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-  .sidebar-meta li {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 14px; color: var(--fg-muted);
-  }
-  .sidebar-meta li svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--fg-subtle); fill: currentColor; }
-  .sidebar-meta a { color: var(--fg-muted); text-decoration: none; }
-  .sidebar-meta a:hover { color: var(--accent-fg); }
-
-  /* ── Main ─────────────────────────────────────── */
-  .main-content { flex: 1; min-width: 0; }
-
-  .profile-tabs {
-    display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto;
-  }
-  .profile-tab {
-    padding: 8px 16px; font-size: 14px; font-weight: 600;
-    color: var(--fg-muted); text-decoration: none;
-    border-bottom: 2px solid transparent; margin-bottom: -1px;
-    white-space: nowrap; display: flex; align-items: center; gap: 6px;
-    transition: color .15s;
-  }
-  .profile-tab:hover { color: var(--fg-default); }
-  .profile-tab.active { color: var(--fg-default); border-bottom-color: var(--ember); }
-  .profile-tab .count {
-    background: rgba(177,186,196,.12); color: var(--fg-muted);
-    border-radius: 20px; font-size: 12px; font-weight: 500; padding: 0 7px;
-  }
-
-  .contact-bar {
-    border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 12px 16px; margin-bottom: 24px;
-    background: var(--canvas-subtle);
-    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  }
-  .contact-bar p { font-size: 14px; color: var(--fg-muted); }
-  .contact-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
-  .btn-outline {
+  /* ── Hero ─────────────────────────────────────── */
+  .hero { padding: 104px 0 72px; }
+  .kicker {
     font-family: var(--mono); font-size: 11px; color: var(--ember);
-    text-decoration: none; border: 1px solid var(--ember-border);
-    padding: 4px 10px; border-radius: var(--radius);
-    letter-spacing: .03em; transition: background .15s; white-space: nowrap;
-    display: flex; align-items: center; gap: 4px;
+    letter-spacing: .22em; text-transform: uppercase; margin-bottom: 28px;
   }
-  .btn-outline:hover { background: var(--ember-subtle); }
-  .btn-icon {
-    display: flex; align-items: center; justify-content: center;
-    width: 28px; height: 28px; border: 1px solid var(--ember-border);
-    border-radius: var(--radius); color: var(--ember); text-decoration: none;
-    transition: background .15s;
+  .hero h1 {
+    font-size: 42px; font-weight: 300; color: var(--fg);
+    letter-spacing: -.02em; line-height: 1.1; margin-bottom: 20px;
   }
-  .btn-icon:hover { background: var(--ember-subtle); }
-  .btn-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .hook {
+    font-size: 19px; font-weight: 300; color: var(--fg);
+    line-height: 1.55; max-width: 42ch; margin-bottom: 20px;
+  }
+  .stat-line {
+    font-family: var(--mono); font-size: 13px; color: var(--muted);
+    margin-bottom: 36px;
+  }
+  .stat-line strong { color: var(--ember); font-weight: 500; }
+  .hero-links {
+    display: flex; gap: 28px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 12px; margin-bottom: 36px;
+  }
+  .hero-note {
+    font-size: 13px; color: var(--subtle); max-width: 52ch;
+    border-top: 1px solid var(--border-soft); padding-top: 20px;
+  }
 
-  /* ── Repo list ────────────────────────────────── */
-  .repo-list { display: flex; flex-direction: column; }
-
-  .repo-item {
-    border-top: 1px solid var(--border);
-    padding: 24px 0;
+  /* ── Section labels ───────────────────────────── */
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; margin-bottom: 8px;
   }
+  .section-label {
+    font-family: var(--mono); font-size: 11px; color: var(--subtle);
+    letter-spacing: .18em; text-transform: uppercase;
+  }
+  .section-hint { font-size: 12px; color: var(--subtle); font-style: italic; }
+
+  /* ── Product rows ─────────────────────────────── */
+  .repo-list { display: flex; flex-direction: column; margin-bottom: 96px; }
+
+  .repo-item { border-top: 1px solid var(--border); padding: 30px 0; }
   .repo-item:last-child { border-bottom: 1px solid var(--border); }
 
   .repo-header {
     display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 12px; cursor: pointer; user-select: none;
+    gap: 16px; cursor: pointer; user-select: none;
   }
   .repo-left { flex: 1; min-width: 0; }
-
   .repo-name-row {
-    display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;
   }
-  .repo-icon { color: var(--fg-subtle); fill: currentColor; flex-shrink: 0; }
-  .repo-name {
-    font-size: 16px; font-weight: 600; color: var(--accent-fg);
-    text-decoration: none;
+  .repo-icon { display: none; }
+  .repo-vis { display: none; }
+  .repo-name { font-size: 17px; font-weight: 500; color: var(--fg); }
+  .repo-name:hover { text-decoration: none; }
+  .repo-badge-live, .repo-badge-building, .repo-badge-preview {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 6px; border: none; background: none; padding: 0;
   }
-  .repo-name:hover { text-decoration: underline; }
-  .repo-vis {
-    font-size: 12px; color: var(--fg-muted); font-weight: 500;
-    border: 1px solid var(--border); border-radius: 20px; padding: 0 8px; line-height: 20px;
+  .repo-badge-live { color: var(--live); }
+  .repo-badge-building, .repo-badge-preview { color: var(--ember); opacity: .85; }
+  .repo-badge-live::before, .repo-badge-building::before, .repo-badge-preview::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
   }
-  .repo-badge-live {
-    font-size: 12px; color: var(--success-fg); font-weight: 500;
-    border: 1px solid rgba(63,185,80,.3); background: rgba(63,185,80,.08);
-    border-radius: 20px; padding: 0 8px; line-height: 20px;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .repo-badge-live::before {
-    content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--success-fg); flex-shrink: 0;
-  }
-  .repo-badge-building {
-    font-size: 12px; color: var(--fg-subtle); font-weight: 500;
-    border: 1px solid var(--border-muted); background: rgba(110,118,129,.08);
-    border-radius: 20px; padding: 0 8px; line-height: 20px;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .repo-badge-building::before {
-    content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ember); opacity: .6; flex-shrink: 0;
-  }
-  .repo-badge-preview {
-    font-size: 12px; color: var(--ember); font-weight: 500;
-    border: 1px solid var(--ember-border); background: var(--ember-subtle);
-    border-radius: 20px; padding: 0 8px; line-height: 20px;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .repo-badge-preview::before {
-    content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ember); flex-shrink: 0;
-  }
+  .repo-badge-live::before { background: var(--live); }
+  .repo-badge-building::before, .repo-badge-preview::before { background: var(--ember); }
   .repo-homepage {
-    font-size: 12px; color: var(--accent-fg); text-decoration: none;
+    font-family: var(--mono); font-size: 11px; color: var(--ember);
     display: flex; align-items: center; gap: 3px;
   }
-  .repo-homepage:hover { text-decoration: underline; }
-  .repo-desc {
-    font-size: 14px; color: var(--fg-muted); line-height: 1.5;
-    margin-bottom: 8px;
-  }
+  .repo-desc { font-size: 14.5px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; max-width: 68ch; }
   .repo-lang {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 12px; color: var(--fg-muted); margin-bottom: 4px;
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px; color: var(--subtle); letter-spacing: .04em;
   }
-  .lang-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .lang-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; opacity: .7; }
 
   .repo-chevron {
-    width: 18px; height: 18px; color: var(--accent);
+    width: 18px; height: 18px; color: var(--subtle);
     transition: transform .2s cubic-bezier(.4,0,.2,1);
-    flex-shrink: 0; margin-top: 2px;
+    flex-shrink: 0; margin-top: 4px;
     fill: none; stroke: currentColor; stroke-width: 2;
     stroke-linecap: round; stroke-linejoin: round;
-    opacity: 0.85;
   }
-  .repo-item.open .repo-chevron { transform: rotate(180deg); }
+  .repo-item.open .repo-chevron { transform: rotate(180deg); color: var(--ember); }
 
-  /* ── Expanded content ─────────────────────────── */
-  .repo-body { display: none; margin-top: 20px; }
+  /* ── Expanded detail ──────────────────────────── */
+  .repo-body { display: none; margin-top: 28px; }
   .repo-item.open .repo-body { display: block; }
 
-  .repo-quick-links {
-    display: flex; gap: 8px; margin-bottom: 12px;
-  }
+  .repo-quick-links { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
   .quick-link {
     font-family: var(--mono); font-size: 11px; color: var(--ember);
-    text-decoration: none; border: 1px solid var(--ember-border);
-    padding: 4px 10px; border-radius: var(--radius);
-    letter-spacing: .03em; transition: background .15s; white-space: nowrap;
+    border: 1px solid var(--ember-border); padding: 5px 12px; border-radius: var(--radius);
+    letter-spacing: .02em; transition: background .15s;
   }
-  .quick-link:hover { background: var(--ember-subtle); }
+  .quick-link:hover { background: var(--ember-soft); text-decoration: none; }
   .quick-link-dim {
-    font-family: var(--mono); font-size: 11px; color: var(--fg-subtle);
-    text-decoration: none; border: 1px solid var(--border-muted);
-    padding: 4px 10px; border-radius: var(--radius);
-    letter-spacing: .03em; transition: background .15s; white-space: nowrap;
+    font-family: var(--mono); font-size: 11px; color: var(--subtle);
+    border: 1px solid var(--border); padding: 5px 12px; border-radius: var(--radius);
     display: flex; align-items: center; gap: 5px;
   }
-  .quick-link-dim:hover { background: rgba(110,118,129,.08); }
   .quick-link-dim svg { width: 12px; height: 12px; fill: currentColor; }
 
-  /* Tabs */
   .product-tabs {
-    display: flex; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none;
-    background: var(--canvas-subtle);
-    border: 1px solid var(--border); border-radius: var(--radius) var(--radius) 0 0;
+    display: flex; border-bottom: 1px solid var(--border);
+    overflow-x: auto; scrollbar-width: none;
   }
   .product-tabs::-webkit-scrollbar { display: none; }
   .tab-btn {
-    font-size: 13px; color: var(--fg-muted); font-family: var(--sans); font-weight: 400;
-    background: none; border: none; border-bottom: 2px solid transparent;
-    padding: 10px 16px; cursor: pointer;
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em;
+    color: var(--subtle); background: none; border: none;
+    border-bottom: 1px solid transparent; padding: 10px 14px 12px; cursor: pointer;
     transition: color .15s, border-color .15s; margin-bottom: -1px;
     white-space: nowrap; flex-shrink: 0;
   }
-  .tab-btn:hover { color: var(--fg-default); background: rgba(177,186,196,.05); }
-  .tab-btn.active { color: var(--fg-default); border-bottom-color: var(--ember); }
+  .tab-btn:hover { color: var(--fg); }
+  .tab-btn.active { color: var(--fg); border-bottom-color: var(--ember); }
 
-  .tab-content {
-    display: none; padding: 28px 24px 32px;
-    border: 1px solid var(--border); border-top: none;
-    border-radius: 0 0 var(--radius) var(--radius);
-  }
+  .tab-content { display: none; padding: 28px 0 8px; }
   .tab-content.active { display: block; }
 
   /* ── Content atoms ────────────────────────────── */
   .s-label {
-    font-family: var(--mono); font-size: 11px; color: var(--fg-muted);
-    letter-spacing: .12em; text-transform: uppercase;
-    margin-bottom: 12px; display: block;
+    font-family: var(--mono); font-size: 10.5px; color: var(--subtle);
+    letter-spacing: .16em; text-transform: uppercase;
+    margin-bottom: 14px; display: block;
   }
   .bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-  .bullets li { font-size: 14px; color: var(--fg-muted); line-height: 1.65; padding-left: 20px; position: relative; }
-  .bullets li::before { content: '·'; position: absolute; left: 0; color: var(--fg-subtle); font-size: 16px; line-height: 1.5; }
-  .bullets li.punch { color: var(--fg-default); }
+  .bullets li { font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative; }
+  .bullets li::before { content: '·'; position: absolute; left: 0; color: var(--subtle); }
+  .bullets li.punch { color: var(--fg); }
   .bullets li.punch::before { color: var(--ember); }
   .name-block {
-    font-size: 14px; color: var(--fg-muted); line-height: 1.8;
-    padding: 20px 22px; border-left: 3px solid var(--border);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    background: var(--canvas-subtle);
+    font-size: 14px; color: var(--muted); line-height: 1.85;
+    padding: 22px 24px; border-left: 2px solid var(--ember-border);
+    background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0;
+    max-width: 70ch;
   }
   .objection-block {
-    border-left: 3px solid var(--ember); padding: 14px 18px;
-    font-size: 14px; color: var(--fg-muted); font-style: italic; line-height: 1.7;
-    background: var(--ember-subtle);
-    border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 20px;
+    border-left: 2px solid var(--ember); padding: 14px 20px;
+    font-size: 14px; color: var(--muted); font-style: italic; line-height: 1.75;
+    background: var(--ember-soft); border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 22px; max-width: 70ch;
   }
   .one-liner {
-    border-left: 3px solid #3fb950; padding: 14px 18px; margin-top: 20px;
-    font-size: 14px; color: var(--fg-muted); font-style: italic; line-height: 1.7;
-    background: rgba(63,185,80,.06); border-radius: 0 var(--radius) var(--radius) 0;
+    border-left: 2px solid var(--live); padding: 14px 20px; margin-top: 24px;
+    font-size: 14px; color: var(--muted); font-style: italic; line-height: 1.75;
+    background: rgba(63,185,80,.05); border-radius: 0 var(--radius) var(--radius) 0;
+    max-width: 70ch;
   }
   .layers-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px; margin-top: 8px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px; margin-top: 8px;
   }
   .layer-card {
-    background: var(--canvas-subtle); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px 18px;
+    background: var(--surface); border: 1px solid var(--border-soft);
+    border-radius: var(--radius); padding: 18px 20px;
   }
-  .layer-name { font-family: var(--mono); font-size: 11px; color: var(--ember); margin-bottom: 8px; letter-spacing: .04em; font-weight: 500; }
-  .layer-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.65; }
+  .layer-name { font-family: var(--mono); font-size: 11px; color: var(--ember); margin-bottom: 10px; letter-spacing: .05em; font-weight: 500; }
+  .layer-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
   .features-list { display: flex; flex-direction: column; gap: 8px; }
   .feature-row {
-    display: grid; grid-template-columns: 180px 1fr; gap: 16px;
-    padding: 12px 16px; background: var(--canvas-subtle);
-    border: 1px solid var(--border); border-radius: var(--radius);
+    display: grid; grid-template-columns: 180px 1fr; gap: 18px;
+    padding: 14px 18px; background: var(--surface);
+    border: 1px solid var(--border-soft); border-radius: var(--radius);
   }
-  .feature-name { color: var(--fg-default); font-weight: 600; font-size: 13px; }
-  .feature-desc { color: var(--fg-muted); line-height: 1.6; font-size: 13px; }
+  .feature-name { color: var(--fg); font-weight: 500; font-size: 13px; }
+  .feature-desc { color: var(--muted); line-height: 1.7; font-size: 13px; }
   .arch-diffs { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
   .arch-diff {
-    padding: 14px 18px; background: var(--canvas-subtle);
-    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 20px; background: var(--surface);
+    border: 1px solid var(--border-soft); border-radius: var(--radius);
   }
-  .arch-diff-label { font-family: var(--mono); font-size: 10px; color: var(--ember); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; display: block; }
-  .diff-h { font-size: 12px; font-weight: 600; color: var(--fg-default); margin: 22px 0 12px; }
+  .arch-diff-label { font-family: var(--mono); font-size: 10px; color: var(--ember); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .diff-h { font-size: 12px; font-weight: 600; color: var(--fg); margin: 24px 0 12px; letter-spacing: .02em; }
   .diff-h:first-child { margin-top: 0; }
   .gap { margin-bottom: 24px; }
 
+  /* ── About ────────────────────────────────────── */
+  .about { margin-bottom: 96px; }
+  .about p { font-size: 14.5px; line-height: 1.8; max-width: 62ch; margin-bottom: 18px; }
+  .mantra { font-family: var(--mono); font-size: 13px; color: var(--fg); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .thesis-badge {
+    display: inline-block; background: var(--ember-soft); color: var(--ember);
+    border: 1px solid var(--ember-border); border-radius: 20px;
+    font-size: 11px; font-weight: 500; padding: 2px 12px; font-family: var(--mono);
+  }
+
   /* ── Footer ───────────────────────────────────── */
   footer {
-    border-top: 1px solid var(--border);
-    padding: 32px;
-    max-width: 1280px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    border-top: 1px solid var(--border-soft); padding: 32px 0 56px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    flex-wrap: wrap; gap: 12px;
   }
-  footer .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
-  footer a { font-size: 12px; color: var(--fg-subtle); text-decoration: none; }
-  footer a:hover { color: var(--accent-fg); text-decoration: underline; }
-  footer span { font-size: 12px; color: var(--fg-subtle); }
+  footer span { font-size: 12px; color: var(--subtle); }
+  footer .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  footer a { font-family: var(--mono); font-size: 11px; color: var(--subtle); }
+  footer a:hover { color: var(--ember); }
 
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-  @media (max-width: 900px) {
-    .layout { flex-direction: column; padding: calc(var(--nav-h) + 16px) 16px 48px; }
-    .sidebar { width: 100%; position: static; }
-    .avatar { width: 80px; height: 80px; }
-    .profile-name { font-size: 16px; }
-    .profile-username { font-size: 16px; }
-    .feature-row { grid-template-columns: 1fr; }
+  @media (max-width: 700px) {
+    .hero { padding: 72px 0 56px; }
+    .hero h1 { font-size: 32px; }
+    .hook { font-size: 17px; }
+    .feature-row { grid-template-columns: 1fr; gap: 6px; }
     .layers-grid { grid-template-columns: 1fr; }
-    footer { padding: 24px 16px; flex-direction: column; align-items: flex-start; }
-    .nav-crumb { display: none; }
+    footer { flex-direction: column; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ── Top capsule nav ──────────────────────────── */
+  .top-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,15,20,.85); backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .top-nav-inner {
+    max-width: 1180px; margin: 0 auto; padding: 12px 28px;
+    display: flex; justify-content: flex-end; gap: 10px;
+  }
+  .capsule {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .03em;
+    padding: 6px 18px; border-radius: 20px; white-space: nowrap;
+    border: 1px solid var(--border); color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .capsule:hover { color: var(--ember); border-color: var(--ember-border); background: var(--ember-soft); text-decoration: none; }
+  .capsule-accent { color: var(--ember); border-color: var(--ember-border); }
+
+  /* ── Two-column layout (v4) ───────────────────── */
+  .wrap { max-width: 1180px; }
+  .layout { display: flex; gap: 64px; align-items: flex-start; padding: 88px 0 0; }
+
+  .sidebar { width: 300px; flex-shrink: 0; position: sticky; top: 48px; }
+  .sidebar .kicker { margin-bottom: 20px; }
+  .sidebar h1 { font-size: 32px; font-weight: 300; color: var(--fg); letter-spacing: -.02em; line-height: 1.15; margin-bottom: 14px; }
+  .sidebar .hook { font-size: 15.5px; font-weight: 300; color: var(--fg); line-height: 1.6; margin-bottom: 20px; }
+
+  .profile-stat-row {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    font-size: 14px; color: var(--muted);
+    padding-bottom: 18px; margin-bottom: 18px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .profile-stat-row strong { color: var(--fg); font-weight: 600; }
+  .profile-stat-row a { color: var(--muted); }
+  .profile-stat-row a:hover { color: var(--ember); text-decoration: none; }
+
+  .sidebar-meta { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .sidebar-meta li { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--muted); }
+  .sidebar-meta li svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--subtle); fill: currentColor; }
+  .sidebar-meta a { color: var(--muted); }
+  .sidebar-meta a:hover { color: var(--ember); text-decoration: none; }
+
+  .lab-note {
+    font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.7;
+    border: 1px solid var(--ember-border); background: var(--ember-soft);
+    border-radius: var(--radius); padding: 12px 14px; margin-bottom: 14px;
+  }
+  .lab-note strong { color: var(--ember); font-weight: 500; }
+
+  .contact-box {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--surface); padding: 14px;
+  }
+  .contact-box p { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 12px; }
+  .contact-actions { display: flex; gap: 8px; align-items: center; }
+  .btn-outline {
+    font-family: var(--mono); font-size: 11px; color: var(--ember);
+    border: 1px solid var(--ember-border); padding: 5px 11px; border-radius: var(--radius);
+    letter-spacing: .02em; transition: background .15s; white-space: nowrap;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .btn-outline:hover { background: var(--ember-soft); text-decoration: none; }
+  .btn-icon {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border: 1px solid var(--ember-border);
+    border-radius: var(--radius); color: var(--ember); transition: background .15s;
+  }
+  .btn-icon:hover { background: var(--ember-soft); }
+  .btn-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .main-col { flex: 1; min-width: 0; }
+  .repo-list { margin-bottom: 72px; }
+  .about { margin-bottom: 72px; }
+
+  @media (max-width: 940px) {
+    .layout { flex-direction: column; gap: 48px; padding-top: 64px; }
+    .sidebar { width: 100%; position: static; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ── Nav ──────────────────────────────────────── -->
-<nav>
-  <a href="#" class="nav-mark" aria-label="GitHub">
-    <svg height="32" viewBox="0 0 16 16" width="32">
-      <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/>
-    </svg>
-  </a>
-  <div class="nav-crumb">
-    <a href="https://github.com/pdproductlab26" target="_blank">pdproductlab26</a>
-    <span class="sep">/</span>
-    <a href="#" style="color:var(--fg-default);font-weight:600;">applied-ai-lab</a>
+<nav class="top-nav">
+  <div class="top-nav-inner">
+    <a href="https://github.com/pdproductlab26" target="_blank" class="capsule capsule-accent">GitHub &#8599;</a>
+    <a href="#background" class="capsule">Background &#8595;</a>
   </div>
-  <ul class="nav-links">
-    <li><a href="#products">Products</a></li>
-    <li><a href="https://github.com/pdproductlab26" target="_blank">GitHub</a></li>
-    <li><a href="mailto:pdproductlab@gmail.com?subject=Interested" class="nav-btn">Get in touch</a></li>
-  </ul>
 </nav>
 
-<!-- ── Layout ───────────────────────────────────── -->
-<div class="layout">
+<div class="wrap">
+  <div class="layout">
 
-  <!-- ── Sidebar ────────────────────────────────── -->
-  <aside class="sidebar">
-    <div class="avatar">
-      <svg viewBox="0 0 270 270" xmlns="http://www.w3.org/2000/svg">
-        <rect width="270" height="270" fill="#161b22"/>
-        <!-- contribution-graph aesthetic pattern -->
-        <g opacity="0.08">
-          <rect x="20" y="20" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="34" y="20" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="48" y="20" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="20" y="34" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="34" y="34" width="10" height="10" rx="2" fill="#d4622a"/>
-          <rect x="48" y="34" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="62" y="20" width="10" height="10" rx="2" fill="#d4622a"/>
-          <rect x="62" y="34" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="76" y="20" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="76" y="34" width="10" height="10" rx="2" fill="#d4622a"/>
-          <rect x="220" y="230" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="234" y="230" width="10" height="10" rx="2" fill="#d4622a"/>
-          <rect x="248" y="230" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="220" y="244" width="10" height="10" rx="2" fill="#d4622a"/>
-          <rect x="234" y="244" width="10" height="10" rx="2" fill="#58a6ff"/>
-          <rect x="248" y="244" width="10" height="10" rx="2" fill="#58a6ff"/>
-        </g>
-        <!-- PD monogram -->
-        <text x="135" y="155" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="72" font-weight="300" fill="#d4622a" opacity="0.9">PD</text>
-        <!-- subtle ring -->
-        <circle cx="135" cy="135" r="90" fill="none" stroke="#d4622a" stroke-width="1" opacity="0.12"/>
-        <circle cx="135" cy="135" r="100" fill="none" stroke="#30363d" stroke-width="1" opacity="0.5"/>
-      </svg>
-    </div>
+    <!-- ── Sidebar: the essentials ──────────────────── -->
+    <aside class="sidebar">
+      <p class="kicker">pdproductlab26 · Applied AI Lab</p>
+      <h1>Pinak Dutta</h1>
+      <p class="hook">Built by someone who would rather ship the thing than write a deck about it.</p>
 
-    <h1 class="profile-name">Pinak Dutta</h1>
-    <p class="profile-username">pdproductlab26</p>
-
-    <p class="profile-bio">
-      FinTech roots into management consulting - many industries, many clients, cultures &amp; constraints &amp; one consistent instinct: technology earns its place only when it solves the right problem. Business first. Technology second.
-      <br><br>
-      Enterprise developer tooling in recent times, reimagining the ecosystem as agentic, because the moat has always been client-first, forward deployed ethos - the one that moves revenue faster, not the one that moves tickets or chases the next shiny object.
-      <br><br>
-      Learn. Build. Ship.
-      <br><br>
-      <span class="thesis-badge">agentic everything</span>
-    </p>
-
-    <div class="profile-stat-row">
-      <a href="#products">
-        <strong>8</strong>&nbsp;products
-      </a>
-    </div>
-
-    <ul class="sidebar-meta">
-      <li>
-        <svg viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
-        <a href="https://github.com/pdproductlab26" target="_blank">pdproductlab26</a>
-      </li>
-      <li>
-        <svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm7-3.25a.75.75 0 00-1.5 0v4c0 .414.336.75.75.75h2.5a.75.75 0 000-1.5H8.5V4.75z"/></svg>
-        Enterprise AI / Agentic products
-      </li>
-      <li>
-        <svg viewBox="0 0 16 16"><path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5C0 2.784.784 2 1.75 2zM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 8.842a.75.75 0 01-.76 0L1.5 5.809v6.442zm13-8.181v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.74l6.5-3.67z"/></svg>
-        <a href="mailto:pdproductlab@gmail.com">pdproductlab@gmail.com</a>
-      </li>
-      <li>
-        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M13.5 2h-11A1.5 1.5 0 001 3.5v1h14v-1A1.5 1.5 0 0013.5 2zM1 6.5V7h14v-.5H1zm0 2.5v4.5A1.5 1.5 0 002.5 15h4.997L8 13.5 9.503 15H13.5A1.5 1.5 0 0015 13.5V9H1z"/></svg>
-        <a href="https://pinak26.substack.com" target="_blank">pinak26.substack.com</a>
-      </li>
-    </ul>
-  </aside>
-
-  <!-- ── Main content ────────────────────────────── -->
-  <main class="main-content" id="products">
-
-    <div class="profile-tabs">
-      <a href="#products" class="profile-tab active">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8zm-4 7.75a.25.25 0 01.25-.25h3.5a.25.25 0 01.25.25v3.25a.25.25 0 01-.4.2l-1.45-1.087a.249.249 0 00-.3 0L5.4 15.7a.25.25 0 01-.4-.2z"/></svg>
-        Repositories
-        <span class="count">67</span>
-      </a>
-    </div>
-
-    <div class="contact-bar">
-      <p>Investors, builders, and collaborators welcome. If you're thinking about these problems, let's talk.</p>
-      <div class="contact-actions">
-        <a href="https://github.com/pdproductlab26" target="_blank" class="btn-outline">&#8599; github.com/pdproductlab26</a>
-        <a href="mailto:pdproductlab@gmail.com?subject=Interested" title="Get in touch" class="btn-icon">
-          <svg viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 4l7 5 7-5"/></svg>
-        </a>
+      <div class="profile-stat-row">
+        <a href="#products"><strong>8</strong>&nbsp;products</a>
+        <span><strong>1</strong>&nbsp;quarter</span>
+        <a href="#products"><strong>5</strong>&nbsp;live</a>
       </div>
-    </div>
 
-    <div class="repo-list">
+      <ul class="sidebar-meta">
+        <li>
+          <svg viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
+          <a href="https://github.com/pdproductlab26" target="_blank">pdproductlab26</a>
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zm7-3.25a.75.75 0 00-1.5 0v4c0 .414.336.75.75.75h2.5a.75.75 0 000-1.5H8.5V4.75z"/></svg>
+          Enterprise AI / Agentic products
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16"><path d="M1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0114.25 14H1.75A1.75 1.75 0 010 12.25v-8.5C0 2.784.784 2 1.75 2zM1.5 12.251c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 8.842a.75.75 0 01-.76 0L1.5 5.809v6.442zm13-8.181v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.74l6.5-3.67z"/></svg>
+          <a href="mailto:pdproductlab@gmail.com">pdproductlab@gmail.com</a>
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16"><path d="M13.5 2h-11A1.5 1.5 0 001 3.5v1h14v-1A1.5 1.5 0 0013.5 2zM1 6.5V7h14v-.5H1zm0 2.5v4.5A1.5 1.5 0 002.5 15h4.997L8 13.5 9.503 15H13.5A1.5 1.5 0 0015 13.5V9H1z"/></svg>
+          <a href="https://pinak26.substack.com" target="_blank">pinak26.substack.com</a>
+        </li>
+      </ul>
+
+      <p class="lab-note"><strong>Eight products. One quarter. Five live.</strong> A quarter of thinking about the next five years of enterprise AI - shipped, not decked.</p>
+
+      <div class="contact-box">
+        <p>Investors, builders, and collaborators: welcome. Repos are private - demos and walkthroughs on request.</p>
+        <div class="contact-actions">
+          <a href="https://github.com/pdproductlab26" target="_blank" class="btn-outline">&#8599; github.com/pdproductlab26</a>
+          <a href="mailto:pdproductlab@gmail.com?subject=Interested" title="Get in touch" class="btn-icon">
+            <svg viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 4l7 5 7-5"/></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Main: v3 product organization ────────────── -->
+    <main class="main-col" id="products">
+      <div class="section-head">
+        <span class="section-label">Products</span>
+        <span class="section-hint">select a product to dig deeper</span>
+      </div>
+
+      <div class="repo-list">
 
       <!-- OPTIKON -->
       <div class="repo-item" id="card-optikon">
@@ -580,23 +479,11 @@
             </div>
             <div class="one-liner">Every cost management tool you have was built for cloud infrastructure: they can tell you what your AI APIs charged, but not which team, which use case, or whether it matched the budget. Optikon is the allocation layer that maps every AI dollar to a cost center and alerts you before the variance becomes an invoice.</div>
           </div>
-          <!-- DECISION: "Agentic Intelligence" tab name vs live app's "AI spend visibility" framing.
-               Option A (current): keep "Agentic Intelligence" tab label and describe each layer's
-               autonomous behavior explicitly (auto-surfacing, auto-routing) - stronger portfolio story.
-               Option B: rename tab to "How It Works" to match the live app's non-agentic framing -
-               more consistent with optikon.dev. Pick one and remove this comment. -->
           <div class="tab-content" data-card="optikon" data-tab="layers">
             <span class="s-label">Three intelligence layers</span>
             <div class="layers-grid">
-              <!-- CONFIRM: live app says "OpenAI, Anthropic, Google, and more" with no Azure OpenAI
-                   in the demo. Changed portfolio to match. Confirm whether Azure OpenAI is live
-                   in the product before restoring it to the provider list. -->
               <div class="layer-card"><p class="layer-name">Provider Ingestion</p><p class="layer-desc">Route traffic through the Optikon gateway or connect per-team keys - most teams are live the same day. Pulls usage and spend from OpenAI, Anthropic, Google, and more on a 5-minute cadence. Token counts by model, by project, by API key.</p></div>
               <div class="layer-card"><p class="layer-name">Allocation Engine</p><p class="layer-desc">Raw spend mapped automatically to the enterprise's cost center tree: team, product, environment, use case. Rules configurable and applied retroactively. Unattributed spend surfaced and routed to owners for confirmation.</p></div>
-              <!-- CONFIRM: portfolio previously claimed "Approval workflow for overruns." Live app
-                   frames the absence of approval workflow as part of the PROBLEM, and the solution
-                   claims alerts + budget enforcement only. Changed to "budget enforcement" to match.
-                   Restore approval-workflow claim only if the demo has it. -->
               <div class="layer-card"><p class="layer-name">Variance &amp; Governance</p><p class="layer-desc">Budget baselines per cost center. Statistical spike detection vs. rolling 30-day baseline. Real-time comparison against forecast. Budget enforcement on overruns, with alerts routed to the right owner automatically.</p></div>
             </div>
           </div>
@@ -1156,16 +1043,26 @@
       </div>
 
     </div><!-- /repo-list -->
-  </main>
-</div><!-- /layout -->
 
-<footer>
-  <div class="footer-links">
-    <a href="https://github.com/pdproductlab26" target="_blank">github.com/pdproductlab26</a>
-    <a href="mailto:pdproductlab@gmail.com">Contact</a>
-  </div>
-  <span>A quarter of thinking about the next five years of enterprise AI. Eight products. June 2026.</span>
-</footer>
+      <!-- ── Background: the details ──────────────────── -->
+      <section class="about" id="background" style="scroll-margin-top: 72px;">
+        <span class="section-label" style="display:block;margin-bottom:20px;">Background</span>
+        <p>FinTech roots into management consulting - many industries, many clients, cultures &amp; constraints &amp; one consistent instinct: technology earns its place only when it solves the right problem. Business first. Technology second.</p>
+        <p>Enterprise developer tooling in recent times, reimagining the ecosystem as agentic, because the moat has always been client-first, forward deployed ethos - the one that moves revenue faster, not the one that moves tickets or chases the next shiny object.</p>
+        <p class="mantra">Learn. Build. Ship. <span class="thesis-badge">agentic everything</span></p>
+      </section>
+    </main>
+
+  </div><!-- /layout -->
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://github.com/pdproductlab26" target="_blank">github.com/pdproductlab26</a>
+      <a href="mailto:pdproductlab@gmail.com">contact</a>
+    </div>
+    <span>A quarter of thinking about the next five years of enterprise AI. Eight products. June 2026.</span>
+  </footer>
+</div><!-- /wrap -->
 
 <script>
   function toggle(id) {
