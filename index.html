@@ -430,7 +430,7 @@
           <div class="tab-content" data-card="optikon" data-tab="story">
             <span class="s-label">What it is</span>
             <ul class="bullets">
-              <li>AI spend intelligence platform for FinOps teams: real-time cost allocation, variance detection, and governance across every LLM provider an enterprise uses.</li>
+              <li>AI spend visibility and allocation tool for FinOps teams: real-time cost allocation, variance detection, and governance across every LLM provider an enterprise uses.</li>
               <li>Pulls spend from OpenAI, Anthropic, Google, and every other AI API. Maps every dollar to a cost center, team, use case, and owner.</li>
               <li>Most enterprises today receive AI spend as a single-line invoice with no decomposition, no attribution, and no governance.</li>
               <li class="punch">Optikon eliminates all of that.</li>
@@ -438,18 +438,18 @@
             <span class="s-label">The core problem</span>
             <ul class="bullets">
               <li>Finance teams are discovering AI spend at month-end close, weeks after the variance compounded, long after any corrective action is possible.</li>
-              <li>OpenAI's invoice says "$214,000." It does not say which team, which product, which use case, or which model.</li>
-              <li>One enterprise ran up $500M in charges before anyone noticed.</li>
+              <li>The AI invoice arrives as one number. It does not say which team, which product, which use case, or which model.</li>
+              <li>One enterprise ran up $500M in Claude charges before anyone noticed.</li>
               <li class="punch">This is not a tooling gap. It is a visibility gap: the total absence of a ledger between what AI providers charge and what finance can explain.</li>
             </ul>
           </div>
           <div class="tab-content" data-card="optikon" data-tab="features">
             <div class="features-list">
               <!-- Four primary pillars matching the live app at optikon.dev -->
-              <div class="feature-row"><span class="feature-name">Real-time cost allocation</span><span class="feature-desc">Every AI dollar mapped to a cost center, team, use case, and provider, updated every 5 minutes. Budget-to-actual you can trust between closes.</span></div>
-              <div class="feature-row"><span class="feature-name">Variance alerts</span><span class="feature-desc">Anomalies flagged against rolling forecast. Alerts route automatically to the right owner before the variance compounds. Unattributed spend surfaced in the same flow.</span></div>
-              <div class="feature-row"><span class="feature-name">Unit economics</span><span class="feature-desc">Cost per request, cost per use case, model cost comparison. Identifies up to 30-40% savings opportunities without touching quality.</span></div>
-              <div class="feature-row"><span class="feature-name">Governance and audit</span><span class="feature-desc">Budget enforcement per cost center with spend-threshold alerts. Finance-ready chargeback exports showing AI spend by business unit, period-over-period - the allocation model FinOps teams actually need.</span></div>
+              <div class="feature-row"><span class="feature-name">Real-time cost allocation</span><span class="feature-desc">Every AI dollar mapped to a cost center, team, use case, and provider, updated continuously. Budget-to-actual you can trust between closes.</span></div>
+              <div class="feature-row"><span class="feature-name">Variance alerts</span><span class="feature-desc">Anomalies flagged against rolling forecast. Alerts land in time to act before the variance compounds. Unattributed spend surfaced in the same flow.</span></div>
+              <div class="feature-row"><span class="feature-name">Unit economics</span><span class="feature-desc">Cost per request, cost per use case, model cost comparison. Find where you can save without sacrificing quality.</span></div>
+              <div class="feature-row"><span class="feature-name">Governance and audit</span><span class="feature-desc">Budget enforcement per cost center with spend-threshold alerts. Finance-ready chargeback and showback exports showing AI spend by business unit, period-over-period, the allocation model FinOps teams actually need.</span></div>
             </div>
           </div>
           <div class="tab-content" data-card="optikon" data-tab="diff">
@@ -463,18 +463,18 @@
             </ul>
             <div class="arch-diffs">
               <div class="arch-diff"><span class="arch-diff-label">Attribution layer, not measurement layer</span><ul class="bullets" style="margin:4px 0 0"><li>Datadog tells engineering the call was made. It cannot tell finance who pays for it. Attribution requires: API key to cost center mapping, a budget baseline FinOps owns, and real-time comparison with alert routing. No existing tool provides all three.</li></ul></div>
-              <div class="arch-diff"><span class="arch-diff-label">5-minute cadence, not monthly</span><ul class="bullets" style="margin:4px 0 0"><li>The root cause of invoice shock is that every existing tool operates on daily or monthly summaries. The variance compounds for weeks before it is visible. Optikon updates every 5 minutes.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Continuous, not monthly</span><ul class="bullets" style="margin:4px 0 0"><li>The root cause of invoice shock is that every existing tool operates on daily or monthly summaries. The variance compounds for weeks before it is visible. Optikon updates continuously.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Org structure, not cloud accounts</span><ul class="bullets" style="margin:4px 0 0"><li>Finance thinks in cost centers. Datadog, Apptio, and cloud billing tools use different primitives. Optikon maintains the mapping layer between them, configurable, applied retroactively.</li></ul></div>
-              <div class="arch-diff"><span class="arch-diff-label">Unit economics, not spend totals</span><ul class="bullets" style="margin:4px 0 0"><li>Knowing a cost center spent $50,000 last month is useful. Knowing the customer support use case costs $0.023 per ticket, and switching to Claude Haiku cuts it 60%, is actionable.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Unit economics, not spend totals</span><ul class="bullets" style="margin:4px 0 0"><li>Knowing a cost center spent a given amount last month is useful. Knowing the cost per ticket for a use case, and that a cheaper model would cut it materially, is actionable.</li></ul></div>
             </div>
             <div class="one-liner">Every cost management tool you have was built for cloud infrastructure: they can tell you what your AI APIs charged, but not which team, which use case, or whether it matched the budget. Optikon is the allocation layer that maps every AI dollar to a cost center and alerts you before the variance becomes an invoice.</div>
           </div>
           <div class="tab-content" data-card="optikon" data-tab="layers">
             <span class="s-label">Three intelligence layers</span>
             <div class="layers-grid">
-              <div class="layer-card"><p class="layer-name">Provider Ingestion</p><p class="layer-desc">Route traffic through the Optikon gateway or connect per-team keys - most teams are live the same day. Pulls usage and spend from OpenAI, Anthropic, Google, and more on a 5-minute cadence. Token counts by model, by project, by API key.</p></div>
+              <div class="layer-card"><p class="layer-name">Provider Ingestion</p><p class="layer-desc">Route traffic through the Optikon gateway or connect per-team keys. Pulls usage and spend from OpenAI, Anthropic, Google, and more, near real-time. Token counts by model, by project, by API key.</p></div>
               <div class="layer-card"><p class="layer-name">Allocation Engine</p><p class="layer-desc">Raw spend mapped automatically to the enterprise's cost center tree: team, product, environment, use case. Rules configurable and applied retroactively. Unattributed spend surfaced and routed to owners for confirmation.</p></div>
-              <div class="layer-card"><p class="layer-name">Variance &amp; Governance</p><p class="layer-desc">Budget baselines per cost center. Statistical spike detection vs. rolling 30-day baseline. Real-time comparison against forecast. Budget enforcement on overruns, with alerts routed to the right owner automatically.</p></div>
+              <div class="layer-card"><p class="layer-name">Variance &amp; Governance</p><p class="layer-desc">Budget baselines per cost center. Statistical spike detection vs. rolling 30-day baseline. Real-time comparison against forecast. Budget enforcement on overruns, with alerts that land in time to act.</p></div>
             </div>
           </div>
         </div>
