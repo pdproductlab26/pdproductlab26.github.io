@@ -648,7 +648,7 @@
               <span class="repo-badge-live">Real</span>
               <a href="https://poiesis-weld.vercel.app/" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; poiesis.dev</a>
             </div>
-            <p class="repo-desc">What if the agentic SDLC set itself up, from issue to production? Agentic SDLC platform - six coordinated agents take a GitHub issue from intent to production, with human in the loop where needed.</p>
+            <p class="repo-desc">What if the agentic SDLC set itself up, from issue to production? Agentic SDLC platform - six specialized agents take a GitHub issue from intent to production, with human in the loop where needed.</p>
             <span class="repo-lang"><span class="lang-dot" style="background:var(--ember)"></span>Agentic SDLC</span>
           </div>
           <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
@@ -662,12 +662,12 @@
             <button class="tab-btn" onclick="switchTab(this,'poiesis','layers')">Agentic Intelligence</button>
           </div>
           <div class="tab-content active" data-card="poiesis" data-tab="name">
-            <div class="name-block">Poiesis (ποίησις) is ancient Greek for the act of bringing something into existence that was not there before - not mere making, but creation with purpose and a finished thing as its only measure.<br><br>Most software delivery is a coordination tax. The code takes hours. The pipeline between intent and production takes weeks.<br><br>Poiesis fields six coordinated agents that take a GitHub issue from intent to production, with human in the loop where needed.<br><br>You approve what isn't routine. The agents handle everything else.</div>
+            <div class="name-block">Poiesis (ποίησις) is ancient Greek for the act of bringing something into existence that was not there before - not mere making, but creation with purpose and a finished thing as its only measure.<br><br>Most software delivery is a coordination tax. The code takes hours. The pipeline between intent and production takes weeks.<br><br>Poiesis fields six specialized agents that take a GitHub issue from intent to production, with human in the loop where needed.<br><br>You approve what isn't routine. The agents handle everything else.</div>
           </div>
           <div class="tab-content" data-card="poiesis" data-tab="story">
             <span class="s-label">What it is</span>
             <ul class="bullets">
-              <li>Agentic SDLC platform with six coordinated MCP agents that take a GitHub issue from intent to production, with human in the loop where needed.</li>
+              <li>Agentic SDLC platform with six specialized MCP agents that take a GitHub issue from intent to production, with human in the loop where needed.</li>
               <li>It is not a copilot. It is not an assistant. It writes the code, reviews the PR, scans for risk, ships the release with your sign-off, watches production, and recovers from incidents on its own.</li>
               <li class="punch">And documents everything it did.</li>
               <li>Connect a repo and Poiesis configures the agents, scanners, signing, and audit trail automatically - so you ship like the demo without building any of it.</li>
@@ -683,7 +683,7 @@
           <div class="tab-content" data-card="poiesis" data-tab="features">
             <div class="features-list">
               <div class="feature-row"><span class="feature-name">Automated deployment guardrails</span><span class="feature-desc">8 automated checks evaluated before any environment is touched: no CVEs, all artifacts signed, ticket linked, PR approved, no freeze window, lint clean, tests passing, license clean.</span></div>
-              <div class="feature-row"><span class="feature-name">Zero-downtime deployment with self-recovery</span><span class="feature-desc">Production flips only when all health checks pass. WATCHTOWER fires within seconds of a metric breach. MEDIC initiates rollback autonomously. Recovers before the incident reaches customers.</span></div>
+              <div class="feature-row"><span class="feature-name">Zero-downtime deployment with self-recovery</span><span class="feature-desc">Production flips only when all health checks pass. WATCHTOWER fires within seconds of a metric breach. MEDIC initiates rollback autonomously, rolling back in under 45 seconds and committing a signed receipt before the pager goes off.</span></div>
               <div class="feature-row"><span class="feature-name">Security scanning before any reviewer sees the code</span><span class="feature-desc">CodeQL, Checkmarx, Dependabot, and SonarQube fire simultaneously on every push. Findings stream into the PR before review starts, not sequential.</span></div>
               <div class="feature-row"><span class="feature-name">Precise incident diagnosis, no war room</span><span class="feature-desc">MEDIC produces a precise, file-level root cause. No guessing, no grep, no war room. Names the file, the function, and the missing optimization.</span></div>
               <div class="feature-row"><span class="feature-name">Auto-generated release receipts</span><span class="feature-desc">GitHub Release includes rollback notice, component statuses, and OPA results, committed to the repo as a signed receipt. Nobody writes a postmortem; it is a byproduct of the pipeline running.</span></div>
@@ -702,6 +702,7 @@
               <div class="arch-diff"><span class="arch-diff-label">Action chain, not signal chain</span><ul class="bullets" style="margin:4px 0 0"><li>Every existing tool produces a signal that terminates at a human who must decide what to do. Poiesis's agents own the consequent action, as an executed operation, not a recommendation.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Every agent reads the full picture</span><ul class="bullets" style="margin:4px 0 0"><li>When MEDIC diagnoses a production incident, it reads the deployment manifest, the Splunk metric snapshot, and the PR diff simultaneously. No single tool in your stack has access to all three.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Self-generating audit trail</span><ul class="bullets" style="margin:4px 0 0"><li>After every run, Poiesis emits a complete GitHub Release: rollback notice, component statuses, OPA results, committed as a signed receipt. Nobody writes this. The pipeline writes it.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">You didn't wire any of it</span><ul class="bullets" style="margin:4px 0 0"><li>Every tool in your stack is glue code someone assembled and now maintains. Connect a repo and Poiesis configures the agents, scanners, signing, and audit trail itself, so the pipeline in this demo is the pipeline you get, not a slide deck to go build.</li></ul></div>
             </div>
             <div class="one-liner">Every tool you have detects something and hands the result to a person. Poiesis is the system that reads those results, takes the next action, and hands you a receipt, while you approve anything that isn't routine.</div>
           </div>
@@ -712,8 +713,8 @@
               <div class="layer-card"><p class="layer-name">REVIEWER</p><p class="layer-desc">Reads PR diffs, files inline comments, catches logic gaps a linter cannot, such as a discount applied on one route but not another. Proposes specific line-level fixes.</p></div>
               <div class="layer-card"><p class="layer-name">SENTINEL</p><p class="layer-desc">Runs CodeQL, Checkmarx SAST, Dependabot, SonarQube in parallel before merge. Generates signed SBOM for every artifact. Blocks deployment if unsigned.</p></div>
               <div class="layer-card"><p class="layer-name">PILOT</p><p class="layer-desc">Agentic CD pipeline: DEV to SIT to PROD, blue/green swap, OPA policy gate. Evaluates 8 automated checks before touching any environment.</p></div>
-              <div class="layer-card"><p class="layer-name">WATCHTOWER</p><p class="layer-desc">Watches production metrics via Splunk. Detects CPU, latency, and error rate anomalies within seconds of swap. Fires incident playbook before error rate reaches customers.</p></div>
-              <div class="layer-card"><p class="layer-name">MEDIC</p><p class="layer-desc">Reads deployment manifest, metric spike, code diff. Identifies root cause. Issues rollback command. Rollback initiates within seconds of the metric breach, before the incident reaches customers. Auto-generates the full release note and signed receipt.</p></div>
+              <div class="layer-card"><p class="layer-name">WATCHTOWER</p><p class="layer-desc">Watches production metrics via Splunk. Detects CPU, latency, and error rate anomalies within seconds of swap. Fires the incident playbook within seconds of the swap, before the on-call is paged.</p></div>
+              <div class="layer-card"><p class="layer-name">MEDIC</p><p class="layer-desc">Reads deployment manifest, metric spike, code diff. Identifies root cause. Issues rollback command. Rollback initiates within seconds of the metric breach and completes in under 45 seconds, before the pager goes off. Auto-generates the full release note and signed receipt.</p></div>
             </div>
           </div>
         </div>
