@@ -491,7 +491,7 @@
               <span class="repo-badge-live">Live</span>
               <a href="https://ichnos.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; ichnos.dev</a>
             </div>
-            <p class="repo-desc">A flight recorder for regulated AI code. Every AI-written change leaves a tamper-evident trace in git, so when regulators ask why, you already have the receipt.</p>
+            <p class="repo-desc">A flight recorder for regulated AI code. Every AI-written change leaves a tamper-evident record, kept in git and preserved in an independent system of record, so when regulators ask why, you already have the receipt.</p>
             <span class="repo-lang"><span class="lang-dot" style="background:var(--ember)"></span>AI Provenance (Regulatory)</span>
           </div>
           <svg class="repo-chevron" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4"/></svg>
@@ -505,13 +505,13 @@
             <button class="tab-btn" onclick="switchTab(this,'ichnos','layers')">Agentic Intelligence</button>
           </div>
           <div class="tab-content active" data-card="ichnos" data-tab="name">
-            <div class="name-block">ichnos (ίχνος) is ancient Greek for a track, a footprint - the physical mark left by an agent that passed through a space.<br><br>Your AI assistant has already written code, reviewed PRs, and proposed architecture. None of it left a mark.<br><br>Ichnos captures the decision record for every AI-written change at the moment it is made: timestamped, stored in git alongside the code it produced, and carrying a verifiable integrity hash so any later edit to the trail is detectable.<br><br>AI-accountability expectations are tightening, such as the EU AI Act and California AB 2013. When your auditor asks what the AI decided and why, ichnos is your answer.</div>
+            <div class="name-block">ichnos (ίχνος) is ancient Greek for a track, a footprint - the physical mark left by an agent that passed through a space.<br><br>Your AI assistant has already written code, reviewed PRs, and proposed architecture. None of it left a mark.<br><br>Ichnos captures the decision record for every AI-written change at the moment it is made: timestamped, kept in git alongside the code it produced, and preserved in an independent, server-side system of record that is re-verified on demand, so any later edit to the trail is detectable.<br><br>AI-accountability expectations are tightening, such as the EU AI Act and California AB 2013. When your auditor asks what the AI decided and why, ichnos is your answer.</div>
           </div>
           <div class="tab-content" data-card="ichnos" data-tab="story">
             <span class="s-label">What it is</span>
             <ul class="bullets">
               <li>Compliance infrastructure layer for AI-generated code. Captures, automatically, with a verifiable integrity hash, stored in git, the provenance, decision context, assumptions, and human disposition behind every AI-written change - starting with Claude Code (Cursor and GitHub Copilot on the roadmap).</li>
-              <li>Industry estimates put 25-42% of production code as already AI-authored, and none of it shows its work: no record of what the model chose, what it assumed, what it skipped, or which human reviewed it.</li>
+              <li>A large and growing share of production code is already AI-authored, and none of it shows its work: no record of what the model chose, what it assumed, what it skipped, or which human reviewed it.</li>
               <li>AI-accountability expectations tighten through 2026, with regulators and customers increasingly asking what the AI decided and why.</li>
               <li class="punch">Almost no engineering team can produce that record today. Ichnos eliminates all of that.</li>
             </ul>
@@ -519,16 +519,15 @@
             <ul class="bullets">
               <li>An AI coding assistant produces a change. Six months later, in a production incident: why did we use polling instead of webhooks? Why did we skip the idempotency retry?</li>
               <li>There is no answer, not in git history, not in the PR description, not anywhere. The model made those choices in milliseconds and wrote none of them down.</li>
-              <li class="punch">Multiply that across what industry estimates put at 25-42% of the codebase. The result: a growing fraction of decisions that are permanently unrecoverable, invisible during maintenance, invisible to the regulator.</li>
+              <li class="punch">Multiply that across a large and growing share of the codebase. The result: a growing fraction of decisions that are permanently unrecoverable, invisible during maintenance, invisible to the regulator.</li>
             </ul>
           </div>
           <div class="tab-content" data-card="ichnos" data-tab="features">
             <div class="features-list">
               <div class="feature-row"><span class="feature-name">At-generation decision capture</span><span class="feature-desc">Fires before the engineer sees the diff. The decision record is written when generation context is still present. There is no later point at which this information is recoverable.</span></div>
-              <div class="feature-row"><span class="feature-name">Permanent records in your own repository</span><span class="feature-desc">Decision records committed directly into the repository alongside the code. Versioned with the code. Survives Ichnos as a company.</span></div>
+              <div class="feature-row"><span class="feature-name">Permanent records in your own repository</span><span class="feature-desc">Decision records are committed into your repository alongside the code and preserved in an independent, server-side system of record, so the trail can be re-verified on demand and cannot be quietly rewritten.</span></div>
               <div class="feature-row"><span class="feature-name">Human oversight evidence per change</span><span class="feature-desc">accepted / accepted_with_modifications / rejected; AI accountability frameworks require evidence of human oversight per change. This is that record, timestamped and linked to its decision payload.</span></div>
               <div class="feature-row"><span class="feature-name">Provenance export</span><span class="feature-desc">git why log --export provenance-report produces a structured provenance report: AI system identification, full decision index, human oversight summary, integrity manifest.</span></div>
-              <div class="feature-row"><span class="feature-name">Zero undocumented AI changes in production</span><span class="feature-desc">Blocks deploys when undocumented AI changes are detected. Dashboard shows gaps by repo and engineer. Designed to drive to 100%, not to report and stop.</span></div>
             </div>
           </div>
           <div class="tab-content" data-card="ichnos" data-tab="diff">
@@ -543,7 +542,7 @@
             <div class="arch-diffs">
               <div class="arch-diff"><span class="arch-diff-label">Generation time, not review time</span><ul class="bullets" style="margin:4px 0 0"><li>Every existing tool operates after the code has been written. By that point, the generation context is gone. Ichnos fires at the PostToolUse boundary, before the engineer sees the diff.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Human layer, not code layer</span><ul class="bullets" style="margin:4px 0 0"><li>The disposition layer records what the human decided to do with the AI's output. This is what AI accountability frameworks require. A GitHub PR approval is not a provenance record.</li></ul></div>
-              <div class="arch-diff"><span class="arch-diff-label">Permanent in your repository, not ours</span><ul class="bullets" style="margin:4px 0 0"><li>Decision records are in your repository, committed alongside the code. The record for code written in June 2026 will still be there in 2036, regardless of whether Ichnos exists as a company.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Permanent record, independently verifiable</span><ul class="bullets" style="margin:4px 0 0"><li>Decision records are kept in git alongside the code, so the trail lives with your repository and outlives any single vendor. The same records are preserved in an independent, server-side system of record, re-verified on demand so the trail cannot be quietly rewritten.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Structured for accountability, not proprietary</span><ul class="bullets" style="margin:4px 0 0"><li>Every other tool produces output in its own format. Ichnos ships a structured provenance report as a first-class export. No manual assembly, no translation layer needed.</li></ul></div>
             </div>
             <div class="one-liner">Every tool you have watches what the code does: Copilot writes it, Snyk scans it, reviewers read it, Datadog monitors it. Ichnos is the layer that records what the AI decided when it wrote it, what the human chose to do with that decision, and hands you a verifiable provenance report when the auditor asks, while your engineers keep working exactly as they do today.</div>
