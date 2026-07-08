@@ -104,6 +104,36 @@
   .bridge-line { font-size: 17px; color: var(--fg); font-weight: 500; max-width: 54ch; margin: 26px auto 0; line-height: 1.5; }
   .bridge-sub { font-size: 13px; color: var(--subtle); font-style: italic; margin-top: 10px; }
 
+  /* ── Act 2: function sections + companion agent boxes ── */
+  .act2-head { font-size: 22px; color: var(--fg); font-weight: 600; margin: 8px 0 6px; }
+  .act2-intro { font-size: 14px; color: var(--muted); max-width: 62ch; line-height: 1.7; margin-bottom: 12px; }
+  .fn-section { border-top: 1px solid var(--border); padding: 26px 0; }
+  .fn-head2 { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  .fn-title { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); }
+  .fn-ct { font-family: var(--mono); font-size: 11px; color: var(--subtle); }
+  .fn-thesis2 { font-size: 12.5px; color: var(--subtle); font-style: italic; margin-bottom: 18px; }
+
+  .anchor { border: 1px solid rgba(63,185,80,.3); background: rgba(63,185,80,.04); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 10px; }
+  .anchor.proof { border-color: var(--ember-border); background: var(--ember-soft); }
+  .anchor-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .anchor-name { font-size: 16px; color: var(--fg); font-weight: 500; }
+  .tag-plat { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--live); border: 1px solid rgba(63,185,80,.4); border-radius: 20px; padding: 2px 9px; }
+  .tag-framing, .tag-proof { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--ember); border: 1px solid var(--ember-border); border-radius: 20px; padding: 2px 9px; }
+  .anchor-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  .companion { display: flex; align-items: flex-start; gap: 12px; border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 16px; margin-bottom: 8px; background: var(--surface); }
+  .comp-dot { margin-top: 5px; flex-shrink: 0; }
+  .comp-dot .d { width: 7px; height: 7px; border-radius: 50%; display: block; }
+  .d-built { background: var(--live); }
+  .d-proof { background: var(--ember); }
+  .d-cat { background: transparent; border: 1px solid var(--subtle); }
+  .comp-body { flex: 1; min-width: 0; }
+  .comp-name { font-size: 13.5px; color: var(--fg); font-weight: 500; margin-bottom: 3px; }
+  .mini-tag { font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ember); margin-left: 8px; vertical-align: middle; }
+  .comp-split { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .comp-split b { color: var(--fg); font-weight: 500; }
+  .xref { font-family: var(--mono); font-size: 11px; color: var(--subtle); margin-top: 6px; }
+
   /* ── Platform overview grid (the whole board in one place) ── */
   .plat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 6px 0 4px; }
   .plat {
@@ -374,6 +404,11 @@
   .btn-icon:hover { background: var(--ember-soft); }
   .btn-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
+  .sidebar .about { margin: 24px 0 0; }
+  .sidebar .about p { font-size: 12.5px; line-height: 1.7; max-width: none; margin-bottom: 12px; }
+  .sidebar .about .section-label { margin-bottom: 12px !important; }
+  .sidebar .about .mantra { font-size: 11.5px; gap: 10px; }
+
   .main-col { flex: 1; min-width: 0; }
   .repo-list { margin-bottom: 72px; }
   .about { margin-bottom: 72px; }
@@ -422,6 +457,14 @@
           <a href="mailto:pdproductlab@gmail.com?subject=Interested" title="Get in touch" class="btn-outline">&#9993; pdproductlab@gmail.com</a>
         </div>
       </div>
+
+      <!-- ── Background: moved into the sidebar, below the contact box ── -->
+      <section class="about" id="background" style="scroll-margin-top: 72px;">
+        <span class="section-label" style="display:block;margin-bottom:12px;">Background</span>
+        <p>FinTech roots into management consulting - many industries, many clients, cultures &amp; constraints &amp; one consistent instinct: technology earns its place only when it solves the right problem. Business first. Technology second.</p>
+        <p>Enterprise developer tooling in recent times, reimagining the ecosystem as agentic, because the moat has always been client-first, forward deployed ethos - the one that moves revenue faster, not the one that moves tickets or chases the next shiny object.</p>
+        <p class="mantra">Learn. Build. Ship. <span class="thesis-badge">agentic everything</span></p>
+      </section>
     </aside>
 
     <!-- ── Main: v3 product organization ────────────── -->
@@ -1091,17 +1134,61 @@
 
       <!-- ── Bridge: Act 1 → Act 2 (org chart slots in here next) ── -->
       <div class="bridge" id="bridge">
-        <p class="bridge-line">Each of these went from ideation to a working proof in a quarter. The rest of the map is that same follow-through, pointed at everywhere else the enterprise works.</p>
+        <p class="bridge-line">The rest of the map is that same follow-through, pointed at everywhere else the enterprise works.</p>
         <p class="bridge-sub">Agents take the execution. Humans keep the judgment.</p>
       </div>
 
-      <!-- ── Background: the details ──────────────────── -->
-      <section class="about" id="background" style="scroll-margin-top: 72px;">
-        <span class="section-label" style="display:block;margin-bottom:20px;">Background</span>
-        <p>FinTech roots into management consulting - many industries, many clients, cultures &amp; constraints &amp; one consistent instinct: technology earns its place only when it solves the right problem. Business first. Technology second.</p>
-        <p>Enterprise developer tooling in recent times, reimagining the ecosystem as agentic, because the moat has always been client-first, forward deployed ethos - the one that moves revenue faster, not the one that moves tickets or chases the next shiny object.</p>
-        <p class="mantra">Learn. Build. Ship. <span class="thesis-badge">agentic everything</span></p>
+      <!-- ══ ACT 2: the agentic org chart (companion agents as boxes) ══ -->
+      <section class="act2" id="orgchart" style="scroll-margin-top:72px;">
+        <h2 class="act2-head">The Agentic Org Chart</h2>
+        <p class="act2-intro">Every function of the enterprise, mapped. Where a platform already exists it anchors the function; companion agents fill in the rest. Nothing here is industry-specific: the same shape works for banking, health, automotive, anything.</p>
+
+        <!-- SECURITY -->
+        <div class="fn-section">
+          <div class="fn-head2"><span class="fn-title">Security</span><span class="fn-ct">1 platform &middot; 3 companion agents</span></div>
+          <p class="fn-thesis2">Agents take on execution while a human stays as reviewer, approver, or exception handler.</p>
+          <div class="anchor">
+            <div class="anchor-top"><span class="anchor-name">Pistis</span><span class="tag-framing">Platform &middot; Framing</span></div>
+            <p class="anchor-desc">Agentic IAM. Context-aware access that reasons about intent and risk instead of static role rules.</p>
+          </div>
+          <div class="companion"><span class="comp-dot"><span class="d d-proof"></span></span><div class="comp-body"><div class="comp-name">Threat Model Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> drafts a threat model from an architecture diagram or PR. <b>Human:</b> validates and extends it.</p></div></div>
+          <div class="companion"><span class="comp-dot"><span class="d d-proof"></span></span><div class="comp-body"><div class="comp-name">Vulnerability Triage Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> ranks scanner output by real exploitability and reachability, not raw CVSS. <b>Human:</b> confirms the priority order.</p></div></div>
+          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Access Recertification Agent</div><p class="comp-split"><b>Agent:</b> flags over-privileged and stale access. <b>Human:</b> makes the recert decision.</p><p class="xref">Pistis grants access live; this cleans up what is already granted.</p></div></div>
+        </div>
+
+        <!-- LEGAL & COMPLIANCE -->
+        <div class="fn-section">
+          <div class="fn-head2"><span class="fn-title">Legal &amp; Compliance</span><span class="fn-ct">1 proof build &middot; 3 companion agents</span></div>
+          <p class="fn-thesis2">Agents take on execution while a human stays as reviewer, approver, or exception handler.</p>
+          <div class="anchor proof">
+            <div class="anchor-top"><span class="anchor-name">Contract Redline Agent</span><span class="tag-proof">Proof &middot; runnable</span></div>
+            <p class="anchor-desc">First-pass review against the negotiating playbook, precedent-aware severity, drafts redlines. Counsel decides accept, negotiate, or walk. The reference implementation, with a repo you can clone and run in ten seconds.</p>
+          </div>
+          <div class="companion"><span class="comp-dot"><span class="d d-proof"></span></span><div class="comp-body"><div class="comp-name">Regulatory Change Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> monitors regulatory updates, drafts impact summaries against current controls. <b>Human:</b> makes the legal call.</p></div></div>
+          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Policy Drift Agent</div><p class="comp-split"><b>Agent:</b> checks internal policies against current regulation, flags drift. <b>Human:</b> decides the fix.</p></div></div>
+          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Litigation First-Pass Agent</div><p class="comp-split"><b>Agent:</b> first-pass discovery review. <b>Human:</b> counsel makes every call.</p></div></div>
+        </div>
+
+        <!-- DEVELOPMENT -->
+        <div class="fn-section">
+          <div class="fn-head2"><span class="fn-title">Development</span><span class="fn-ct">2 platforms &middot; 4 companion agents</span></div>
+          <p class="fn-thesis2">Agents take on execution while a human stays as reviewer, approver, or exception handler.</p>
+          <div class="anchor">
+            <div class="anchor-top"><span class="anchor-name">Poiesis</span><span class="tag-plat">Platform &middot; Real</span></div>
+            <p class="anchor-desc">Agentic SDLC. Six agents take a GitHub issue from intent to production, human in the loop.</p>
+          </div>
+          <div class="anchor">
+            <div class="anchor-top"><span class="anchor-name">Ichnos</span><span class="tag-plat">Platform &middot; Real</span></div>
+            <p class="anchor-desc">Provenance flight-recorder for AI-written code. A tamper-evident record for regulators.</p>
+            <p class="xref">Cross-refs: also relevant to Tech Compliance (Nomos).</p>
+          </div>
+          <div class="companion"><span class="comp-dot"><span class="d d-proof"></span></span><div class="comp-body"><div class="comp-name">Code Review Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> first-pass PR review against standards, risk flags, suggested fixes. <b>Human:</b> approves the merge.</p></div></div>
+          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Dependency Upgrade Agent</div><p class="comp-split"><b>Agent:</b> flags stale or vulnerable deps, drafts the upgrade PR, runs tests. <b>Human:</b> approves the bump.</p></div></div>
+          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Migration Agent</div><p class="comp-split"><b>Agent:</b> drafts framework or API migrations module by module. <b>Human:</b> reviews each module.</p></div></div>
+          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Tech-Debt Triage Agent</div><p class="comp-split"><b>Agent:</b> ranks debt by risk vs effort, drafts remediation tickets. <b>Human:</b> schedules.</p></div></div>
+        </div>
       </section>
+
     </main>
 
   </div><!-- /layout -->
