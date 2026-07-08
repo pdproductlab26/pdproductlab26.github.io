@@ -4,11 +4,11 @@
   "tiers": {
    "built": "shipped platform",
    "proof_runnable": "built reference agent with a runnable repo",
-   "proof_candidate": "strong next build, not yet built — card must not claim a repo or live demo",
+   "proof_candidate": "strong next build, not yet built: card must not claim a repo or live demo",
    "catalog": "specified idea, not built"
   },
   "payoff_assumptions": "All payoff figures are illustrative and deliberately conservative; assumptions are listed per card so a reader can swap in their own rate, volume, and time. Loaded rates used: engineering ~$120/hr, counsel/contract-manager ~$120/hr, analyst/ops ~$80/hr, support ~$50/hr. Where value is mostly judgment leverage or risk reduction rather than a clean time x rate figure, defensible is false and the Payoff tab is omitted.",
-  "boundary_note_rule": "Every 'tomorrow' string ends with the deliberate human-gate boundary. Keep it — it is the thesis."
+  "boundary_note_rule": "Every 'tomorrow' string ends with the deliberate human-gate boundary. Keep it. It is the thesis."
  },
  "functions": [
   {
@@ -727,7 +727,7 @@
       "defensible": true,
       "headline": "Idle-license spend recovered",
       "assumptions": [
-       "Unused SaaS seats are a well-known 20-30% of spend",
+       "Unused SaaS seats are commonly reported at 20-30% of spend",
        "Agent flags idle seats for reclaim"
       ],
       "not_captured": [
