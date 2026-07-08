@@ -460,7 +460,7 @@
   @media (max-width: 760px) { .plat-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 420px) { .plat-grid { grid-template-columns: 1fr; } }
 
-  /* ══ Act 2 — data-driven org chart + companion cards (rendered from #agents-data) ══ */
+  /* ══ Act 2 - data-driven org chart + companion cards (rendered from #agents-data) ══ */
   .fn-section.open { display: block; }
   .node.active { border-color: var(--ember); box-shadow: 0 0 0 1px var(--ember-border); }
   .payoff-headline { font-size: 14px; color: var(--fg); font-weight: 500; margin: 4px 0 18px; line-height: 1.5; }
@@ -553,7 +553,7 @@
     <aside class="sidebar">
       <p class="kicker">pdproductlab26 · Applied AI Lab</p>
       <h1>Pinak Dutta</h1>
-      <p class="hook">I'd rather see applied AI in motion, with the returns visible, than pitch a deck about it. This is the GitHub where that takes shape: problem to product, quickly.</p>
+      <p class="hook">I'd rather see applied AI in motion, working software you can click, than pitch a deck about it. This is the GitHub where that takes shape: problem to product, quickly.</p>
 
       <ul class="sidebar-meta">
         <li>
@@ -728,7 +728,7 @@
               <li>Compliance infrastructure layer for AI-generated code. Captures, automatically, with a verifiable integrity hash, stored in git, the provenance, decision context, assumptions, and human disposition behind every AI-written change - starting with Claude Code (Cursor and GitHub Copilot on the roadmap).</li>
               <li>A large and growing share of production code is already AI-authored, and none of it shows its work: no record of what the model chose, what it assumed, what it skipped, or which human reviewed it.</li>
               <li>AI-accountability expectations tighten through 2026, with regulators and customers increasingly asking what the AI decided and why.</li>
-              <li class="punch">Almost no engineering team can produce that record today. Ichnos eliminates all of that.</li>
+              <li class="punch">Almost no engineering team can produce that record today. Ichnos closes that gap at the source.</li>
             </ul>
             <span class="s-label">The core problem</span>
             <ul class="bullets">
@@ -806,7 +806,7 @@
               <li>AI project intelligence platform that sits on top of Jira and tells engineering organisations, in plain English, why their deliverables are at risk and what to do about it, weeks before deadlines slip.</li>
               <li>Reads three signal layers Jira ignores: structured ticket data, human language in comments, and code signals in connected repositories.</li>
               <li>Cascades intelligence bottom-up, story to epic to deliverable, and produces a real forecast against every committed date, with cited root causes and recommended actions.</li>
-              <li class="punch">Every Monday morning, PMO teams spend hours manually assembling this picture from Jira exports, Slack threads, and gut feel. Alethinos eliminates all of that.</li>
+              <li class="punch">Every Monday morning, PMO teams spend hours manually assembling this picture from Jira exports, Slack threads, and gut feel. Alethinos replaces that Monday scramble with a system that never stops reading.</li>
             </ul>
             <span class="s-label">The core problem</span>
             <ul class="bullets">
@@ -892,7 +892,7 @@
               <li>Software delivery is still a coordination tax. A developer writes a ticket, waits for sprint planning, writes the code, waits for review, addresses comments, waits for CI, chases a deployment approval, monitors Slack for prod alerts, writes a postmortem.</li>
               <li>Routine changes go from issue to a signed, deployed release in one reviewed pass. Not because the code is faster to write, but because the coordination machinery no longer requires humans at every handoff.</li>
               <li>A CPU spike at 2am requires someone to wake up, triage, roll back, diagnose, and document.</li>
-              <li class="punch">The engineering organisation spends more energy managing the pipeline than building the product. Poiesis ends this.</li>
+              <li class="punch">The engineering organisation spends more energy managing the pipeline than building the product. Poiesis removes the handoffs.</li>
             </ul>
           </div>
           <div class="tab-content" data-card="poiesis" data-tab="features">
@@ -968,14 +968,14 @@
               <li>Agentic DevSecOps platform that monitors code repositories, CI/CD pipelines, infrastructure-as-code, and container images in real time - and doesn't just report what it finds, but acts on it.</li>
               <li>Opens pull requests to rotate exposed secrets, blocks merges on critical CVEs, patches IaC misconfigurations before deployment, and produces compliance evidence automatically.</li>
               <li>Patches lag for weeks after disclosure, and committed secrets sit unrotated long before anyone notices.</li>
-              <li class="punch">Security teams today operate a fragmented stack of scanners that fire alerts into a void. Aegis eliminates all of that.</li>
+              <li class="punch">Security teams today operate a fragmented stack of scanners that fire alerts into a void. Aegis closes the loop instead.</li>
             </ul>
             <span class="s-label">The core problem</span>
             <ul class="bullets">
               <li>Security engineers at mid-to-large engineering organisations are running five to nine discrete tools - each producing its own alert queue that feeds into a Jira backlog nobody has time to triage.</li>
               <li>IaC misconfigurations are caught at deploy time if they are caught at all. When the SOC 2 auditor arrives, someone spends three weeks manually compiling evidence that the pipeline controls were operating.</li>
               <li>No single tool owns the remediation loop. Every tool reports; nothing fixes.</li>
-              <li class="punch">The security team is a triage queue masquerading as a function. Aegis ends this.</li>
+              <li class="punch">The security team is a triage queue masquerading as a function. Aegis turns that queue back into a function.</li>
             </ul>
           </div>
           <div class="tab-content" data-card="aegis" data-tab="features">
@@ -1204,7 +1204,7 @@
             <ul class="bullets">
               <li>Agentic compliance platform that replaces the audit scramble with a compliance agent that runs continuously, maps every deployment to your control framework in real time, and hands a complete, signed evidence package to the auditor without a single manual assembly step.</li>
               <li>Traditional tools (Vanta, Drata) automate configuration-state evidence: they can show a control exists right now. What they do not produce is a signed chain of deployment events proving the control operated over time, and humans still interpret the gaps and run the audit conversation.</li>
-              <li class="punch">Nomos eliminates all of that.</li>
+              <li class="punch">Nomos makes the evidence assemble itself.</li>
             </ul>
             <span class="s-label">The core problem</span>
             <ul class="bullets">
@@ -1352,11 +1352,11 @@
   "tiers": {
    "built": "shipped platform",
    "proof_runnable": "built reference agent with a runnable repo",
-   "proof_candidate": "strong next build, not yet built — card must not claim a repo or live demo",
+   "proof_candidate": "strong next build, not yet built: card must not claim a repo or live demo",
    "catalog": "specified idea, not built"
   },
   "payoff_assumptions": "All payoff figures are illustrative and deliberately conservative; assumptions are listed per card so a reader can swap in their own rate, volume, and time. Loaded rates used: engineering ~$120/hr, counsel/contract-manager ~$120/hr, analyst/ops ~$80/hr, support ~$50/hr. Where value is mostly judgment leverage or risk reduction rather than a clean time x rate figure, defensible is false and the Payoff tab is omitted.",
-  "boundary_note_rule": "Every 'tomorrow' string ends with the deliberate human-gate boundary. Keep it — it is the thesis."
+  "boundary_note_rule": "Every 'tomorrow' string ends with the deliberate human-gate boundary. Keep it. It is the thesis."
  },
  "functions": [
   {
@@ -2075,7 +2075,7 @@
       "defensible": true,
       "headline": "Idle-license spend recovered",
       "assumptions": [
-       "Unused SaaS seats are a well-known 20-30% of spend",
+       "Unused SaaS seats are commonly reported at 20-30% of spend",
        "Agent flags idle seats for reclaim"
       ],
       "not_captured": [
@@ -2372,7 +2372,7 @@
 }
 </script>
 <script>
-// ══ Act 2 renderer — builds the org-chart nodes and the reveal-on-click function
+// ══ Act 2 renderer - builds the org-chart nodes and the reveal-on-click function
 //    sections from the inline #agents-data blob (source of truth: agents.json). ══
 (function () {
   var el = document.getElementById('agents-data');
