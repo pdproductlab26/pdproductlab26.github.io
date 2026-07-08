@@ -1,0 +1,18 @@
+# OS junk
+.DS_Store
+
+# Contract-redline proof kit — lives in its own repo, never publish on this public Pages site
+redline_agent.py
+requirements.txt
+acme_msa.txt
+playbook.md
+prior_deals.md
+review_brief.txt
+findings.json
+
+# Internal build notes and mockups — kept out of the public site
+agents-json-integration-note.md
+agent-catalogue-master-v2.md
+agent-card-preview-v2.html
+index-layout-proposal.html
+claude-code-prompt-reorganize-index.md
