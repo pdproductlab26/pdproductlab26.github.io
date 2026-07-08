@@ -81,10 +81,33 @@
   }
   .section-hint { font-size: 12px; color: var(--subtle); font-style: italic; }
 
+  /* ── Act 1 intro + bridge (two-act narrative) ─── */
+  .act-intro { margin-bottom: 30px; }
+  .act-kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--ember);
+    letter-spacing: .18em; text-transform: uppercase; margin-bottom: 16px; display: block;
+  }
+  .act-intro h2 {
+    font-size: 26px; font-weight: 600; color: var(--fg);
+    line-height: 1.25; letter-spacing: -.01em; margin-bottom: 14px; max-width: 24ch;
+  }
+  .act-intro-p { font-size: 15px; color: var(--muted); max-width: 60ch; line-height: 1.7; margin-bottom: 12px; }
+  .act-intro-note { font-size: 13px; color: var(--subtle); max-width: 64ch; line-height: 1.7; }
+
+  /* org-chart home label on each platform card */
+  .plat-fn {
+    font-family: var(--mono); font-size: 10px; color: var(--subtle);
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+
+  .bridge { text-align: center; padding: 42px 0 10px; margin-top: 10px; border-top: 1px solid var(--border-soft); }
+  .bridge-line { font-size: 17px; color: var(--fg); font-weight: 500; max-width: 54ch; margin: 26px auto 0; line-height: 1.5; }
+  .bridge-sub { font-size: 13px; color: var(--subtle); font-style: italic; margin-top: 10px; }
+
   /* ── Product rows ─────────────────────────────── */
   .repo-list { display: flex; flex-direction: column; margin-bottom: 96px; }
 
-  .repo-item { border-top: 1px solid var(--border); padding: 30px 0; }
+  .repo-item { border-top: 1px solid var(--border); padding: 24px 0; }
   .repo-item:last-child { border-bottom: 1px solid var(--border); }
 
   .repo-header {
@@ -390,6 +413,15 @@
 
     <!-- ── Main: v3 product organization ────────────── -->
     <main class="main-col" id="products">
+
+      <!-- ── Act 1: platforms, front and center ── -->
+      <div class="act-intro">
+        <span class="act-kicker">Act 1 &middot; The proof of execution</span>
+        <h2>What does the agentic enterprise actually look like?</h2>
+        <p class="act-intro-p">Not a chatbot bolted onto a support queue. A full operating model where agents take the first pass on the work, and humans keep the judgment calls.</p>
+        <p class="act-intro-note">Eight platforms, stay front and center. A catalog of companion agents mapped across every function of the enterprise. All of it marked honestly by how real it is.</p>
+      </div>
+
       <div class="section-head">
         <span class="section-label">The Builds</span>
         <span class="section-hint">select one to dig deeper</span>
@@ -404,6 +436,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Optikon</a>
+              <span class="plat-fn">Finance</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-live">Real</span>
               <a href="https://optikon.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; optikon.dev</a>
@@ -487,6 +520,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Ichnos</a>
+              <span class="plat-fn">Development</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-live">Real</span>
               <a href="https://ichnos.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; ichnos.dev</a>
@@ -565,6 +599,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Alethinos</a>
+              <span class="plat-fn">Eng Ops</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-live">Real</span>
               <a href="https://alethinos.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; alethinos.dev</a>
@@ -644,6 +679,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Poiesis</a>
+              <span class="plat-fn">Development</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-live">Real</span>
               <a href="https://poiesis-weld.vercel.app/" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; poiesis.dev</a>
@@ -727,6 +763,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Aegis</a>
+              <span class="plat-fn">DevOps / SRE</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-live">Real</span>
               <a href="https://aegis-nine-eta.vercel.app/" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; aegis.dev</a>
@@ -808,6 +845,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Pistis</a>
+              <span class="plat-fn">Security</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-preview">Framing</span>
             </div>
@@ -886,6 +924,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Nexus</a>
+              <span class="plat-fn">Product Support</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-preview">Framing</span>
             </div>
@@ -962,6 +1001,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Nomos</a>
+              <span class="plat-fn">Tech Compliance</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-preview">Framing</span>
             </div>
@@ -1033,6 +1073,12 @@
       </div>
 
     </div><!-- /repo-list -->
+
+      <!-- ── Bridge: Act 1 → Act 2 (org chart slots in here next) ── -->
+      <div class="bridge" id="bridge">
+        <p class="bridge-line">Each of these went from ideation to a working proof in a quarter. The rest of the map is that same follow-through, pointed at everywhere else the enterprise works.</p>
+        <p class="bridge-sub">Agents take the execution. Humans keep the judgment.</p>
+      </div>
 
       <!-- ── Background: the details ──────────────────── -->
       <section class="about" id="background" style="scroll-margin-top: 72px;">
