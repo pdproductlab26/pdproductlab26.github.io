@@ -76,10 +76,10 @@
     gap: 16px; margin-bottom: 8px;
   }
   .section-label {
-    font-family: var(--mono); font-size: 11px; color: var(--subtle);
+    font-family: var(--mono); font-size: 11px; color: var(--fg);
     letter-spacing: .18em; text-transform: uppercase;
   }
-  .section-hint { font-size: 12px; color: var(--subtle); font-style: italic; }
+  .section-hint { font-size: 12px; color: var(--muted); font-style: italic; }
 
   /* ── Act 1 intro + bridge (two-act narrative) ─── */
   .act-intro { margin-bottom: 30px; }
@@ -92,7 +92,7 @@
     line-height: 1.25; letter-spacing: -.01em; margin-bottom: 14px; max-width: 24ch;
   }
   .act-intro-p { font-size: 15px; color: var(--muted); max-width: none; text-align: justify; line-height: 1.7; margin-bottom: 12px; }
-  .act-intro-note { font-size: 13px; color: var(--subtle); max-width: none; text-align: justify; line-height: 1.7; }
+  .act-intro-note { font-size: 13px; color: var(--muted); max-width: none; text-align: justify; line-height: 1.7; }
 
   /* org-chart home label on each platform card */
   .plat-fn {
@@ -145,7 +145,7 @@
   .chart-legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 4px 0 6px; font-family: var(--mono); font-size: 10px; color: var(--subtle); letter-spacing: .04em; }
   .chart-legend span { display: flex; align-items: center; gap: 6px; }
   .chart-legend .d { width: 6px; height: 6px; border-radius: 50%; }
-  .band-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--subtle); margin: 22px 0 12px; }
+  .band-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg); margin: 22px 0 12px; }
   .nodes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }
   .node { border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 12px; background: var(--surface); min-height: 66px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color .15s; }
   .node[onclick] { cursor: pointer; }
@@ -1236,7 +1236,6 @@
 
       <!-- ══ ACT 2: the agentic org chart (companion agents as boxes) ══ -->
       <section class="act2" id="orgchart" style="scroll-margin-top:72px;">
-        <h2 class="act2-head">The Agentic Org Chart</h2>
         <p class="act2-intro">Every function of the enterprise, mapped. Where a platform already exists it anchors the function; companion agents fill in the rest. Nothing here is industry-specific: the same shape works for banking, health, automotive, anything.</p>
 
         <div class="chart-band" id="chart-band"></div>
@@ -1257,8 +1256,29 @@
 </div><!-- /wrap -->
 
 <script>
+  // Accordion: only one card in a group is open at a time. Platform detail
+  // cards (.repo-item) and Act 2 companion cards (.companion) are separate groups.
+  function closeGroup(selector, keep) {
+    document.querySelectorAll(selector + '.open').forEach(function(c) {
+      if (c !== keep) c.classList.remove('open');
+    });
+  }
+  // A platform tile is highlighted iff its detail card is open.
+  function syncTiles() {
+    document.querySelectorAll('.plat').forEach(function(tile) {
+      var m = (tile.getAttribute('onclick') || '').match(/togglePlatform\(this,'([^']+)'\)/);
+      var card = m && document.getElementById('card-' + m[1]);
+      tile.classList.toggle('active', !!(card && card.classList.contains('open')));
+    });
+  }
   function toggle(id) {
-    document.getElementById('card-' + id).classList.toggle('open');
+    var el = document.getElementById('card-' + id);
+    if (!el) return;
+    var willOpen = !el.classList.contains('open');
+    var isPlat = el.classList.contains('repo-item');
+    closeGroup(isPlat ? '.repo-item' : '.companion', el);
+    el.classList.toggle('open', willOpen);
+    if (isPlat) syncTiles();
   }
   function switchTab(btn, cardId, tabName) {
     var card = document.getElementById('card-' + cardId);
@@ -1268,13 +1288,14 @@
       tc.classList.toggle('active', tc.dataset.tab === tabName);
     });
   }
-  // Platform board tile: open its detail card, scroll to it, mark the tile active.
+  // Platform board tile: flip to its detail card, closing any other open one.
   function togglePlatform(tile, id) {
     var el = document.getElementById('card-' + id);
     if (!el) return;
     var willOpen = !el.classList.contains('open');
-    el.classList.toggle('open');
-    tile.classList.toggle('active', willOpen);
+    closeGroup('.repo-item', el);
+    el.classList.toggle('open', willOpen);
+    syncTiles();
     if (willOpen) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 </script>
