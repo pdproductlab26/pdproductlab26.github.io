@@ -91,8 +91,8 @@
     font-size: 26px; font-weight: 600; color: var(--fg);
     line-height: 1.25; letter-spacing: -.01em; margin-bottom: 14px; max-width: 24ch;
   }
-  .act-intro-p { font-size: 15px; color: var(--muted); max-width: 60ch; line-height: 1.7; margin-bottom: 12px; }
-  .act-intro-note { font-size: 13px; color: var(--subtle); max-width: 64ch; line-height: 1.7; }
+  .act-intro-p { font-size: 15px; color: var(--muted); max-width: none; text-align: justify; line-height: 1.7; margin-bottom: 12px; }
+  .act-intro-note { font-size: 13px; color: var(--subtle); max-width: none; text-align: justify; line-height: 1.7; }
 
   /* org-chart home label on each platform card */
   .plat-fn {
@@ -134,6 +134,30 @@
   .companion-body p b { color: var(--fg); font-weight: 500; }
   .comp-note { border-left: 2px solid var(--live); background: rgba(63,185,80,.05); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; font-size: 12.5px; color: var(--muted); line-height: 1.7; margin-top: 4px; }
   .comp-note b { color: var(--fg); font-weight: 500; }
+
+  /* ── Org chart: filter + node grid ── */
+  .filter { display: flex; gap: 8px; margin: 16px 0 6px; flex-wrap: wrap; }
+  .fpill { font-family: var(--mono); font-size: 11px; color: var(--muted); border: 1px solid var(--border); border-radius: 20px; padding: 5px 13px; cursor: pointer; transition: color .15s, border-color .15s, background .15s; }
+  .fpill:hover { color: var(--fg); }
+  .fpill.on { color: var(--ember); border-color: var(--ember-border); background: var(--ember-soft); }
+  .chart-legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 4px 0 6px; font-family: var(--mono); font-size: 10px; color: var(--subtle); letter-spacing: .04em; }
+  .chart-legend span { display: flex; align-items: center; gap: 6px; }
+  .chart-legend .d { width: 6px; height: 6px; border-radius: 50%; }
+  .band-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--subtle); margin: 22px 0 12px; }
+  .nodes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }
+  .node { border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 12px; background: var(--surface); min-height: 66px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color .15s; }
+  .node[onclick] { cursor: pointer; }
+  .node[onclick]:hover { border-color: var(--ember-border); }
+  .node.has-plat { border-color: rgba(63,185,80,.35); background: rgba(63,185,80,.04); }
+  .node.has-proof { border-color: var(--ember-border); background: var(--ember-soft); }
+  .node.hidden { display: none; }
+  .node-name { font-size: 12.5px; color: var(--fg); line-height: 1.3; font-weight: 500; }
+  .node-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+  .node-dots { display: flex; gap: 3px; }
+  .node-dots .d { width: 5px; height: 5px; border-radius: 50%; }
+  .node-ct { font-family: var(--mono); font-size: 9.5px; color: var(--subtle); }
+  @media (max-width: 820px) { .nodes { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 520px) { .nodes { grid-template-columns: repeat(2, 1fr); } }
   .comp-dot { margin-top: 5px; flex-shrink: 0; }
   .comp-dot .d { width: 7px; height: 7px; border-radius: 50%; display: block; }
   .d-built { background: var(--live); }
@@ -449,7 +473,7 @@
     <aside class="sidebar">
       <p class="kicker">pdproductlab26 · Applied AI Lab</p>
       <h1>Pinak Dutta</h1>
-      <p class="hook">I'd rather build applied AI in motion, with the returns visible, than pitch a deck about it. This is the GitHub where that takes shape: problem to product, quickly.</p>
+      <p class="hook">I'd rather see applied AI in motion, with the returns visible, than pitch a deck about it. This is the GitHub where that takes shape: problem to product, quickly.</p>
 
       <ul class="sidebar-meta">
         <li>
@@ -1154,8 +1178,61 @@
         <h2 class="act2-head">The Agentic Org Chart</h2>
         <p class="act2-intro">Every function of the enterprise, mapped. Where a platform already exists it anchors the function; companion agents fill in the rest. Nothing here is industry-specific: the same shape works for banking, health, automotive, anything.</p>
 
+        <!-- Filter: the honesty control. Hit Real + Proof to collapse to what is real. -->
+        <div class="filter">
+          <span class="fpill on" onclick="filterTier(this,'all')">All</span>
+          <span class="fpill" onclick="filterTier(this,'real')">Real</span>
+          <span class="fpill" onclick="filterTier(this,'proof')">Proof</span>
+          <span class="fpill" onclick="filterTier(this,'catalog')">Catalog</span>
+        </div>
+        <div class="chart-legend">
+          <span><span class="d d-built"></span>Real platform</span>
+          <span><span class="d d-proof"></span>Proof</span>
+          <span><span class="d d-cat"></span>Catalog</span>
+        </div>
+
+        <div class="chart-band">
+          <div class="band-label">Technology functions</div>
+          <div class="nodes">
+            <div class="node has-plat" data-tiers="real proof catalog" onclick="goToFn('development')"><span class="node-name">Development</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">6</span></div></div>
+            <div class="node has-plat" data-tiers="real proof catalog"><span class="node-name">DevOps / SRE</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node has-plat" data-tiers="real proof catalog" onclick="goToFn('security')"><span class="node-name">Security</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node has-plat" data-tiers="real catalog"><span class="node-name">Tech Compliance</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node has-plat" data-tiers="real catalog"><span class="node-name">Product Support</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node has-plat" data-tiers="real catalog"><span class="node-name">Eng Ops</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="proof catalog"><span class="node-name">Product Mgmt</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node" data-tiers="proof catalog"><span class="node-name">QA / Testing</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">UX Research</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Architecture</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Release / Change</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Data Eng / Platform</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">IT Service / Asset</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">2</span></div></div>
+          </div>
+
+          <div class="band-label">Enterprise (horizontal) functions</div>
+          <div class="nodes">
+            <div class="node has-proof" data-tiers="proof catalog" onclick="goToFn('legal')"><span class="node-name">Legal &amp; Compliance</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node has-plat" data-tiers="real proof catalog"><span class="node-name">Finance</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">7</span></div></div>
+            <div class="node" data-tiers="proof catalog"><span class="node-name">Sales &amp; BD</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Marketing</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Customer Success</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">HR &amp; People</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Talent Acquisition</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Procurement</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Strategy / CorpDev</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Risk &amp; Audit</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="proof catalog"><span class="node-name">Operations / Supply</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node" data-tiers="proof catalog"><span class="node-name">Data &amp; Analytics</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Comms &amp; PR</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Partnerships</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">2</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Facilities</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Exec / Board / IR</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
+            <div class="node" data-tiers="catalog"><span class="node-name">Internal Comms</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">2</span></div></div>
+          </div>
+        </div>
+
         <!-- SECURITY -->
-        <div class="fn-section">
+        <div class="fn-section" id="fn-security" style="scroll-margin-top:72px;">
           <div class="fn-head2"><span class="fn-title">Security</span><span class="fn-ct">1 platform &middot; 3 companion agents</span></div>
           <p class="fn-thesis2">Agents take on execution while a human stays as reviewer, approver, or exception handler.</p>
           <div class="anchor">
@@ -1210,7 +1287,7 @@
         </div>
 
         <!-- LEGAL & COMPLIANCE -->
-        <div class="fn-section">
+        <div class="fn-section" id="fn-legal" style="scroll-margin-top:72px;">
           <div class="fn-head2"><span class="fn-title">Legal &amp; Compliance</span><span class="fn-ct">1 proof build &middot; 3 companion agents</span></div>
           <p class="fn-thesis2">Agents take on execution while a human stays as reviewer, approver, or exception handler.</p>
           <div class="anchor proof">
@@ -1265,7 +1342,7 @@
         </div>
 
         <!-- DEVELOPMENT -->
-        <div class="fn-section">
+        <div class="fn-section" id="fn-development" style="scroll-margin-top:72px;">
           <div class="fn-head2"><span class="fn-title">Development</span><span class="fn-ct">2 platforms &middot; 4 companion agents</span></div>
           <p class="fn-thesis2">Agents take on execution while a human stays as reviewer, approver, or exception handler.</p>
           <div class="anchor">
@@ -1362,6 +1439,20 @@
     card.querySelectorAll('.tab-content').forEach(function(tc) {
       tc.classList.toggle('active', tc.dataset.tab === tabName);
     });
+  }
+  // Org chart: filter nodes by tier (a node shows if it holds an agent at that tier).
+  function filterTier(pill, tier) {
+    document.querySelectorAll('.filter .fpill').forEach(function(p) { p.classList.remove('on'); });
+    pill.classList.add('on');
+    document.querySelectorAll('.node').forEach(function(n) {
+      var tiers = (n.getAttribute('data-tiers') || '').split(' ');
+      n.classList.toggle('hidden', !(tier === 'all' || tiers.indexOf(tier) > -1));
+    });
+  }
+  // Org chart node: scroll to its function section when one exists.
+  function goToFn(slug) {
+    var el = document.getElementById('fn-' + slug);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   // Platform board tile: open its detail card, scroll to it, mark the tile active.
   function togglePlatform(tile, id) {
