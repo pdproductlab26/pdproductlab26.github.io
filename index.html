@@ -645,8 +645,8 @@
           <div class="tab-content" data-card="optikon" data-tab="story">
             <span class="s-label">What it is</span>
             <ul class="bullets">
-              <li>AI spend visibility and allocation tool for FinOps teams: real-time cost allocation, variance detection, and governance across every LLM provider an enterprise uses.</li>
-              <li>Pulls spend from OpenAI, Anthropic, Google, and every other AI API. Maps every dollar to a cost center, team, use case, and owner.</li>
+              <li>AI spend visibility and allocation tool for FinOps teams: real-time cost allocation, variance detection, and governance across the major LLM providers an enterprise uses.</li>
+              <li>Pulls spend from OpenAI, Anthropic, Google, and other major providers. Maps every dollar to a cost center, team, use case, and owner.</li>
               <li>Most enterprises today receive AI spend as a single-line invoice with no decomposition, no attribution, and no governance.</li>
               <li class="punch">Optikon eliminates all of that.</li>
             </ul>
@@ -654,7 +654,7 @@
             <ul class="bullets">
               <li>Finance teams are discovering AI spend at month-end close, weeks after the variance compounded, long after any corrective action is possible.</li>
               <li>The AI invoice arrives as one number. It does not say which team, which product, which use case, or which model.</li>
-              <li>One enterprise ran up $500M in Claude charges before anyone noticed.</li>
+              <li>One company reportedly ran up $500M in Claude charges in a single month before finance saw the bill (Axios, May 2026).</li>
               <li class="punch">This is not a tooling gap. It is a visibility gap: the total absence of a ledger between what AI providers charge and what finance can explain.</li>
             </ul>
           </div>
@@ -669,7 +669,7 @@
           </div>
           <div class="tab-content" data-card="optikon" data-tab="diff">
             <p class="diff-h">The buyer's objection</p>
-            <div class="objection-block">"We already have Datadog. We have our cloud cost management in Apptio. We track OpenAI spend in our billing dashboard. What exactly does Optikon do that we don't already have?"</div>
+            <div class="objection-block">"We already have Datadog. We have our cloud cost management in Apptio. We track OpenAI spend in our billing dashboard. We're even evaluating CloudZero for AI cost allocation. What exactly does Optikon do that we don't already have?"</div>
             <p class="diff-h">The answer</p>
             <ul class="bullets gap">
               <li>The tools FinOps teams already use are observability stacks. They tell you what happened.</li>
@@ -677,10 +677,10 @@
               <li class="punch">Those questions live entirely unmapped in the existing stack. Optikon owns them.</li>
             </ul>
             <div class="arch-diffs">
-              <div class="arch-diff"><span class="arch-diff-label">Attribution layer, not measurement layer</span><ul class="bullets" style="margin:4px 0 0"><li>Datadog tells engineering the call was made. It cannot tell finance who pays for it. Attribution requires: API key to cost center mapping, a budget baseline FinOps owns, and real-time comparison with alert routing. No existing tool provides all three.</li></ul></div>
-              <div class="arch-diff"><span class="arch-diff-label">Continuous, not monthly</span><ul class="bullets" style="margin:4px 0 0"><li>The root cause of invoice shock is that every existing tool operates on daily or monthly summaries. The variance compounds for weeks before it is visible. Optikon updates continuously.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Attribution layer, not measurement layer</span><ul class="bullets" style="margin:4px 0 0"><li>Datadog tells engineering the call was made. It cannot tell finance who pays for it. Attribution requires: API key to cost center mapping, a budget baseline FinOps owns, and real-time comparison with alert routing. The observability and cloud-billing tools most enterprises already own provide none of the three together.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Continuous, not monthly</span><ul class="bullets" style="margin:4px 0 0"><li>The root cause of invoice shock is that cloud billing consoles and provider invoices surface AI spend on a daily or monthly delay. The variance compounds for weeks before it is visible. Optikon updates continuously.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Org structure, not cloud accounts</span><ul class="bullets" style="margin:4px 0 0"><li>Finance thinks in cost centers. Datadog, Apptio, and cloud billing tools use different primitives. Optikon maintains the mapping layer between them, configurable, applied retroactively.</li></ul></div>
-              <div class="arch-diff"><span class="arch-diff-label">Unit economics, not spend totals</span><ul class="bullets" style="margin:4px 0 0"><li>Knowing a cost center spent a given amount last month is useful. Knowing the cost per ticket for a use case, and that a cheaper model would cut it materially, is actionable.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Unit economics, not spend totals</span><ul class="bullets" style="margin:4px 0 0"><li>Knowing a cost center spent a given amount last month is useful. Knowing the cost per ticket for a use case, and that a cheaper model would cut it materially, is actionable.</li></ul></div><div class="arch-diff"><span class="arch-diff-label">FinOps workflow, not just allocation</span><ul class="bullets" style="margin:4px 0 0"><li>CloudZero-class platforms allocate AI spend to teams and features, and do it well. The line Optikon holds is the FinOps workflow on top of allocation: budget baselines finance owns, variance alerts routed to a named owner in time to act, and an org mapping applied retroactively when the cost center tree changes.</li></ul></div>
             </div>
             <div class="one-liner">Every cost management tool you have was built for cloud infrastructure: they can tell you what your AI APIs charged, but not which team, which use case, or whether it matched the budget. Optikon is the allocation layer that maps every AI dollar to a cost center and alerts you before the variance becomes an invoice.</div>
           </div>
@@ -720,7 +720,7 @@
             <button class="tab-btn" onclick="switchTab(this,'ichnos','layers')">Agentic Intelligence</button>
           </div>
           <div class="tab-content active" data-card="ichnos" data-tab="name">
-            <div class="name-block">ichnos (ίχνος) is ancient Greek for a track, a footprint - the physical mark left by an agent that passed through a space.<br><br>Your AI assistant has already written code, reviewed PRs, and proposed architecture. None of it left a mark.<br><br>Ichnos captures the decision record for every AI-written change at the moment it is made: timestamped, kept in git alongside the code it produced, and preserved in an independent, server-side system of record that is re-verified on demand, so any later edit to the trail is detectable.<br><br>AI-accountability expectations are tightening, such as the EU AI Act and California AB 2013. When your auditor asks what the AI decided and why, ichnos is your answer.</div>
+            <div class="name-block">ichnos (ίχνος) is ancient Greek for a track, a footprint - the physical mark left by an agent that passed through a space.<br><br>Your AI assistant has already written code, reviewed PRs, and proposed architecture. None of it left a mark.<br><br>Ichnos captures the decision record for every AI-written change at the moment it is made: timestamped, kept in git alongside the code it produced, and preserved in an independent, server-side system of record that is re-verified on demand, so any later edit to the trail is detectable.<br><br>AI-accountability expectations are tightening, from the EU AI Act to ISO/IEC 42001 and the audit expectations regulated industries already apply to code. When your auditor asks what the AI decided and why, ichnos is your answer.</div>
           </div>
           <div class="tab-content" data-card="ichnos" data-tab="story">
             <span class="s-label">What it is</span>
@@ -831,7 +831,7 @@
             <p class="diff-h">The answer</p>
             <ul class="bullets gap">
               <li>Jira is a recording stack. It records what a human entered and displays it back accurately. That is its architectural boundary.</li>
-              <li>It does not read comments, recompute forecast dates when stories change, or detect that an engineer hasn't committed code in five days.</li>
+              <li>Atlassian's Rovo agents can summarize comments and surface risks on request. Nothing in the stack recomputes every forecast date bottom-up the moment a story changes, joins code signals to ticket signals, or attaches cited evidence to every root cause.</li>
               <li class="punch">The gap between a Jira record and an accurate delivery forecast is filled by hours of manual human work every week. Alethinos closes that gap.</li>
             </ul>
             <div class="arch-diffs">
@@ -844,7 +844,7 @@
           <div class="tab-content" data-card="alethinos" data-tab="layers">
             <span class="s-label">Three intelligence layers</span>
             <div class="layers-grid">
-              <div class="layer-card"><p class="layer-name">Structured Jira Data</p><p class="layer-desc">Projects, epics, stories, velocity: the mathematically correct forecast date computed bottom-up on each sync. Not what someone entered. What is actually true.</p></div>
+              <div class="layer-card"><p class="layer-name">Structured Jira Data</p><p class="layer-desc">Projects, epics, stories, velocity: the forecast date deterministically recomputed from story-level actuals on each sync. Not what someone entered. What is actually true.</p></div>
               <div class="layer-card"><p class="layer-name">Human Language in Comments</p><p class="layer-desc">Every comment on every ticket, LLM-processed on each sync. Blocker signals, scope expansion, capacity leakage, hidden decisions, the actual causes of slippage, invisible to Jira.</p></div>
               <div class="layer-card"><p class="layer-name">Code Signals</p><p class="layer-desc">PRs open 14+ days with no reviewer. Zero commits to an in-progress branch for 5+ days. 40+ files changed on a 3-point story. The signals Jira will never see.</p></div>
             </div>
@@ -1052,7 +1052,7 @@
             <span class="s-label">The core problem</span>
             <ul class="bullets">
               <li>Traditional IAM is a rule engine pretending to be a governance system. It enforces static policies written years ago.</li>
-              <li>Quarterly certification campaigns where reviewers rubber-stamp 96% of entitlements with no information to make a real decision.</li>
+              <li>Quarterly certification campaigns where reviewers rubber-stamp the overwhelming majority of entitlements with no information to make a real decision.</li>
               <li>SoD violations caught only after an auditor surfaces them in a finding.</li>
               <li>Joiners wait three days for access because someone has to approve a ticket. Leavers leave ghost accounts behind.</li>
               <li class="punch">Access creep accumulates silently for 90 days before anyone notices.</li>
@@ -1078,8 +1078,8 @@
             </ul>
             <div class="arch-diffs">
               <div class="arch-diff"><span class="arch-diff-label">Continuous posture, not periodic snapshots</span><ul class="bullets" style="margin:4px 0 0"><li>Every tool in your existing stack operates on a trigger: a campaign opens, an alert fires, a ticket is raised. Between triggers, nothing changes in the governance record regardless of what changes in the actual access estate. Pistis re-scores every active entitlement after every sync - which runs on a frequent, configurable cadence or on-demand. The posture score for every identity is a live number, not a quarterly certificate.</li></ul></div>
-              <div class="arch-diff"><span class="arch-diff-label">Cross-app conflict graph, not single-tool boundary</span><ul class="bullets" style="margin:4px 0 0"><li>SoD conflicts in your existing estate do not live inside one system. An AP invoice entry permission lives in SAP. An AP payment approval lives in SAP. But the identity holding both may have been provisioned by SailPoint, authenticated via Okta, and reviewed via ServiceNow - and none of those platforms is building a cross-application conflict graph in real time. Pistis maintains a unified entitlement graph across all connected apps and queries it after every sync.</li></ul></div>
-              <div class="arch-diff"><span class="arch-diff-label">Action on the entitlement, not just the alert</span><ul class="bullets" style="margin:4px 0 0"><li>Every tool in the existing stack terminates at output. A human must translate that output into an action in a downstream system. The median time between a Splunk alert and a remediated entitlement in most enterprises is measured in days. Pistis closes the loop: when the anomaly engine crosses a risk threshold, it calls the directory API directly. When the JML engine receives a LEAVER event, it revokes access across all connectors within 60 seconds.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Cross-app conflict graph, not single-tool boundary</span><ul class="bullets" style="margin:4px 0 0"><li>SoD conflicts in your existing estate do not live inside one system. An AP invoice entry permission lives in SAP. An AP payment approval lives in SAP. But the identity holding both may have been provisioned by SailPoint, authenticated via Okta, and reviewed via ServiceNow - SailPoint and Okta can enforce SoD rules you author by hand, but the rules are static, certification stays campaign-based, and nothing scores whether an entitlement is still warranted or revokes it on a live risk signal. Pistis maintains a unified entitlement graph across all connected apps and queries it after every sync.</li></ul></div>
+              <div class="arch-diff"><span class="arch-diff-label">Action on the entitlement, not just the alert</span><ul class="bullets" style="margin:4px 0 0"><li>Every tool in the existing stack terminates at output. A human must translate that output into an action in a downstream system. In most enterprises the gap between a Splunk alert and a remediated entitlement is measured in days, not minutes. Pistis closes the loop: when the anomaly engine crosses a risk threshold, it calls the directory API directly. When the JML engine receives a LEAVER event, it revokes access across all connectors within 60 seconds.</li></ul></div>
               <div class="arch-diff"><span class="arch-diff-label">Warranted trust, not a compliance record</span><ul class="bullets" style="margin:4px 0 0"><li>Every tool in the existing stack produces evidence that a process was followed - not whether the access decisions made inside those controls were actually correct. Pistis generates a rationale for every access decision: why this entitlement was kept, why it was revoked, what signal drove the score. A reviewer reading a certification item sees: "This entitlement has not been exercised in 127 days. The Finance AP Manager peer group does not typically hold Salesforce Admin access. AI confidence: 94%. Recommendation: revoke."</li></ul></div>
             </div>
             <div class="one-liner">Every tool in your IAM stack tells you what access exists. Pistis is the system that scores whether each grant is still warranted, catches conflicts across your entire app estate in real time, and executes revocations the moment the threshold is crossed - while you approve each consequential step.</div>
@@ -1203,7 +1203,7 @@
             <span class="s-label">What it is</span>
             <ul class="bullets">
               <li>Agentic compliance platform that replaces the audit scramble with a compliance agent that runs continuously, maps every deployment to your control framework in real time, and hands a complete, signed evidence package to the auditor without a single manual assembly step.</li>
-              <li>Traditional tools (Vanta, Drata) automate the checklist. They still rely on humans to collect evidence, interpret gaps, and run the audit conversation.</li>
+              <li>Traditional tools (Vanta, Drata) automate configuration-state evidence: they can show a control exists right now. What they do not produce is a signed chain of deployment events proving the control operated over time, and humans still interpret the gaps and run the audit conversation.</li>
               <li class="punch">Nomos eliminates all of that.</li>
             </ul>
             <span class="s-label">The core problem</span>
