@@ -121,7 +121,19 @@
   .tag-framing, .tag-proof { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--ember); border: 1px solid var(--ember-border); border-radius: 20px; padding: 2px 9px; }
   .anchor-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-  .companion { display: flex; align-items: flex-start; gap: 12px; border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 16px; margin-bottom: 8px; background: var(--surface); }
+  .companion { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; background: var(--surface); transition: border-color .15s; }
+  .companion:hover { border-color: var(--ember-border); }
+  .companion.open { border-color: var(--ember-border); }
+  .companion-head { display: flex; align-items: flex-start; gap: 12px; padding: 13px 16px; cursor: pointer; }
+  .comp-chev { margin-left: auto; color: var(--subtle); font-size: 15px; line-height: 1.2; flex-shrink: 0; transition: transform .2s; }
+  .companion.open .comp-chev { transform: rotate(90deg); color: var(--ember); }
+  .companion-body { display: none; padding: 4px 16px 18px; border-top: 1px solid var(--border-soft); }
+  .companion.open .companion-body { display: block; }
+  .companion-body .product-tabs { margin-top: 8px; }
+  .companion-body p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 72ch; margin-bottom: 10px; }
+  .companion-body p b { color: var(--fg); font-weight: 500; }
+  .comp-note { border-left: 2px solid var(--live); background: rgba(63,185,80,.05); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; font-size: 12.5px; color: var(--muted); line-height: 1.7; margin-top: 4px; }
+  .comp-note b { color: var(--fg); font-weight: 500; }
   .comp-dot { margin-top: 5px; flex-shrink: 0; }
   .comp-dot .d { width: 7px; height: 7px; border-radius: 50%; display: block; }
   .d-built { background: var(--live); }
@@ -437,7 +449,7 @@
     <aside class="sidebar">
       <p class="kicker">pdproductlab26 · Applied AI Lab</p>
       <h1>Pinak Dutta</h1>
-      <p class="hook">Built by someone who would rather ship the idea than write a deck about it. Applied AI strategy put to use: problem to product, quickly.</p>
+      <p class="hook">I'd rather build applied AI in motion, with the returns visible, than pitch a deck about it. This is the GitHub where that takes shape: problem to product, quickly.</p>
 
       <ul class="sidebar-meta">
         <li>
@@ -1134,7 +1146,6 @@
 
       <!-- ── Bridge: Act 1 → Act 2 (org chart slots in here next) ── -->
       <div class="bridge" id="bridge">
-        <p class="bridge-line">The rest of the map is that same follow-through, pointed at everywhere else the enterprise works.</p>
         <p class="bridge-sub">Agents take the execution. Humans keep the judgment.</p>
       </div>
 
@@ -1151,9 +1162,51 @@
             <div class="anchor-top"><span class="anchor-name">Pistis</span><span class="tag-framing">Platform &middot; Framing</span></div>
             <p class="anchor-desc">Agentic IAM. Context-aware access that reasons about intent and risk instead of static role rules.</p>
           </div>
-          <div class="companion"><span class="comp-dot"><span class="d d-proof"></span></span><div class="comp-body"><div class="comp-name">Threat Model Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> drafts a threat model from an architecture diagram or PR. <b>Human:</b> validates and extends it.</p></div></div>
-          <div class="companion"><span class="comp-dot"><span class="d d-proof"></span></span><div class="comp-body"><div class="comp-name">Vulnerability Triage Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> ranks scanner output by real exploitability and reachability, not raw CVSS. <b>Human:</b> confirms the priority order.</p></div></div>
-          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Access Recertification Agent</div><p class="comp-split"><b>Agent:</b> flags over-privileged and stale access. <b>Human:</b> makes the recert decision.</p><p class="xref">Pistis grants access live; this cleans up what is already granted.</p></div></div>
+          <div class="companion" id="card-threatmodel">
+            <div class="companion-head" onclick="toggle('threatmodel')">
+              <span class="comp-dot"><span class="d d-proof"></span></span>
+              <div class="comp-body"><div class="comp-name">Threat Model Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> drafts a threat model from an architecture diagram or PR. <b>Human:</b> validates and extends it.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'threatmodel','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'threatmodel','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Threat modeling happens late, if it happens at all. A security engineer sits down with a diagram and enumerates attack paths by hand, so under deadline it gets skipped, and coverage depends on who showed up that day.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent reads the architecture diagram or PR and drafts a first-pass threat model: assets, entry points, and likely abuse cases, each tied to the component it touches. The security engineer validates it, cuts the noise, and adds the threats only someone who knows the business would see.</p><div class="comp-note"><b>The line is deliberate.</b> The agent enumerates the attack surface; the human decides which threats actually matter and what to do about them.</div></div>
+            </div>
+          </div>
+          <div class="companion" id="card-vulntriage">
+            <div class="companion-head" onclick="toggle('vulntriage')">
+              <span class="comp-dot"><span class="d d-proof"></span></span>
+              <div class="comp-body"><div class="comp-name">Vulnerability Triage Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> ranks scanner output by real exploitability and reachability, not raw CVSS. <b>Human:</b> confirms the priority order.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'vulntriage','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'vulntriage','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Scanners emit hundreds of findings ranked by raw CVSS. Someone triages top-down by score, so a critical on an unreachable dev dependency outranks a medium on an internet-facing service, and the real risks wait in the queue.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent re-ranks the scanner output by real exploitability and reachability: whether the vulnerable path is actually reachable, whether it is exposed, whether a known exploit exists. The engineer confirms the priority order and owns what gets fixed first.</p><div class="comp-note"><b>The line is deliberate.</b> The agent reasons about exploitability; the human owns the risk call and the fix order.</div></div>
+            </div>
+          </div>
+          <div class="companion" id="card-accessrecert">
+            <div class="companion-head" onclick="toggle('accessrecert')">
+              <span class="comp-dot"><span class="d d-cat"></span></span>
+              <div class="comp-body"><div class="comp-name">Access Recertification Agent</div><p class="comp-split"><b>Agent:</b> flags over-privileged and stale access. <b>Human:</b> makes the recert decision.</p><p class="xref">Pistis grants access live; this cleans up what is already granted.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'accessrecert','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'accessrecert','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Access reviews are a quarterly spreadsheet fire drill. Managers rubber-stamp long lists they cannot really evaluate, so stale and over-privileged access quietly lingers until an incident finds it.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent flags over-privileged and stale access with the evidence for each: last used, peer comparison, privilege against role. The manager makes the recert decision from a short, reasoned list instead of a wall of rows.</p><div class="comp-note"><b>The line is deliberate.</b> The agent surfaces and explains; the human decides revoke or keep.</div></div>
+            </div>
+          </div>
         </div>
 
         <!-- LEGAL & COMPLIANCE -->
@@ -1164,9 +1217,51 @@
             <div class="anchor-top"><span class="anchor-name">Contract Redline Agent</span><span class="tag-proof">Proof &middot; runnable</span></div>
             <p class="anchor-desc">First-pass review against the negotiating playbook, precedent-aware severity, drafts redlines. Counsel decides accept, negotiate, or walk. The reference implementation, with a repo you can clone and run in ten seconds.</p>
           </div>
-          <div class="companion"><span class="comp-dot"><span class="d d-proof"></span></span><div class="comp-body"><div class="comp-name">Regulatory Change Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> monitors regulatory updates, drafts impact summaries against current controls. <b>Human:</b> makes the legal call.</p></div></div>
-          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Policy Drift Agent</div><p class="comp-split"><b>Agent:</b> checks internal policies against current regulation, flags drift. <b>Human:</b> decides the fix.</p></div></div>
-          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Litigation First-Pass Agent</div><p class="comp-split"><b>Agent:</b> first-pass discovery review. <b>Human:</b> counsel makes every call.</p></div></div>
+          <div class="companion" id="card-regchange">
+            <div class="companion-head" onclick="toggle('regchange')">
+              <span class="comp-dot"><span class="d d-proof"></span></span>
+              <div class="comp-body"><div class="comp-name">Regulatory Change Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> monitors regulatory updates, drafts impact summaries against current controls. <b>Human:</b> makes the legal call.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'regchange','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'regchange','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Someone in legal watches regulators, newsletters, and law-firm alerts, then guesses which changes touch the company. Relevant updates slip through, and impact gets assessed ad hoc once it is already urgent.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent monitors regulatory updates and drafts an impact summary against the company's current controls: what changed, which policy or control it touches, what likely has to move. Legal makes the call on materiality and response.</p><div class="comp-note"><b>The line is deliberate.</b> The agent maps the change to controls; the lawyer makes the legal judgment.</div></div>
+            </div>
+          </div>
+          <div class="companion" id="card-policydrift">
+            <div class="companion-head" onclick="toggle('policydrift')">
+              <span class="comp-dot"><span class="d d-cat"></span></span>
+              <div class="comp-body"><div class="comp-name">Policy Drift Agent</div><p class="comp-split"><b>Agent:</b> checks internal policies against current regulation, flags drift. <b>Human:</b> decides the fix.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'policydrift','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'policydrift','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Internal policies are written once and quietly go stale as regulation shifts underneath them. The drift usually surfaces during an audit, which is the worst possible time to find it.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent checks internal policies against current regulation and flags where they have drifted, naming the specific clause and the rule it now conflicts with. A human decides the fix and owns the rewrite.</p><div class="comp-note"><b>The line is deliberate.</b> The agent finds the drift; the human decides the correction.</div></div>
+            </div>
+          </div>
+          <div class="companion" id="card-litigation">
+            <div class="companion-head" onclick="toggle('litigation')">
+              <span class="comp-dot"><span class="d d-cat"></span></span>
+              <div class="comp-body"><div class="comp-name">Litigation First-Pass Agent</div><p class="comp-split"><b>Agent:</b> first-pass discovery review. <b>Human:</b> counsel makes every call.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'litigation','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'litigation','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Discovery means associates reading enormous document sets for relevance and privilege. It is expensive, slow, and inconsistent from one reviewer to the next.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent does a first-pass review, tagging documents for relevance and likely privilege with a rationale and citation for each. Counsel makes every call that matters and re-reviews anything close.</p><div class="comp-note"><b>The line is deliberate.</b> The agent narrows the pile; counsel makes every call.</div></div>
+            </div>
+          </div>
         </div>
 
         <!-- DEVELOPMENT -->
@@ -1182,10 +1277,66 @@
             <p class="anchor-desc">Provenance flight-recorder for AI-written code. A tamper-evident record for regulators.</p>
             <p class="xref">Cross-refs: also relevant to Tech Compliance (Nomos).</p>
           </div>
-          <div class="companion"><span class="comp-dot"><span class="d d-proof"></span></span><div class="comp-body"><div class="comp-name">Code Review Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> first-pass PR review against standards, risk flags, suggested fixes. <b>Human:</b> approves the merge.</p></div></div>
-          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Dependency Upgrade Agent</div><p class="comp-split"><b>Agent:</b> flags stale or vulnerable deps, drafts the upgrade PR, runs tests. <b>Human:</b> approves the bump.</p></div></div>
-          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Migration Agent</div><p class="comp-split"><b>Agent:</b> drafts framework or API migrations module by module. <b>Human:</b> reviews each module.</p></div></div>
-          <div class="companion"><span class="comp-dot"><span class="d d-cat"></span></span><div class="comp-body"><div class="comp-name">Tech-Debt Triage Agent</div><p class="comp-split"><b>Agent:</b> ranks debt by risk vs effort, drafts remediation tickets. <b>Human:</b> schedules.</p></div></div>
+          <div class="companion" id="card-codereview">
+            <div class="companion-head" onclick="toggle('codereview')">
+              <span class="comp-dot"><span class="d d-proof"></span></span>
+              <div class="comp-body"><div class="comp-name">Code Review Agent <span class="mini-tag">Proof candidate</span></div><p class="comp-split"><b>Agent:</b> first-pass PR review against standards, risk flags, suggested fixes. <b>Human:</b> approves the merge.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'codereview','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'codereview','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>PR review competes with everyone's real work. Reviews land late, go shallow under time pressure, and standards get applied unevenly depending on who happens to review.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent takes the first pass on every PR against the team's standards: risk flags, likely bugs, missing tests, and suggested fixes, before a human reviewer opens it. The engineer approves the merge and owns the design judgment.</p><div class="comp-note"><b>The line is deliberate.</b> The agent catches the mechanical issues; the human owns the design call and the merge.</div></div>
+            </div>
+          </div>
+          <div class="companion" id="card-depupgrade">
+            <div class="companion-head" onclick="toggle('depupgrade')">
+              <span class="comp-dot"><span class="d d-cat"></span></span>
+              <div class="comp-body"><div class="comp-name">Dependency Upgrade Agent</div><p class="comp-split"><b>Agent:</b> flags stale or vulnerable deps, drafts the upgrade PR, runs tests. <b>Human:</b> approves the bump.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'depupgrade','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'depupgrade','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Dependency upgrades pile up until a CVE forces a scramble. Bumping a version by hand and then chasing the test failures it causes is nobody's favorite afternoon, so it keeps getting deferred.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent flags stale or vulnerable dependencies, drafts the upgrade PR, runs the tests, and surfaces exactly what broke. A human approves the bump and handles the breaking changes that need judgment.</p><div class="comp-note"><b>The line is deliberate.</b> The agent does the mechanical bump and triage; the human approves the change.</div></div>
+            </div>
+          </div>
+          <div class="companion" id="card-migration">
+            <div class="companion-head" onclick="toggle('migration')">
+              <span class="comp-dot"><span class="d d-cat"></span></span>
+              <div class="comp-body"><div class="comp-name">Migration Agent</div><p class="comp-split"><b>Agent:</b> drafts framework or API migrations module by module. <b>Human:</b> reviews each module.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'migration','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'migration','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Framework and API migrations drag on for quarters. Each module is hand-edited, and the work is repetitive enough to be error-prone and boring enough to keep getting deferred.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent drafts the migration module by module, applying the pattern consistently and flagging the spots that do not fit. The engineer reviews each module and owns the decisions that are not mechanical.</p><div class="comp-note"><b>The line is deliberate.</b> The agent does the repetitive transform; the human reviews every module.</div></div>
+            </div>
+          </div>
+          <div class="companion" id="card-techdebt">
+            <div class="companion-head" onclick="toggle('techdebt')">
+              <span class="comp-dot"><span class="d d-cat"></span></span>
+              <div class="comp-body"><div class="comp-name">Tech-Debt Triage Agent</div><p class="comp-split"><b>Agent:</b> ranks debt by risk vs effort, drafts remediation tickets. <b>Human:</b> schedules.</p></div>
+              <span class="comp-chev">&rsaquo;</span>
+            </div>
+            <div class="companion-body">
+              <div class="product-tabs">
+                <button class="tab-btn active" onclick="switchTab(this,'techdebt','today')">Today</button>
+                <button class="tab-btn" onclick="switchTab(this,'techdebt','tomorrow')">Tomorrow</button>
+              </div>
+              <div class="tab-content active" data-tab="today"><span class="s-label">How it's done today</span><p>Tech debt lives in everyone's head and nobody's backlog. Without a shared ranking, the loudest voice or the latest incident decides what gets paid down.</p></div>
+              <div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>The agent ranks debt by risk against effort and drafts remediation tickets with the rationale attached. The team schedules the work and owns the trade-off against feature delivery.</p><div class="comp-note"><b>The line is deliberate.</b> The agent ranks and drafts; the human schedules the trade-off.</div></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1197,9 +1348,7 @@
     <div class="footer-links">
       <a href="https://github.com/pdproductlab26" target="_blank">github.com/pdproductlab26</a>
       <a href="mailto:pdproductlab@gmail.com">contact</a>
-    </div>
-    <span>8 problem spaces, each answered with a working build. One quarter. June 2026.</span>
-  </footer>
+    </div>  </footer>
 </div><!-- /wrap -->
 
 <script>
