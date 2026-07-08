@@ -76,16 +76,128 @@
     gap: 16px; margin-bottom: 8px;
   }
   .section-label {
-    font-family: var(--mono); font-size: 11px; color: var(--subtle);
+    font-family: var(--mono); font-size: 11px; color: var(--fg);
     letter-spacing: .18em; text-transform: uppercase;
   }
-  .section-hint { font-size: 12px; color: var(--subtle); font-style: italic; }
+  .section-hint { font-size: 12px; color: var(--muted); font-style: italic; }
 
-  /* ── Product rows ─────────────────────────────── */
-  .repo-list { display: flex; flex-direction: column; margin-bottom: 96px; }
+  /* ── Act 1 intro + bridge (two-act narrative) ─── */
+  .act-intro { margin-bottom: 30px; }
+  .act-kicker {
+    font-family: var(--mono); font-size: 11px; color: var(--ember);
+    letter-spacing: .18em; text-transform: uppercase; margin-bottom: 16px; display: block;
+  }
+  .act-intro h2 {
+    font-size: 26px; font-weight: 600; color: var(--fg);
+    line-height: 1.25; letter-spacing: -.01em; margin-bottom: 14px; max-width: 24ch;
+  }
+  .act-intro-p { font-size: 15px; color: var(--muted); max-width: none; text-align: justify; line-height: 1.7; margin-bottom: 12px; }
+  .act-intro-note { font-size: 13px; color: var(--muted); max-width: none; text-align: justify; line-height: 1.7; }
 
-  .repo-item { border-top: 1px solid var(--border); padding: 30px 0; }
-  .repo-item:last-child { border-bottom: 1px solid var(--border); }
+  /* org-chart home label on each platform card */
+  .plat-fn {
+    font-family: var(--mono); font-size: 10px; color: var(--subtle);
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+
+  .bridge { text-align: center; padding: 16px 0 8px; margin-top: 0; border-top: 1px solid var(--border-soft); }
+  .bridge-line { font-size: 17px; color: var(--fg); font-weight: 500; max-width: 54ch; margin: 26px auto 0; line-height: 1.5; }
+  .bridge-sub { font-size: 13px; color: var(--subtle); font-style: italic; margin-top: 10px; }
+  .bridge-box { display: inline-block; font-family: var(--mono); font-size: 14px; color: var(--ember); border: 1px solid var(--ember-border); background: var(--ember-soft); border-radius: var(--radius); padding: 12px 20px; letter-spacing: .02em; margin-top: 6px; }
+
+  /* ── Act 2: function sections + companion agent boxes ── */
+  .act2-head { font-size: 22px; color: var(--fg); font-weight: 600; margin: 8px 0 6px; }
+  .act2-intro { font-size: 14px; color: var(--muted); max-width: none; text-align: justify; line-height: 1.7; margin-bottom: 12px; }
+  .coming-soon { text-align: center; font-family: var(--mono); font-size: 12px; color: var(--subtle); letter-spacing: .04em; margin: 30px 0 8px; }
+  .fn-section { display: none; border-top: 1px solid var(--border); padding: 26px 0; }  /* hidden until the agent reveal is built (evening) */
+  .fn-head2 { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+  .fn-title { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); }
+  .fn-ct { font-family: var(--mono); font-size: 11px; color: var(--subtle); }
+  .fn-thesis2 { font-size: 12.5px; color: var(--subtle); font-style: italic; margin-bottom: 18px; }
+
+  .anchor { border: 1px solid rgba(63,185,80,.3); background: rgba(63,185,80,.04); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 10px; }
+  .anchor.proof { border-color: var(--ember-border); background: var(--ember-soft); }
+  .anchor-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .anchor-name { font-size: 16px; color: var(--fg); font-weight: 500; }
+  .tag-plat { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--live); border: 1px solid rgba(63,185,80,.4); border-radius: 20px; padding: 2px 9px; }
+  .tag-framing, .tag-proof { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--ember); border: 1px solid var(--ember-border); border-radius: 20px; padding: 2px 9px; }
+  .anchor-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  .companion { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; background: var(--surface); transition: border-color .15s; }
+  .companion:hover { border-color: var(--ember-border); }
+  .companion.open { border-color: var(--ember-border); }
+  .companion-head { display: flex; align-items: flex-start; gap: 12px; padding: 13px 16px; cursor: pointer; }
+  .comp-chev { margin-left: auto; color: var(--subtle); font-size: 15px; line-height: 1.2; flex-shrink: 0; transition: transform .2s; }
+  .companion.open .comp-chev { transform: rotate(90deg); color: var(--ember); }
+  .companion-body { display: none; padding: 4px 16px 18px; border-top: 1px solid var(--border-soft); }
+  .companion.open .companion-body { display: block; }
+  .companion-body .product-tabs { margin-top: 8px; }
+  .companion-body p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 72ch; margin-bottom: 10px; }
+  .companion-body p b { color: var(--fg); font-weight: 500; }
+  .comp-note { border-left: 2px solid var(--live); background: rgba(63,185,80,.05); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; font-size: 12.5px; color: var(--muted); line-height: 1.7; margin-top: 4px; }
+  .comp-note b { color: var(--fg); font-weight: 500; }
+
+  /* ── Org chart: filter + node grid ── */
+  .filter { display: flex; gap: 8px; margin: 16px 0 6px; flex-wrap: wrap; }
+  .fpill { font-family: var(--mono); font-size: 11px; color: var(--muted); border: 1px solid var(--border); border-radius: 20px; padding: 5px 13px; cursor: pointer; transition: color .15s, border-color .15s, background .15s; }
+  .fpill:hover { color: var(--fg); }
+  .fpill.on { color: var(--ember); border-color: var(--ember-border); background: var(--ember-soft); }
+  .chart-legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 4px 0 6px; font-family: var(--mono); font-size: 10px; color: var(--subtle); letter-spacing: .04em; }
+  .chart-legend span { display: flex; align-items: center; gap: 6px; }
+  .chart-legend .d { width: 6px; height: 6px; border-radius: 50%; }
+  .band-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg); margin: 22px 0 12px; }
+  .nodes { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }
+  .node { border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 12px; background: var(--surface); min-height: 66px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color .15s; }
+  .node[onclick] { cursor: pointer; }
+  .node[onclick]:hover { border-color: var(--ember-border); }
+  .node.has-plat { border-color: rgba(63,185,80,.35); background: rgba(63,185,80,.04); }
+  .node.has-proof { border-color: var(--ember-border); background: var(--ember-soft); }
+  .node.hidden { display: none; }
+  .node-name { font-size: 12.5px; color: var(--fg); line-height: 1.3; font-weight: 500; }
+  .node-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+  .node-dots { display: flex; gap: 3px; }
+  .node-dots .d { width: 5px; height: 5px; border-radius: 50%; }
+  .node-ct { font-family: var(--mono); font-size: 9.5px; color: var(--subtle); }
+  @media (max-width: 820px) { .nodes { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 520px) { .nodes { grid-template-columns: repeat(2, 1fr); } }
+  .comp-dot { margin-top: 5px; flex-shrink: 0; }
+  .comp-dot .d { width: 7px; height: 7px; border-radius: 50%; display: block; }
+  .d-built { background: var(--live); }
+  .d-proof { background: var(--ember); }
+  .d-cat { background: transparent; border: 1px solid var(--subtle); }
+  .comp-body { flex: 1; min-width: 0; }
+  .comp-name { font-size: 13.5px; color: var(--fg); font-weight: 500; margin-bottom: 3px; }
+  .mini-tag { font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ember); margin-left: 8px; vertical-align: middle; }
+  .comp-split { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .comp-split b { color: var(--fg); font-weight: 500; }
+  .xref { font-family: var(--mono); font-size: 11px; color: var(--subtle); margin-top: 6px; }
+
+  /* ── Platform overview grid (the whole board in one place) ── */
+  .plat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 6px 0 4px; }
+  .plat {
+    border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+    padding: 13px 14px; cursor: pointer; text-align: left; width: 100%; font-family: var(--sans);
+    transition: border-color .15s, background .15s;
+  }
+  .plat:hover { border-color: var(--ember-border); background: var(--ember-soft); }
+  .plat.active { border-color: var(--ember-border); background: var(--ember-soft); }
+  .plat-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .plat-name { font-size: 14px; color: var(--fg); font-weight: 500; }
+  .plat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .plat-dot.real { background: var(--live); }
+  .plat-dot.framing { background: var(--ember); }
+  .plat-desc { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+  .plat-site { display: inline-block; margin-top: 8px; font-family: var(--mono); font-size: 10.5px; color: var(--ember); }
+  .plat-site:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ── Product rows: detail panels, revealed when a tile is clicked ── */
+  .repo-list { display: block; margin-bottom: 16px; }
+  .repo-item {
+    border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+    padding: 22px 24px; margin-bottom: 10px;
+  }
+  .repo-item:not(.open) { display: none; }
+  .repo-item:last-child { margin-bottom: 0; }
 
   .repo-header {
     display: flex; align-items: flex-start; justify-content: space-between;
@@ -332,6 +444,11 @@
   .btn-icon:hover { background: var(--ember-soft); }
   .btn-icon svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
+  .sidebar .about { margin: 24px 0 0; }
+  .sidebar .about p { font-size: 12.5px; line-height: 1.7; max-width: none; margin-bottom: 12px; }
+  .sidebar .about .section-label { margin-bottom: 12px !important; }
+  .sidebar .about .mantra { font-size: 11.5px; gap: 10px; }
+
   .main-col { flex: 1; min-width: 0; }
   .repo-list { margin-bottom: 72px; }
   .about { margin-bottom: 72px; }
@@ -340,6 +457,61 @@
     .layout { flex-direction: column; gap: 48px; padding-top: 64px; }
     .sidebar { width: 100%; position: static; }
   }
+  @media (max-width: 760px) { .plat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .plat-grid { grid-template-columns: 1fr; } }
+
+  /* ══ Act 2 — data-driven org chart + companion cards (rendered from #agents-data) ══ */
+  .fn-section.open { display: block; }
+  .node.active { border-color: var(--ember); box-shadow: 0 0 0 1px var(--ember-border); }
+  .payoff-headline { font-size: 14px; color: var(--fg); font-weight: 500; margin: 4px 0 18px; line-height: 1.5; }
+  .payoff-list { list-style: none; display: flex; flex-direction: column; gap: 7px; max-width: 70ch; margin-bottom: 20px; }
+  .payoff-list li { font-size: 12.5px; color: var(--muted); line-height: 1.6; padding-left: 16px; position: relative; }
+  .payoff-list li::before { content: '\00B7'; position: absolute; left: 5px; color: var(--subtle); }
+  .mini-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; max-width: 70ch; margin-bottom: 4px; }
+  .mini-bullets li { font-size: 13px; color: var(--muted); line-height: 1.7; padding-left: 16px; position: relative; }
+  .mini-bullets li::before { content: '+'; position: absolute; left: 0; color: var(--live); font-family: var(--mono); }
+  .mini-bullets strong { color: var(--fg); font-weight: 500; }
+  .math-foot { font-family: var(--mono); font-size: 11px; color: var(--subtle); line-height: 1.7; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-soft); max-width: 70ch; }
+
+  /* redline reference card rich content (ported from agent-card-preview-v2) */
+  .desk { border-left: 2px solid var(--border); padding: 16px 20px; background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; max-width: 70ch; font-size: 14px; line-height: 1.75; color: var(--muted); }
+  .desk .from { font-family: var(--mono); font-size: 11px; color: var(--subtle); margin-bottom: 12px; display: block; }
+  .desk .clause { color: var(--fg); }
+  .desk-cost { font-size: 13px; color: var(--subtle); font-style: italic; margin-top: 14px; }
+  .result-head { font-size: 14px; color: var(--fg); margin-bottom: 16px; line-height: 1.6; max-width: 66ch; }
+  .result-head b { color: var(--ember); font-weight: 500; }
+  .decide { display: flex; flex-direction: column; gap: 12px; max-width: 70ch; }
+  .decide-row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 18px; background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); }
+  .sev { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; flex-shrink: 0; margin-top: 2px; }
+  .sev-high { background: var(--ember-soft); color: var(--ember); border: 1px solid var(--ember-border); }
+  .sev-med { background: rgba(138,147,160,.08); color: var(--muted); border: 1px solid var(--border); }
+  .decide-body { font-size: 13.5px; line-height: 1.65; }
+  .decide-body strong { color: var(--fg); font-weight: 500; }
+  .decide-body .sug { color: var(--muted); font-style: italic; display: block; margin-top: 4px; }
+  .boundary-note { border-left: 2px solid var(--live); padding: 14px 18px; margin-top: 20px; background: rgba(63,185,80,.05); border-radius: 0 var(--radius) var(--radius) 0; font-size: 13.5px; line-height: 1.75; color: var(--muted); max-width: 70ch; }
+  .boundary-note strong { color: var(--fg); font-weight: 500; }
+  .math-grid { border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; max-width: 62ch; }
+  .math-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 18px; border-bottom: 1px solid var(--border-soft); background: var(--surface); }
+  .math-row:last-child { border-bottom: none; }
+  .math-k { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .math-v { font-family: var(--mono); font-size: 13px; color: var(--fg); white-space: nowrap; }
+  .math-row.hi { background: var(--bg); }
+  .math-row.hi .math-v { color: var(--ember); }
+  .math-row.total { background: var(--ember-soft); border-top: 1px solid var(--ember-border); }
+  .math-row.total .math-k { color: var(--fg); font-weight: 500; }
+  .math-row.total .math-v { color: var(--ember); font-size: 15px; font-weight: 500; }
+  .math-agent-cost { font-size: 13px; color: var(--muted); font-style: italic; margin: 14px 0 24px; max-width: 62ch; line-height: 1.7; }
+  .math-plus { margin-top: 8px; }
+  .proof-strip { margin-top: 22px; padding: 20px 22px; border: 1px solid var(--ember-border); background: var(--ember-soft); border-radius: var(--radius); max-width: 74ch; }
+  .proof-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .proof-badge { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); border: 1px solid var(--ember-border); border-radius: 20px; padding: 3px 11px; }
+  .proof-run { font-family: var(--mono); font-size: 11px; color: var(--subtle); letter-spacing: .04em; }
+  .proof-copy { font-size: 13.5px; line-height: 1.75; color: var(--muted); margin-bottom: 16px; }
+  .proof-copy strong { color: var(--fg); font-weight: 600; }
+  .proof-copy code { font-family: var(--mono); font-size: 12px; color: var(--ember); }
+  .proof-links { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .proof-note { font-family: var(--mono); font-size: 10.5px; color: var(--subtle); }
+
 </style>
 </head>
 <body>
@@ -358,7 +530,7 @@
     <aside class="sidebar">
       <p class="kicker">pdproductlab26 · Applied AI Lab</p>
       <h1>Pinak Dutta</h1>
-      <p class="hook">Built by someone who would rather ship the idea than write a deck about it. Applied AI strategy put to use: problem to product, quickly.</p>
+      <p class="hook">I'd rather see applied AI in motion, with the returns visible, than pitch a deck about it. This is the GitHub where that takes shape: problem to product, quickly.</p>
 
       <ul class="sidebar-meta">
         <li>
@@ -371,14 +543,6 @@
         </li>
       </ul>
 
-      <div class="profile-stat-row">
-        <a href="#products"><strong>8</strong>&nbsp;ideas</a>
-        <span><strong>1</strong>&nbsp;quarter</span>
-        <a href="#products"><strong>5</strong>&nbsp;real</a>
-      </div>
-
-      <p class="lab-note"><strong>8 problem spaces, each answered with a working build.</strong> Each one is the argument for what gets built next, with a team and capital behind it.</p>
-
       <div class="contact-box">
         <p>Building in this space, or investing in it?</p>
         <div class="contact-actions">
@@ -386,13 +550,41 @@
           <a href="mailto:pdproductlab@gmail.com?subject=Interested" title="Get in touch" class="btn-outline">&#9993; pdproductlab@gmail.com</a>
         </div>
       </div>
+
+      <!-- ── Background: moved into the sidebar, below the contact box ── -->
+      <section class="about" id="background" style="scroll-margin-top: 72px;">
+        <span class="section-label" style="display:block;margin-bottom:12px;">Background</span>
+        <p>FinTech roots into management consulting - many industries, many clients, cultures &amp; constraints &amp; one consistent instinct: technology earns its place only when it solves the right problem. Business first. Technology second.</p>
+        <p>Enterprise developer tooling in recent times, reimagining the ecosystem as agentic, because the moat has always been client-first, forward deployed ethos - the one that moves revenue faster, not the one that moves tickets or chases the next shiny object.</p>
+        <p class="mantra">Learn. Build. Ship. <span class="thesis-badge">agentic everything</span></p>
+      </section>
     </aside>
 
     <!-- ── Main: v3 product organization ────────────── -->
     <main class="main-col" id="products">
+
+      <!-- ── Act 1: platforms, front and center ── -->
+      <div class="act-intro">
+        <h2>What does the agentic enterprise actually look like?</h2>
+        <p class="act-intro-p">Not a chatbot bolted onto a support queue. A full operating model where agents take the first pass on the work, and humans keep the judgment calls.</p>
+        <p class="act-intro-note">Eight platforms, stay front and center. A catalog of companion agents mapped across every function of the enterprise. All of it marked honestly by how real it is.</p>
+      </div>
+
       <div class="section-head">
-        <span class="section-label">The Builds</span>
-        <span class="section-hint">select one to dig deeper</span>
+        <span class="section-label">8 Agentic Platforms</span>
+        <span class="section-hint">Select one to dig deeper</span>
+      </div>
+
+      <!-- Platform board: the whole vision in one place, click a box for detail -->
+      <div class="plat-grid">
+        <div class="plat" role="button" tabindex="0" onclick="togglePlatform(this,'optikon')"><div class="plat-top"><span class="plat-name">Optikon</span><span class="plat-dot real"></span></div><span class="plat-fn">Finance</span><p class="plat-desc">AI spend visibility</p><a class="plat-site" href="https://optikon.dev" target="_blank" onclick="event.stopPropagation()">&#8599; optikon.dev</a></div>
+        <div class="plat" role="button" tabindex="0" onclick="togglePlatform(this,'ichnos')"><div class="plat-top"><span class="plat-name">Ichnos</span><span class="plat-dot real"></span></div><span class="plat-fn">Development</span><p class="plat-desc">Code provenance</p><a class="plat-site" href="https://ichnos.dev" target="_blank" onclick="event.stopPropagation()">&#8599; ichnos.dev</a></div>
+        <div class="plat" role="button" tabindex="0" onclick="togglePlatform(this,'alethinos')"><div class="plat-top"><span class="plat-name">Alethinos</span><span class="plat-dot real"></span></div><span class="plat-fn">Eng Ops</span><p class="plat-desc">Project intelligence</p><a class="plat-site" href="https://alethinos.dev" target="_blank" onclick="event.stopPropagation()">&#8599; alethinos.dev</a></div>
+        <div class="plat" role="button" tabindex="0" onclick="togglePlatform(this,'poiesis')"><div class="plat-top"><span class="plat-name">Poiesis</span><span class="plat-dot real"></span></div><span class="plat-fn">Development</span><p class="plat-desc">Agentic SDLC, issue to prod</p><a class="plat-site" href="https://poiesis-weld.vercel.app/" target="_blank" onclick="event.stopPropagation()">&#8599; poiesis.dev</a></div>
+        <div class="plat" role="button" tabindex="0" onclick="togglePlatform(this,'aegis')"><div class="plat-top"><span class="plat-name">Aegis</span><span class="plat-dot real"></span></div><span class="plat-fn">DevOps / SRE</span><p class="plat-desc">Agentic DevSecOps</p><a class="plat-site" href="https://aegis-nine-eta.vercel.app/" target="_blank" onclick="event.stopPropagation()">&#8599; aegis.dev</a></div>
+        <div class="plat" role="button" tabindex="0" onclick="togglePlatform(this,'pistis')"><div class="plat-top"><span class="plat-name">Pistis</span><span class="plat-dot framing"></span></div><span class="plat-fn">Security</span><p class="plat-desc">Agentic IAM</p></div>
+        <div class="plat" role="button" tabindex="0" onclick="togglePlatform(this,'nexus')"><div class="plat-top"><span class="plat-name">Nexus</span><span class="plat-dot framing"></span></div><span class="plat-fn">Product Support</span><p class="plat-desc">Agentic internal support</p></div>
+        <div class="plat" role="button" tabindex="0" onclick="togglePlatform(this,'nomos')"><div class="plat-top"><span class="plat-name">Nomos</span><span class="plat-dot framing"></span></div><span class="plat-fn">Tech Compliance</span><p class="plat-desc">Agentic compliance evidence</p></div>
       </div>
 
       <div class="repo-list">
@@ -404,10 +596,10 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Optikon</a>
-              <span class="repo-vis">Private</span>
-              <span class="repo-badge-live">Real</span>
               <a href="https://optikon.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; optikon.dev</a>
-            </div>
+              <span class="plat-fn">Finance</span>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-live">Real</span>            </div>
             <p class="repo-desc">You're spending big on AI. Can your business see the return? Real-time cost allocation and variance detection across every LLM provider, every dollar traced to an owner.</p>
             <span class="repo-lang"><span class="lang-dot" style="background:var(--ember)"></span>AI FinOps</span>
           </div>
@@ -487,10 +679,10 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Ichnos</a>
-              <span class="repo-vis">Private</span>
-              <span class="repo-badge-live">Real</span>
               <a href="https://ichnos.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; ichnos.dev</a>
-            </div>
+              <span class="plat-fn">Development</span>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-live">Real</span>            </div>
             <p class="repo-desc">A flight recorder for regulated AI code. Every AI-written change leaves a tamper-evident record, kept in git and preserved in an independent system of record, so when regulators ask why, you already have the receipt.</p>
             <span class="repo-lang"><span class="lang-dot" style="background:var(--ember)"></span>AI Provenance (Regulatory)</span>
           </div>
@@ -565,10 +757,10 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Alethinos</a>
-              <span class="repo-vis">Private</span>
-              <span class="repo-badge-live">Real</span>
               <a href="https://alethinos.dev" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; alethinos.dev</a>
-            </div>
+              <span class="plat-fn">Eng Ops</span>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-live">Real</span>            </div>
             <p class="repo-desc">You already pay for Jira. You still don't know what's actually happening. Alethinos reads every ticket, commit, and comment continuously to surface why deliverables are at risk, before status becomes a scramble.</p>
             <span class="repo-lang"><span class="lang-dot" style="background:var(--ember)"></span>AI Project Intelligence</span>
           </div>
@@ -644,10 +836,10 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Poiesis</a>
-              <span class="repo-vis">Private</span>
-              <span class="repo-badge-live">Real</span>
               <a href="https://poiesis-weld.vercel.app/" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; poiesis.dev</a>
-            </div>
+              <span class="plat-fn">Development</span>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-live">Real</span>            </div>
             <p class="repo-desc">What if the agentic SDLC set itself up, from issue to production? Agentic SDLC platform - six specialized agents take a GitHub issue from intent to production, with human in the loop where needed.</p>
             <span class="repo-lang"><span class="lang-dot" style="background:var(--ember)"></span>Agentic SDLC</span>
           </div>
@@ -727,10 +919,10 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Aegis</a>
-              <span class="repo-vis">Private</span>
-              <span class="repo-badge-live">Real</span>
               <a href="https://aegis-nine-eta.vercel.app/" target="_blank" class="repo-homepage" onclick="event.stopPropagation()">&#8599; aegis.dev</a>
-            </div>
+              <span class="plat-fn">DevOps / SRE</span>
+              <span class="repo-vis">Private</span>
+              <span class="repo-badge-live">Real</span>            </div>
             <p class="repo-desc">What if your security stack didn't just detect threats but acted on them? Agentic DevSecOps platform that rotates exposed secrets, blocks merges on critical CVEs, opens fixes for IaC misconfigurations, and generates compliance evidence.</p>
             <span class="repo-lang"><span class="lang-dot" style="background:var(--ember)"></span>Agentic DevSecOps</span>
           </div>
@@ -808,6 +1000,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Pistis</a>
+              <span class="plat-fn">Security</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-preview">Framing</span>
             </div>
@@ -886,6 +1079,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Nexus</a>
+              <span class="plat-fn">Product Support</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-preview">Framing</span>
             </div>
@@ -962,6 +1156,7 @@
             <div class="repo-name-row">
               <svg class="repo-icon" width="16" height="16" viewBox="0 0 16 16"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.495 2.495 0 012 11.5zm10.5-1h-8a1 1 0 00-1 1v6.708A2.486 2.486 0 014.5 9h8z"/></svg>
               <a class="repo-name" onclick="event.stopPropagation()">Nomos</a>
+              <span class="plat-fn">Tech Compliance</span>
               <span class="repo-vis">Private</span>
               <span class="repo-badge-preview">Framing</span>
             </div>
@@ -1034,13 +1229,21 @@
 
     </div><!-- /repo-list -->
 
-      <!-- ── Background: the details ──────────────────── -->
-      <section class="about" id="background" style="scroll-margin-top: 72px;">
-        <span class="section-label" style="display:block;margin-bottom:20px;">Background</span>
-        <p>FinTech roots into management consulting - many industries, many clients, cultures &amp; constraints &amp; one consistent instinct: technology earns its place only when it solves the right problem. Business first. Technology second.</p>
-        <p>Enterprise developer tooling in recent times, reimagining the ecosystem as agentic, because the moat has always been client-first, forward deployed ethos - the one that moves revenue faster, not the one that moves tickets or chases the next shiny object.</p>
-        <p class="mantra">Learn. Build. Ship. <span class="thesis-badge">agentic everything</span></p>
+      <!-- ── Bridge: Act 1 → Act 2 (org chart slots in here next) ── -->
+      <div class="bridge" id="bridge">
+        <p class="bridge-box">Agents take the execution. Humans keep the judgment.</p>
+      </div>
+
+      <!-- ══ ACT 2: the agentic org chart (companion agents as boxes) ══ -->
+      <section class="act2" id="orgchart" style="scroll-margin-top:72px;">
+        <p class="act2-intro">Every function of the enterprise, mapped. Where a platform already exists it anchors the function; companion agents fill in the rest. Nothing here is industry-specific: the same shape works for banking, health, automotive, anything.</p>
+
+        <div class="chart-band" id="chart-band"></div>
+
+        <div id="fn-sections"></div>
+
       </section>
+
     </main>
 
   </div><!-- /layout -->
@@ -1049,14 +1252,33 @@
     <div class="footer-links">
       <a href="https://github.com/pdproductlab26" target="_blank">github.com/pdproductlab26</a>
       <a href="mailto:pdproductlab@gmail.com">contact</a>
-    </div>
-    <span>8 problem spaces, each answered with a working build. One quarter. June 2026.</span>
-  </footer>
+    </div>  </footer>
 </div><!-- /wrap -->
 
 <script>
+  // Accordion: only one card in a group is open at a time. Platform detail
+  // cards (.repo-item) and Act 2 companion cards (.companion) are separate groups.
+  function closeGroup(selector, keep) {
+    document.querySelectorAll(selector + '.open').forEach(function(c) {
+      if (c !== keep) c.classList.remove('open');
+    });
+  }
+  // A platform tile is highlighted iff its detail card is open.
+  function syncTiles() {
+    document.querySelectorAll('.plat').forEach(function(tile) {
+      var m = (tile.getAttribute('onclick') || '').match(/togglePlatform\(this,'([^']+)'\)/);
+      var card = m && document.getElementById('card-' + m[1]);
+      tile.classList.toggle('active', !!(card && card.classList.contains('open')));
+    });
+  }
   function toggle(id) {
-    document.getElementById('card-' + id).classList.toggle('open');
+    var el = document.getElementById('card-' + id);
+    if (!el) return;
+    var willOpen = !el.classList.contains('open');
+    var isPlat = el.classList.contains('repo-item');
+    closeGroup(isPlat ? '.repo-item' : '.companion', el);
+    el.classList.toggle('open', willOpen);
+    if (isPlat) syncTiles();
   }
   function switchTab(btn, cardId, tabName) {
     var card = document.getElementById('card-' + cardId);
@@ -1066,6 +1288,1235 @@
       tc.classList.toggle('active', tc.dataset.tab === tabName);
     });
   }
+  // Platform board tile: flip to its detail card, closing any other open one.
+  function togglePlatform(tile, id) {
+    var el = document.getElementById('card-' + id);
+    if (!el) return;
+    var willOpen = !el.classList.contains('open');
+    closeGroup('.repo-item', el);
+    el.classList.toggle('open', willOpen);
+    syncTiles();
+    if (willOpen) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+</script>
+<script type="application/json" id="agents-data">
+{
+  "_meta": {
+    "purpose": "Data source for the agent catalog on index.html. Each function has a box on the home page; clicking it reveals its agents as expandable cards. Claude Code renders each card from the locked template (agent-card-preview-v2.html): collapsed shows name + tier badge + the agent-owns/human-keeps split; expanded shows tabs Today, Tomorrow (w/ agent), and Payoff. Show the Payoff tab only when payoff.defensible is true; otherwise render just Today and Tomorrow.",
+    "tiers": {
+      "built": "shipped platform",
+      "proof_runnable": "built reference agent with a runnable repo",
+      "proof_candidate": "strong next build, not yet built — card must not claim a repo or live demo",
+      "catalog": "specified idea, not built"
+    },
+    "payoff_assumptions": "All payoff figures are illustrative and deliberately conservative; assumptions are listed per card so a reader can swap in their own rate, volume, and time. Loaded rates used: engineering ~$120/hr, counsel/contract-manager ~$120/hr, analyst/ops ~$80/hr, support ~$50/hr. Where value is mostly judgment leverage or risk reduction rather than a clean time x rate figure, defensible is false and the Payoff tab is omitted.",
+    "boundary_note_rule": "Every 'tomorrow' string ends with the deliberate human-gate boundary. Keep it — it is the thesis."
+  },
+
+  "functions": [
+
+    {
+      "id": "product-management", "band": "technology", "label": "Product Management",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "requirements-synthesis", "name": "Requirements Synthesis Agent", "tier": "proof_candidate",
+          "agent_owns": "Turning interviews, tickets, and threads into a structured, traceable PRD and flagging contradictions.",
+          "human_keeps": "Scope and priority calls.",
+          "today": "A PM stitches a PRD together by hand from interview notes, Slack threads, and half-remembered hallway conversations. Requirements get lost, and two stakeholders quietly asking for opposite things isn't noticed until build.",
+          "tomorrow": "The agent ingests the raw inputs and returns a structured PRD with every requirement traced to its source, plus an explicit list of where stakeholders contradict each other. The PM starts from a clean draft instead of a blank page. The agent drafts and flags; the PM owns what's in scope and what ships first.",
+          "payoff": { "defensible": true, "headline": "~6-10 PM hours reclaimed per major spec", "assumptions": ["First-pass PRD assembly and reconciliation ~1 day of PM time today", "Agent draft cuts that to ~2-3 hours of editing", "~20 major specs/year"], "not_captured": ["Contradictions caught pre-build, before they become rework", "Traceability that survives an audit or a re-org"] }
+        },
+        {
+          "id": "spec-to-backlog", "name": "Spec-to-Backlog Agent", "tier": "catalog",
+          "agent_owns": "Decomposing a PRD into epics and tickets with acceptance criteria.",
+          "human_keeps": "Sign-off before the sprint.",
+          "today": "Someone manually breaks a PRD into epics and tickets, writing acceptance criteria from scratch, often inconsistently across the team.",
+          "tomorrow": "The agent decomposes the approved PRD into epics and tickets with draft acceptance criteria in a consistent format. The PM reviews and signs off before anything enters a sprint.",
+          "payoff": { "defensible": true, "headline": "~3-5 hours saved per PRD", "assumptions": ["Manual decomposition ~half a day", "Agent draft + review ~1 hour", "~20 PRDs/year"], "not_captured": ["Consistent acceptance criteria across teams", "Fewer mid-sprint 'what did this ticket mean' stalls"] }
+        },
+        {
+          "id": "competitive-signal", "name": "Competitive Signal Agent", "tier": "catalog",
+          "agent_owns": "Tracking competitor releases and pricing, mapping each to a roadmap gap or a deliberate dismissal.",
+          "human_keeps": "Whether it means anything, and whether to react.",
+          "today": "Competitive tracking is somebody's side task, done in bursts before planning. Real moves get noticed late.",
+          "tomorrow": "The agent watches competitor releases, changelogs, and pricing continuously and maps each to a specific place in your roadmap: gap, parity, or dismissed-on-purpose. The PM decides what actually warrants a response.",
+          "payoff": { "defensible": false, "note": "Value is timing and judgment, not a clean time-times-rate figure. Better framed as risk reduction than hours saved." }
+        },
+        {
+          "id": "roadmap-prioritization", "name": "Roadmap Prioritization Agent", "tier": "catalog",
+          "agent_owns": "Scoring backlog items against OKRs and capacity, and explaining the ranking.",
+          "human_keeps": "The final call on what makes the cut.",
+          "today": "Prioritization happens in a spreadsheet and a meeting, with the loudest voice often winning over the clearest logic.",
+          "tomorrow": "The agent scores the backlog against stated OKRs and current capacity and shows its reasoning per item, giving the room a defensible starting ranking. The PM decides what's actually built.",
+          "payoff": { "defensible": false, "note": "Augments judgment rather than replacing labor; the win is better decisions, not fewer hours." }
+        }
+      ]
+    },
+
+    {
+      "id": "ux-research-design", "band": "technology", "label": "UX Research & Design",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "research-synthesis", "name": "Research Synthesis Agent", "tier": "catalog",
+          "agent_owns": "Turning user interviews and session recordings into themed findings with evidence links.",
+          "human_keeps": "Validating the themes and their meaning.",
+          "today": "A researcher rewatches hours of sessions and hand-codes transcripts to find patterns. Synthesis is the slowest part of the cycle.",
+          "tomorrow": "The agent clusters interviews and recordings into candidate themes, each linked back to the exact moments that support it. The researcher validates or rejects each theme instead of building them from raw tape.",
+          "payoff": { "defensible": true, "headline": "~50% of synthesis time reclaimed", "assumptions": ["Synthesis ~2-3 days per study today", "Agent-assisted ~1 day", "~12 studies/year"], "not_captured": ["More studies become feasible when synthesis is cheap", "Evidence links make findings harder to wave away"] }
+        },
+        {
+          "id": "design-consistency", "name": "Design Consistency Agent", "tier": "catalog",
+          "agent_owns": "Checking new screens against the design system and flagging accessibility gaps.",
+          "human_keeps": "Which exceptions are intentional.",
+          "today": "Design-system drift is caught late, in review or after ship, and accessibility issues slip through to QA or users.",
+          "tomorrow": "The agent checks each new screen against the design system and WCAG rules and flags deviations before review. The designer decides which are intentional exceptions and which are bugs.",
+          "payoff": { "defensible": true, "headline": "Fewer late-stage design reworks", "assumptions": ["Catches drift at design time vs QA time", "Rework late costs multiples of catching early"], "not_captured": ["Accessibility risk reduced before it reaches users", "Design review focuses on craft, not policing"] }
+        },
+        {
+          "id": "prototype-draft", "name": "Prototype Draft Agent", "tier": "catalog",
+          "agent_owns": "Turning a spec into a wireframe draft checked against the design system.",
+          "human_keeps": "The craft and the final design.",
+          "today": "Turning a spec into a first wireframe is manual and slow, so early ideas stay stuck in words.",
+          "tomorrow": "The agent produces a first wireframe from the spec, already using design-system components, to react to. The designer owns everything past that first draft.",
+          "payoff": { "defensible": false, "note": "Speeds ideation; hard to attach a clean dollar figure without inventing one." }
+        }
+      ]
+    },
+
+    {
+      "id": "architecture", "band": "technology", "label": "Architecture",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "architecture-review", "name": "Architecture Review Agent", "tier": "catalog",
+          "agent_owns": "Reviewing proposed designs against standards and prior decisions (ADR-aware).",
+          "human_keeps": "The architectural ruling.",
+          "today": "Design reviews depend on whichever architect is in the room remembering why a past decision was made. Standards drift and past ADRs get re-litigated.",
+          "tomorrow": "The agent reviews a proposed design against your standards and the existing ADR history, flagging conflicts with past decisions before the meeting. The architect makes the ruling.",
+          "payoff": { "defensible": false, "note": "Judgment leverage and consistency; not a time-times-rate story." }
+        },
+        {
+          "id": "decision-record", "name": "Decision Record Agent", "tier": "catalog",
+          "agent_owns": "Drafting ADRs from design discussions and threads.",
+          "human_keeps": "Editing and ratifying the decision.",
+          "today": "ADRs are the documentation everyone agrees matters and nobody writes, so the 'why' behind decisions evaporates.",
+          "tomorrow": "The agent drafts an ADR from the actual design discussion, capturing options considered and the reasoning. The architect edits and ratifies.",
+          "payoff": { "defensible": true, "headline": "Institutional memory that would otherwise be lost", "assumptions": ["Most ADRs never get written today", "Cost of a lost decision surfaces months later as rework or repeated debate"], "not_captured": ["Faster onboarding", "Fewer re-litigated decisions"] }
+        },
+        {
+          "id": "dependency-map", "name": "Dependency Map Agent", "tier": "catalog",
+          "agent_owns": "Keeping the service dependency graph current from real traffic.",
+          "human_keeps": "Interpreting blast radius and what to do about it.",
+          "today": "The 'current' architecture diagram is always out of date, so blast-radius questions get answered from memory.",
+          "tomorrow": "The agent keeps the dependency graph live from actual traffic, so 'what breaks if this goes down' has a real-time answer. The human interprets and acts.",
+          "payoff": { "defensible": false, "note": "Risk reduction during incidents and planning; value is avoided outages, hard to pre-quantify honestly." }
+        }
+      ]
+    },
+
+    {
+      "id": "development", "band": "technology", "label": "Development",
+      "platforms": [
+        { "name": "Poiesis", "tier": "built", "desc": "Agentic SDLC. Six agents take a GitHub issue from intent to production, human in the loop." },
+        { "name": "Ichnos", "tier": "built", "desc": "Provenance flight-recorder for AI-written code. A tamper-evident record for regulators.", "xref": "Also relevant to Tech Compliance (Nomos)." }
+      ],
+      "agents": [
+        {
+          "id": "code-review", "name": "Code Review Agent", "tier": "proof_candidate",
+          "agent_owns": "First-pass PR review against your standards, with risk flags and suggested fixes.",
+          "human_keeps": "The merge approval.",
+          "today": "PRs wait on a busy senior engineer. Review quality swings with how tired the reviewer is, and the boring PRs get rubber-stamped.",
+          "tomorrow": "The agent does a first-pass review of every PR against your standards, flags risk, and suggests fixes, so the human reviewer starts from an annotated diff instead of a cold read. The agent never merges; a human approves.",
+          "payoff": { "defensible": true, "headline": "~30-40% of review time reclaimed, faster PR cycle", "assumptions": ["Senior reviewer spends ~4-6 hrs/week on PRs", "First-pass automation cuts that meaningfully", "~10 reviewers"], "not_captured": ["Consistent standard at 9am and 6pm", "Fewer defects reaching main", "Faster cycle time is unblocked engineers"] }
+        },
+        {
+          "id": "dependency-upgrade", "name": "Dependency Upgrade Agent", "tier": "catalog",
+          "agent_owns": "Flagging stale or vulnerable dependencies, drafting the upgrade PR, running the tests.",
+          "human_keeps": "Approving the bump.",
+          "today": "Dependency upgrades are deferred until a CVE forces a painful, rushed scramble.",
+          "tomorrow": "The agent flags stale and vulnerable dependencies, opens the upgrade PR, and runs the test suite so the change arrives pre-validated. A human approves the merge.",
+          "payoff": { "defensible": true, "headline": "Upgrade backlog kept current for cents of compute", "assumptions": ["Manual upgrade + test ~2-4 hrs each", "Dozens deferred across services", "Agent drafts + tests automatically"], "not_captured": ["Vulnerability exposure window shrinks", "No more emergency-CVE weekends"] }
+        },
+        {
+          "id": "migration", "name": "Migration Agent", "tier": "catalog",
+          "agent_owns": "Drafting framework or API migrations one module at a time.",
+          "human_keeps": "Reviewing each module.",
+          "today": "Big migrations stall for quarters because nobody has a clear stretch of time to grind through them module by module.",
+          "tomorrow": "The agent drafts the migration one module at a time, each as a reviewable PR. The human reviews and merges each, so the migration moves in safe increments instead of stalling.",
+          "payoff": { "defensible": true, "headline": "Stalled migrations actually finish", "assumptions": ["Migrations often estimated in engineer-months", "Agent drafts the mechanical bulk", "Human reviews per module"], "not_captured": ["Staying on a supported framework is a security and hiring benefit"] }
+        },
+        {
+          "id": "tech-debt-triage", "name": "Tech-Debt Triage Agent", "tier": "catalog",
+          "agent_owns": "Scanning the codebase, ranking debt by risk versus effort, drafting remediation tickets.",
+          "human_keeps": "What actually gets scheduled.",
+          "today": "Tech debt is a vague anxiety with no shared list, so it competes badly against features and rarely wins.",
+          "tomorrow": "The agent scans the codebase, ranks debt by risk against effort, and drafts remediation tickets, turning anxiety into a prioritized list. The human decides what gets scheduled.",
+          "payoff": { "defensible": false, "note": "Improves decisions about debt; the payoff is avoided future failure, not current hours." }
+        }
+      ]
+    },
+
+    {
+      "id": "qa-testing", "band": "technology", "label": "QA / Testing",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "test-generation", "name": "Test Generation Agent", "tier": "proof_candidate",
+          "agent_owns": "Writing test cases from a spec or PR and flagging the paths nothing covers.",
+          "human_keeps": "Judging whether coverage is enough.",
+          "today": "Tests are written last, under deadline, so coverage is thin exactly where the risky, untested paths live.",
+          "tomorrow": "The agent generates test cases from the spec or PR and explicitly flags the paths nothing covers. The human judges whether the coverage is sufficient to ship.",
+          "payoff": { "defensible": true, "headline": "~40-60% of test-writing time reclaimed", "assumptions": ["Test authoring is a large share of feature time", "Agent drafts cases, human curates", "Applied across every feature PR"], "not_captured": ["Escaped defects caught before production", "Coverage gaps made visible instead of assumed away"] }
+        },
+        {
+          "id": "bug-triage", "name": "Bug Triage Agent", "tier": "catalog",
+          "agent_owns": "Deduping, attempting repro, ranking severity, and routing to the right team.",
+          "human_keeps": "Confirming severity on the ambiguous ones.",
+          "today": "New bugs pile into a queue where duplicates, mis-routes, and wrong severities waste the first hour of every triage.",
+          "tomorrow": "The agent dedupes, attempts a repro, assigns a draft severity, and routes to the owning team. A human confirms severity on the genuinely ambiguous cases.",
+          "payoff": { "defensible": true, "headline": "~1 hr/day of triage returned per team", "assumptions": ["Manual triage ~1-2 hrs/day across a team", "Agent handles the mechanical majority", "~$80/hr blended"], "not_captured": ["Faster time-to-fix on real bugs", "Less duplicate work"] }
+        },
+        {
+          "id": "regression-bisect", "name": "Regression Bisect Agent", "tier": "proof_candidate",
+          "agent_owns": "Correlating a new failure to the commit that most likely caused it.",
+          "human_keeps": "Confirming root cause.",
+          "today": "When a test starts failing, an engineer manually bisects through commits, a slow, frustrating hunt that blocks the pipeline.",
+          "tomorrow": "The agent correlates the new failure to the most likely offending commit and presents the evidence. The engineer confirms root cause instead of hunting for it.",
+          "payoff": { "defensible": true, "headline": "Hours per regression collapsed to minutes", "assumptions": ["Manual bisect ~1-3 hrs", "Agent narrows to a prime suspect immediately", "Several regressions/week at scale"], "not_captured": ["Pipeline unblocked faster", "Less context-switch pain"] }
+        },
+        {
+          "id": "release-readiness", "name": "Release Readiness Agent", "tier": "catalog",
+          "agent_owns": "Assembling a go/no-go signal from tests, coverage, and open criticals.",
+          "human_keeps": "The go/no-go decision itself.",
+          "today": "Release readiness is a scramble of checking five dashboards and hoping nobody forgot a critical.",
+          "tomorrow": "The agent assembles the readiness signal, tests, coverage, open criticals, into one view with a recommendation. A human makes the actual go/no-go call.",
+          "payoff": { "defensible": false, "note": "Decision support; value is avoided bad releases, not clean hours saved." }
+        }
+      ]
+    },
+
+    {
+      "id": "release-change", "band": "technology", "label": "Release & Change Mgmt",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "change-risk", "name": "Change Risk Agent", "tier": "catalog",
+          "agent_owns": "Scoring each change by blast radius and history, flagging the risky ones for review.",
+          "human_keeps": "Approving high-risk changes.",
+          "today": "Change advisory boards review everything equally, so routine changes waste time and genuinely risky ones don't get extra scrutiny.",
+          "tomorrow": "The agent scores each change by blast radius and past incident correlation and flags only the risky ones for board attention. Humans approve the high-risk changes; the rest flow.",
+          "payoff": { "defensible": true, "headline": "CAB time focused where risk actually is", "assumptions": ["Most changes are low-risk but reviewed anyway", "Agent lets routine changes bypass heavy review"], "not_captured": ["Fewer change-caused incidents", "Faster delivery of safe changes"] }
+        },
+        {
+          "id": "release-notes", "name": "Release Notes Agent", "tier": "catalog",
+          "agent_owns": "Drafting customer-facing release notes from merged work.",
+          "human_keeps": "Approving the story.",
+          "today": "Release notes are written at the last minute, so they're either skipped or read like a raw changelog.",
+          "tomorrow": "The agent drafts customer-facing notes from the merged PRs, in your voice, grouped by theme. The PM approves the story before it ships.",
+          "payoff": { "defensible": true, "headline": "~2-3 hours saved per release", "assumptions": ["Manual notes ~half a day", "Agent draft + edit ~1 hour", "Biweekly releases"], "not_captured": ["Notes actually get written", "Consistent customer-facing voice"] }
+        },
+        {
+          "id": "rollback-decision", "name": "Rollback Decision Support Agent", "tier": "catalog",
+          "agent_owns": "Assembling the evidence during a bad deploy: error rates, affected users, blast radius.",
+          "human_keeps": "Pulling the trigger.",
+          "today": "During a bad deploy, someone frantically pulls up dashboards to decide whether to roll back, under pressure, with partial information.",
+          "tomorrow": "The agent assembles the rollback evidence, error rates, affected users, scope, into one view the moment things look wrong. A human decides whether to roll back.",
+          "payoff": { "defensible": false, "note": "Value is faster, better incident decisions; framed as risk reduction, not hours." }
+        }
+      ]
+    },
+
+    {
+      "id": "devops-sre", "band": "technology", "label": "DevOps / SRE",
+      "platforms": [
+        { "name": "Aegis", "tier": "built", "desc": "Agentic DevSecOps. Rotates exposed secrets, blocks merges on critical CVEs, fixes IaC misconfigurations." }
+      ],
+      "agents": [
+        {
+          "id": "incident-commander", "name": "Incident Commander Agent", "tier": "proof_candidate",
+          "agent_owns": "Assembling the timeline, correlating signals, drafting the running incident summary.",
+          "human_keeps": "The operational calls.",
+          "today": "During an incident, someone has to both fight the fire and keep a coherent timeline and comms going, and one of the two always suffers.",
+          "tomorrow": "The agent assembles the timeline, correlates signals across systems, and maintains the running incident summary in real time. The humans make every operational call; the agent keeps the record straight.",
+          "payoff": { "defensible": true, "headline": "Faster resolution, cleaner comms during incidents", "assumptions": ["Coordination overhead is a real slice of MTTR", "Agent offloads timeline/comms from responders"], "not_captured": ["Shorter outages are direct revenue and trust", "Responders focus on the fix"] }
+        },
+        {
+          "id": "postmortem-drafting", "name": "Postmortem Drafting Agent", "tier": "catalog",
+          "agent_owns": "Drafting a blameless postmortem from the incident timeline.",
+          "human_keeps": "The lessons and the action items.",
+          "today": "Postmortems get written days later from patchy memory, or not at all, so lessons don't stick.",
+          "tomorrow": "The agent drafts a blameless postmortem straight from the incident timeline while it's fresh. The team owns the lessons and the actions.",
+          "payoff": { "defensible": true, "headline": "~3-4 hours saved per incident, and they actually get written", "assumptions": ["Manual postmortem ~half a day", "Agent draft + team edit ~1-2 hrs"], "not_captured": ["Lessons captured that would otherwise be lost", "Repeat incidents avoided"] }
+        },
+        {
+          "id": "alert-noise", "name": "Alert Noise Agent", "tier": "catalog",
+          "agent_owns": "Clustering and deduping alerts, proposing threshold changes.",
+          "human_keeps": "Approving the tuning.",
+          "today": "On-call drowns in alert noise, so real signals get missed and everyone's numb to the pager.",
+          "tomorrow": "The agent clusters and dedupes alerts and proposes threshold changes to cut the noise. A human approves the tuning.",
+          "payoff": { "defensible": true, "headline": "Alert volume cut sharply, less on-call burnout", "assumptions": ["Large fraction of alerts are noise/duplicates", "Agent proposes consolidation"], "not_captured": ["Fewer missed real incidents", "On-call retention and morale"] }
+        }
+      ]
+    },
+
+    {
+      "id": "security", "band": "technology", "label": "Security",
+      "platforms": [
+        { "name": "Pistis", "tier": "built", "desc": "Agentic IAM. Context-aware access that reasons about intent and risk instead of static role rules." }
+      ],
+      "agents": [
+        {
+          "id": "threat-model", "name": "Threat Model Agent", "tier": "proof_candidate",
+          "agent_owns": "Drafting a threat model from an architecture diagram or a PR.",
+          "human_keeps": "Validating and extending it.",
+          "today": "Threat modeling is a heavy workshop that happens rarely, so most changes ship without one.",
+          "tomorrow": "The agent drafts a threat model from the architecture or the PR, giving security a starting artifact for every meaningful change. The security engineer validates and extends it.",
+          "payoff": { "defensible": true, "headline": "Threat modeling on every change, not just the big ones", "assumptions": ["Manual threat model is hours of senior time", "Agent drafts, engineer refines", "Applied far more broadly than today"], "not_captured": ["Vulnerabilities caught at design time", "Security scales past the size of the team"] }
+        },
+        {
+          "id": "vulnerability-triage", "name": "Vulnerability Triage Agent", "tier": "proof_candidate",
+          "agent_owns": "Deduping scanner output and ranking by real exploitability and reachability, not raw CVSS.",
+          "human_keeps": "Confirming the priority order.",
+          "today": "Scanners dump thousands of findings ranked by raw CVSS, so the team drowns in criticals that aren't actually reachable and misses the ones that are.",
+          "tomorrow": "The agent dedupes scanner output and re-ranks by real exploitability and reachability in your environment, not just CVSS. A human confirms the priority order before work is assigned.",
+          "payoff": { "defensible": true, "headline": "Security effort aimed at real risk, not CVSS noise", "assumptions": ["Most raw criticals are not reachable", "Manual triage of scanner output is days of senior time", "Agent cuts the list to what matters"], "not_captured": ["Actually-exploitable issues fixed sooner", "Alert fatigue reduced"] }
+        },
+        {
+          "id": "access-recertification", "name": "Access Recertification Agent", "tier": "catalog",
+          "agent_owns": "Flagging over-privileged and stale access for review.",
+          "human_keeps": "The recertification decision.",
+          "today": "Access recerts are a dreaded quarterly spreadsheet where managers rubber-stamp everything to make it stop.",
+          "tomorrow": "The agent flags over-privileged and stale access continuously, so recert is a short list of real anomalies instead of a wall of everything. The human makes the recert decision.",
+          "payoff": { "defensible": true, "headline": "Recert becomes minutes of real decisions", "assumptions": ["Blanket recerts waste manager time and rubber-stamp risk", "Agent surfaces only anomalies"], "not_captured": ["Standing access risk reduced continuously, not quarterly"] },
+          "xref": "Pistis grants access live; this cleans up what's already granted."
+        }
+      ]
+    },
+
+    {
+      "id": "tech-compliance", "band": "technology", "label": "Tech Compliance",
+      "platforms": [
+        { "name": "Nomos", "tier": "built", "desc": "Agentic compliance. Maps every deployment to the control framework and delivers a signed evidence package to the auditor." }
+      ],
+      "agents": [
+        {
+          "id": "framework-gap", "name": "Framework Gap Agent", "tier": "catalog",
+          "agent_owns": "Running a pre-assessment against a new framework and flagging the gaps.",
+          "human_keeps": "Scoping the program.",
+          "today": "Adopting a new framework (say, FedRAMP) starts with a manual, months-long gap assessment by expensive consultants.",
+          "tomorrow": "The agent runs a first-pass gap assessment against the new framework and produces a prioritized gap list. The compliance lead scopes the program from there.",
+          "payoff": { "defensible": true, "headline": "Weeks of consultant gap-assessment compressed", "assumptions": ["Manual gap assessment is a costly multi-week engagement", "Agent produces the first-pass map"], "not_captured": ["Faster path to a certification that unlocks deals"] }
+        },
+        {
+          "id": "vendor-security-review", "name": "Vendor Security Review Agent", "tier": "catalog",
+          "agent_owns": "First-pass review of vendor SOC 2 reports and security questionnaires.",
+          "human_keeps": "Accepting the residual risk.",
+          "today": "Someone reads every vendor's SOC 2 and questionnaire by hand, a slow bottleneck that holds up procurement.",
+          "tomorrow": "The agent does a first-pass review of the vendor's SOC 2 and questionnaire, flagging exceptions and gaps against your bar. A human accepts or rejects the residual risk.",
+          "payoff": { "defensible": true, "headline": "~2-4 hours saved per vendor review", "assumptions": ["Manual review ~half a day", "Agent flags exceptions, human decides", "Dozens of vendors/year"], "not_captured": ["Procurement unblocked faster", "Consistent security bar across vendors"] }
+        }
+      ]
+    },
+
+    {
+      "id": "data-eng-platform", "band": "technology", "label": "Data Eng & Platform",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "pipeline-health", "name": "Pipeline Health Agent", "tier": "catalog",
+          "agent_owns": "Monitoring jobs for failures, drift, and cost anomalies, and drafting the fix.",
+          "human_keeps": "Approving the fix.",
+          "today": "Data pipelines fail silently and the first sign is a broken dashboard or a surprise bill.",
+          "tomorrow": "The agent monitors jobs for failures, drift, and cost spikes and drafts the fix when something breaks. An engineer approves before it's applied.",
+          "payoff": { "defensible": true, "headline": "Failures caught before dashboards break", "assumptions": ["Silent failures cost analyst and engineer time downstream", "Agent catches at the source"], "not_captured": ["Bad decisions on stale data avoided", "Surprise cost spikes caught early"] }
+        },
+        {
+          "id": "schema-change-impact", "name": "Schema Change Impact Agent", "tier": "catalog",
+          "agent_owns": "Flagging downstream breakage before a schema change ships.",
+          "human_keeps": "Deciding sequencing.",
+          "today": "A schema change ships and quietly breaks three dashboards and a model nobody remembered depended on it.",
+          "tomorrow": "The agent traces the change through the lineage and flags everything downstream that will break, before it ships. The engineer decides sequencing and coordination.",
+          "payoff": { "defensible": false, "note": "Prevents breakage; value is avoided incidents, hard to quantify cleanly." }
+        },
+        {
+          "id": "data-contract", "name": "Data Contract Agent", "tier": "catalog",
+          "agent_owns": "Enforcing producer/consumer contracts and flagging violations at PR time.",
+          "human_keeps": "Negotiating exceptions between teams.",
+          "today": "Producer and consumer teams break each other's assumptions constantly because the 'contract' lives in tribal knowledge.",
+          "tomorrow": "The agent enforces the data contracts and flags violations at PR time, before they ship. The teams negotiate any real exceptions.",
+          "payoff": { "defensible": false, "note": "Reduces cross-team breakage; risk reduction rather than a time figure." }
+        }
+      ]
+    },
+
+    {
+      "id": "product-support", "band": "technology", "label": "Product Support",
+      "platforms": [
+        { "name": "Nexus", "tier": "built", "desc": "Agentic internal support. Resolves associate requests across Jira, GitHub, Artifactory, Jenkins, and Ansible in plain English." }
+      ],
+      "agents": [
+        {
+          "id": "escalation-drafting", "name": "Escalation Drafting Agent", "tier": "catalog",
+          "agent_owns": "Turning a messy customer ticket into a clean, engineering-ready bug report.",
+          "human_keeps": "Approving before it hits the eng queue.",
+          "today": "Support escalations reach engineering as vague, half-reproducible tickets, and half the back-and-forth is just extracting the actual problem.",
+          "tomorrow": "The agent turns the messy customer ticket into a structured, repro-focused bug report with the missing details requested up front. A human approves before it enters the eng queue.",
+          "payoff": { "defensible": true, "headline": "Less eng time lost to ticket clarification", "assumptions": ["Round-trips to clarify tickets cost eng and support time", "Agent front-loads the detail"], "not_captured": ["Faster fixes", "Engineers protected from context-switching"] }
+        },
+        {
+          "id": "support-to-product-signal", "name": "Support-to-Product Signal Agent", "tier": "catalog",
+          "agent_owns": "Clustering tickets into product-feedback themes for PM.",
+          "human_keeps": "Interpreting and prioritizing.",
+          "today": "The richest source of product feedback, the support queue, is a firehose nobody has time to synthesize.",
+          "tomorrow": "The agent clusters tickets into recurring product-feedback themes and quantifies each. The PM interprets and prioritizes.",
+          "payoff": { "defensible": false, "note": "Turns noise into signal; value is better roadmap decisions, not saved hours." }
+        }
+      ]
+    },
+
+    {
+      "id": "it-service-asset", "band": "technology", "label": "IT Service & Asset",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "asset-lifecycle", "name": "Asset Lifecycle Agent", "tier": "catalog",
+          "agent_owns": "Tracking hardware and license lifecycle, flagging renewals and idle licenses.",
+          "human_keeps": "Approving purchases and reclaims.",
+          "today": "Nobody has a clean view of who has what license, so the company pays for idle seats and scrambles at renewal.",
+          "tomorrow": "The agent tracks the hardware and license estate, flags idle seats and upcoming renewals, and drafts the reclaim or renewal action. A human approves.",
+          "payoff": { "defensible": true, "headline": "Idle-license spend recovered", "assumptions": ["Unused SaaS seats are a well-known 20-30% of spend", "Agent flags idle seats for reclaim"], "not_captured": ["No more renewal surprises", "Audit-ready asset records"] }
+        },
+        {
+          "id": "ticket-deflection", "name": "Ticket Deflection Agent", "tier": "catalog",
+          "agent_owns": "Resolving common IT requests (password, access, software) end to end.",
+          "human_keeps": "Handling the exceptions.",
+          "today": "IT spends its day on password resets and access requests instead of anything strategic.",
+          "tomorrow": "The agent resolves the common, well-defined IT requests end to end and escalates only the exceptions. Humans handle the genuinely unusual cases.",
+          "payoff": { "defensible": true, "headline": "Large share of L1 IT tickets deflected", "assumptions": ["A big fraction of IT tickets are routine and repetitive", "Agent resolves those end to end", "~$50/hr support"], "not_captured": ["Faster resolution for employees", "IT freed for higher-value work"] },
+          "xref": "Internal-IT counterpart to Nexus, which targets the developer toolchain."
+        }
+      ]
+    },
+
+    {
+      "id": "eng-ops", "band": "technology", "label": "Eng Ops & Delivery",
+      "platforms": [
+        { "name": "Alethinos", "tier": "built", "desc": "Agentic project intelligence. Reads every ticket, commit, and comment to surface why deliverables are at risk." }
+      ],
+      "agents": [
+        {
+          "id": "capacity-planning", "name": "Capacity Planning Agent", "tier": "catalog",
+          "agent_owns": "Forecasting team capacity against committed work and flagging overcommitment early.",
+          "human_keeps": "Rebalancing the plan.",
+          "today": "Overcommitment is discovered mid-sprint, when it's already too late to do anything graceful about it.",
+          "tomorrow": "The agent forecasts capacity against committed work and flags overcommitment before the sprint starts. The engineering manager rebalances.",
+          "payoff": { "defensible": false, "note": "Better planning decisions; value is avoided slips, not clean hours saved." }
+        },
+        {
+          "id": "onboarding-devex", "name": "Onboarding DevEx Agent", "tier": "catalog",
+          "agent_owns": "Answering 'how do I get access to X' and 'why did my deploy fail' without a ticket.",
+          "human_keeps": "The genuine edge cases.",
+          "today": "New engineers lose their first weeks pinging people for access and deciphering cryptic build failures.",
+          "tomorrow": "The agent answers the routine 'how do I' and 'why did my deploy fail' questions instantly, from your actual toolchain. Humans take the true edge cases.",
+          "payoff": { "defensible": true, "headline": "Faster time-to-first-commit for new hires", "assumptions": ["Onboarding friction costs days of new-hire and mentor time", "Agent handles routine unblocks"], "not_captured": ["Senior engineers freed from repetitive questions", "Better new-hire experience"] }
+        }
+      ]
+    },
+
+    {
+      "id": "strategy-corpdev", "band": "horizontal", "label": "Strategy / CorpDev",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "competitive-landscape", "name": "Competitive Landscape Agent", "tier": "catalog",
+          "agent_owns": "Continuously tracking competitor moves, pricing, hiring, and launches, and flagging material shifts.",
+          "human_keeps": "Interpreting what it means and deciding the response.",
+          "today": "Competitive intelligence is a slide someone refreshes before a board meeting, already stale on arrival.",
+          "tomorrow": "The agent tracks competitors continuously and flags material shifts as they happen. Strategy interprets and decides how to respond.",
+          "payoff": { "defensible": false, "note": "Judgment and timing value; not a time-times-rate figure." }
+        },
+        {
+          "id": "scenario-modeling", "name": "Scenario Modeling Agent", "tier": "catalog",
+          "agent_owns": "Building and stress-testing strategic scenarios against historical and market data.",
+          "human_keeps": "Picking the path to pursue.",
+          "today": "Scenario work is a bespoke analyst effort per question, so only a few options ever get modeled.",
+          "tomorrow": "The agent builds and stress-tests scenarios, market entry, pricing, M&A, against the data, so more options get a real look. Leadership picks the path.",
+          "payoff": { "defensible": false, "note": "Decision-quality leverage, not labor replacement." }
+        },
+        {
+          "id": "ma-screening", "name": "M&A Screening Agent", "tier": "catalog",
+          "agent_owns": "Scanning for acquisition targets against criteria and drafting first-pass diligence summaries.",
+          "human_keeps": "Deciding what to pursue.",
+          "today": "Target screening is a slow, relationship-driven process that misses non-obvious candidates.",
+          "tomorrow": "The agent scans for targets against your criteria and drafts first-pass diligence summaries. Corp dev decides what to actually pursue.",
+          "payoff": { "defensible": false, "note": "Value is deal quality and coverage, not hours." }
+        },
+        {
+          "id": "okr-cascade", "name": "OKR Cascade Agent", "tier": "catalog",
+          "agent_owns": "Checking whether team OKRs ladder up to company OKRs and flagging orphans and contradictions.",
+          "human_keeps": "Resolving the misalignments.",
+          "today": "OKRs are set in silos, so nobody notices that two teams' goals conflict or that some work ladders up to nothing.",
+          "tomorrow": "The agent checks team OKRs against company OKRs and flags orphaned or contradictory goals. Leadership resolves them.",
+          "payoff": { "defensible": false, "note": "Alignment value; avoided wasted effort rather than a clean figure." }
+        }
+      ]
+    },
+
+    {
+      "id": "marketing", "band": "horizontal", "label": "Marketing",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "content-production", "name": "Content Production Agent", "tier": "catalog",
+          "agent_owns": "Drafting posts, landing pages, and campaign copy in brand voice.",
+          "human_keeps": "Editing and approving publish.",
+          "today": "Content is the perennial bottleneck; the calendar is always ahead of what the team can write.",
+          "tomorrow": "The agent drafts posts, landing pages, and campaign copy in your brand voice from a brief. A human edits and approves before anything publishes.",
+          "payoff": { "defensible": true, "headline": "~50-70% of first-draft time reclaimed", "assumptions": ["Drafting is the slow step, not ideation or editing", "Agent produces the first draft, human polishes", "Applied across the content calendar"], "not_captured": ["More consistent brand voice", "Calendar actually gets filled"] }
+        },
+        {
+          "id": "campaign-performance", "name": "Campaign Performance Agent", "tier": "catalog",
+          "agent_owns": "Monitoring live spend across channels and proposing reallocation.",
+          "human_keeps": "Signing off on the moves.",
+          "today": "Budget shifts happen weekly, in a meeting, days after the data said to move.",
+          "tomorrow": "The agent monitors campaigns across channels and proposes reallocating spend toward what's working, in near real time. A human signs off on the moves.",
+          "payoff": { "defensible": true, "headline": "Wasted ad spend cut by faster reallocation", "assumptions": ["Lag between signal and action wastes budget", "Agent shortens the loop", "Even a few % of spend is material"], "not_captured": ["Better ROAS", "Marketers freed from dashboard-watching"] }
+        },
+        {
+          "id": "seo-competitive-content", "name": "SEO & Competitive Content Agent", "tier": "catalog",
+          "agent_owns": "Tracking keyword gaps and competitor content moves, drafting the content calendar.",
+          "human_keeps": "Setting the direction.",
+          "today": "SEO strategy is a periodic audit, so the calendar chases last quarter's gaps.",
+          "tomorrow": "The agent tracks keyword gaps and competitor content continuously and drafts a data-backed calendar. The marketer sets direction.",
+          "payoff": { "defensible": false, "note": "Value is traffic and positioning, hard to attribute cleanly to the agent." }
+        },
+        {
+          "id": "brand-consistency", "name": "Brand Consistency Agent", "tier": "catalog",
+          "agent_owns": "Scanning outbound material for tone, terminology, and visual violations before publish.",
+          "human_keeps": "Ruling on edge cases.",
+          "today": "Brand drift is caught by whoever happens to notice, after it's already gone out.",
+          "tomorrow": "The agent scans outbound material against brand guidelines before publish and flags tone, terminology, and visual violations. A human rules on the edge cases.",
+          "payoff": { "defensible": false, "note": "Brand-risk reduction; not a time figure." }
+        }
+      ]
+    },
+
+    {
+      "id": "comms-pr", "band": "horizontal", "label": "Comms & PR",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "press-monitoring", "name": "Press Monitoring Agent", "tier": "catalog",
+          "agent_owns": "Tracking coverage and sentiment and flagging stories gaining velocity.",
+          "human_keeps": "Deciding the response.",
+          "today": "PR finds out a story is blowing up when someone forwards it, hours too late.",
+          "tomorrow": "The agent tracks coverage and sentiment and flags stories gaining velocity early. Comms decides whether and how to respond.",
+          "payoff": { "defensible": false, "note": "Early-warning value; risk reduction, not hours." }
+        },
+        {
+          "id": "statement-drafting", "name": "Statement Drafting Agent", "tier": "catalog",
+          "agent_owns": "Drafting press statements and holding lines from approved positions.",
+          "human_keeps": "Approving every word.",
+          "today": "Under a deadline, statements get drafted from scratch in a scramble.",
+          "tomorrow": "The agent drafts statements and holding lines from your approved position library, fast, when time is short. The comms lead approves every word before it goes out.",
+          "payoff": { "defensible": false, "note": "Speed under pressure; value is reputational, not a clean figure." }
+        },
+        {
+          "id": "crisis-signal", "name": "Crisis Signal Agent", "tier": "catalog",
+          "agent_owns": "Watching social, reviews, and forums for early signals of a brewing issue.",
+          "human_keeps": "The crisis call.",
+          "today": "Brewing issues are visible in the data long before anyone connects the dots.",
+          "tomorrow": "The agent watches the signals and surfaces a brewing issue before it becomes a crisis. A human owns the crisis call.",
+          "payoff": { "defensible": false, "note": "Risk reduction; avoided-crisis value can't be honestly pre-quantified." }
+        }
+      ]
+    },
+
+    {
+      "id": "sales-bd", "band": "horizontal", "label": "Sales & BD",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "lead-qualification", "name": "Lead Qualification Agent", "tier": "proof_candidate",
+          "agent_owns": "Scoring and routing inbound leads and drafting first-touch outreach.",
+          "human_keeps": "Approving and sending.",
+          "today": "Reps spend the top of every day sorting leads and writing cold first-touches instead of selling.",
+          "tomorrow": "The agent scores and routes inbound leads and drafts a tailored first-touch for each. The rep approves and sends, and spends the reclaimed time on live deals.",
+          "payoff": { "defensible": true, "headline": "~1 selling hour/day returned per rep", "assumptions": ["Lead sorting + first-touch ~1 hr/day", "Agent drafts, rep approves", "~$80/hr loaded rep time"], "not_captured": ["Faster lead response wins more deals", "Consistent qualification"] }
+        },
+        {
+          "id": "proposal-rfp", "name": "Proposal / RFP Response Agent", "tier": "proof_candidate",
+          "agent_owns": "Drafting proposals and RFP answers from the knowledge base.",
+          "human_keeps": "Editing, pricing, and sending.",
+          "today": "RFPs eat days of copy-pasting from old responses and chasing SMEs for the same answers again.",
+          "tomorrow": "The agent drafts proposal and RFP responses from your knowledge base, pulling the right prior answers automatically. A human edits, prices, and sends.",
+          "payoff": { "defensible": true, "headline": "~2-4 days saved per major RFP", "assumptions": ["Manual RFP response is multi-day", "Agent drafts from the knowledge base", "Dozens of RFPs/year"], "not_captured": ["More RFPs answered means more pipeline", "Consistent, accurate answers"] }
+        },
+        {
+          "id": "deal-risk", "name": "Deal Risk Agent", "tier": "catalog",
+          "agent_owns": "Flagging stalling deals from activity patterns and suggesting next best action.",
+          "human_keeps": "Owning the play.",
+          "today": "Deals quietly stall and nobody notices until the forecast misses.",
+          "tomorrow": "The agent flags stalling deals from activity patterns and suggests a next action. The rep owns the play.",
+          "payoff": { "defensible": false, "note": "Value is won deals, not saved hours." }
+        },
+        {
+          "id": "sales-call-intelligence", "name": "Sales Call Intelligence Agent", "tier": "catalog",
+          "agent_owns": "Summarizing calls, extracting commitments and objections, updating the CRM.",
+          "human_keeps": "Confirming the record.",
+          "today": "CRM hygiene is the task reps hate and skip, so the pipeline data is always half-wrong.",
+          "tomorrow": "The agent summarizes each call, extracts commitments and objections, and updates the CRM automatically. The rep confirms.",
+          "payoff": { "defensible": true, "headline": "~30-45 min/day of admin returned per rep", "assumptions": ["CRM updates + notes ~30-45 min/day", "Agent handles it, rep confirms"], "not_captured": ["Accurate pipeline data for forecasting", "Reps sell instead of type"] }
+        }
+      ]
+    },
+
+    {
+      "id": "partnerships", "band": "horizontal", "label": "Partnerships",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "partner-performance", "name": "Partner Performance Agent", "tier": "catalog",
+          "agent_owns": "Tracking partner-sourced pipeline and delivery quality, flagging underperforming agreements.",
+          "human_keeps": "Handling the relationship.",
+          "today": "Partner performance is reviewed once a quarter, so underperforming agreements linger.",
+          "tomorrow": "The agent tracks partner-sourced pipeline and delivery quality continuously and flags agreements that are underperforming. The human handles the relationship.",
+          "payoff": { "defensible": false, "note": "Relationship and revenue value; not a time figure." }
+        },
+        {
+          "id": "co-sell-coordination", "name": "Co-sell Coordination Agent", "tier": "catalog",
+          "agent_owns": "Matching partner capabilities to open opportunities and drafting intro briefs.",
+          "human_keeps": "Making the connection.",
+          "today": "Co-sell matches depend on someone remembering which partner fits which deal.",
+          "tomorrow": "The agent matches partner capabilities to open opportunities and drafts the intro brief. A human makes the actual connection.",
+          "payoff": { "defensible": false, "note": "Revenue enablement; hard to attribute to the agent cleanly." }
+        }
+      ]
+    },
+
+    {
+      "id": "customer-success", "band": "horizontal", "label": "Customer Success",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "tier1-resolution", "name": "Tier-1 Resolution Agent", "tier": "catalog",
+          "agent_owns": "Resolving common customer tickets end to end and escalating the ambiguous ones.",
+          "human_keeps": "Escalations and anything with a relationship attached.",
+          "today": "Support teams spend most of their capacity on the same routine questions, so complex tickets wait.",
+          "tomorrow": "The agent resolves the common, well-understood tickets end to end and escalates anything ambiguous. Humans own escalations and relationship-sensitive cases.",
+          "payoff": { "defensible": true, "headline": "Large share of tier-1 volume deflected", "assumptions": ["A big fraction of tickets are routine and repetitive", "Agent resolves those", "~$50/hr support"], "not_captured": ["Faster resolution", "Human agents focus on hard, high-value cases"] }
+        },
+        {
+          "id": "churn-risk", "name": "Churn Risk Agent", "tier": "catalog",
+          "agent_owns": "Flagging at-risk accounts from usage and sentiment and drafting the save-play.",
+          "human_keeps": "Running the conversation.",
+          "today": "Churn is usually noticed at renewal, when it's too late to save the account.",
+          "tomorrow": "The agent flags at-risk accounts from usage and sentiment signals early and drafts a save-play. The CSM runs the conversation.",
+          "payoff": { "defensible": false, "note": "Retained revenue is the value; framed as risk reduction, not hours." }
+        },
+        {
+          "id": "cs-onboarding", "name": "Onboarding Agent", "tier": "catalog",
+          "agent_owns": "Guiding new customers through setup and escalating when a step fails repeatedly.",
+          "human_keeps": "Handling the stuck cases.",
+          "today": "Onboarding is high-touch and doesn't scale, so either CSMs drown or customers are left to flounder.",
+          "tomorrow": "The agent guides customers through setup and escalates only when a step repeatedly fails. Humans handle the genuinely stuck cases.",
+          "payoff": { "defensible": true, "headline": "CSM time focused on stuck customers, not happy-path setup", "assumptions": ["Much onboarding is repeatable happy-path guidance", "Agent handles that, escalates exceptions"], "not_captured": ["Faster time-to-value drives retention", "Onboarding scales past headcount"] }
+        },
+        {
+          "id": "kb-maintenance", "name": "Knowledge Base Maintenance Agent", "tier": "catalog",
+          "agent_owns": "Detecting stale or contradicted docs and drafting updates.",
+          "human_keeps": "Approving publish.",
+          "today": "The knowledge base rots because keeping it current is nobody's actual job.",
+          "tomorrow": "The agent detects when docs are stale or contradicted by recent tickets and drafts the update. A human approves publish.",
+          "payoff": { "defensible": false, "note": "Deflection quality improves; indirect value." }
+        }
+      ]
+    },
+
+    {
+      "id": "finance", "band": "horizontal", "label": "Finance",
+      "platforms": [
+        { "name": "Optikon", "tier": "built", "desc": "AI spend visibility. Cost allocation and variance across every LLM provider, every dollar traced to an owner." }
+      ],
+      "agents": [
+        {
+          "id": "close-automation", "name": "Close Automation Agent", "tier": "proof_candidate",
+          "agent_owns": "Reconciling accounts and flagging anomalies for the accountant.",
+          "human_keeps": "Investigating and signing the close.",
+          "today": "Month-end close is a multi-day grind of reconciliation, where the accountant hunts for the one number that's off.",
+          "tomorrow": "The agent reconciles the accounts and surfaces the anomalies, so the accountant investigates a short list instead of hunting through everything. A human signs the close.",
+          "payoff": { "defensible": true, "headline": "~2-4 days off the monthly close", "assumptions": ["Reconciliation is a large share of close time", "Agent does the matching, flags exceptions", "12 closes/year"], "not_captured": ["Faster close is faster decision-making", "Anomalies caught, not missed"] }
+        },
+        {
+          "id": "expense-audit", "name": "Expense Audit Agent", "tier": "catalog",
+          "agent_owns": "Reviewing expense reports against policy, auto-approving clean ones, escalating exceptions.",
+          "human_keeps": "Ruling on the exceptions.",
+          "today": "Expense review is either a rubber stamp or a bottleneck, and policy is applied inconsistently.",
+          "tomorrow": "The agent reviews every report against policy, auto-approves the clean ones, and escalates only exceptions. A human rules on those.",
+          "payoff": { "defensible": true, "headline": "Most expense reports clear without human touch", "assumptions": ["Majority of reports are policy-compliant", "Agent handles those, escalates the rest"], "not_captured": ["Consistent policy enforcement", "Faster reimbursement"] }
+        },
+        {
+          "id": "invoice-processing", "name": "Invoice Processing Agent", "tier": "catalog",
+          "agent_owns": "Extracting, matching, and coding invoices.",
+          "human_keeps": "Approving payment runs.",
+          "today": "AP keys invoices by hand and chases POs to match them, slow and error-prone.",
+          "tomorrow": "The agent extracts, matches, and codes invoices automatically. A human approves the payment run.",
+          "payoff": { "defensible": true, "headline": "~70-80% of manual AP handling removed", "assumptions": ["Manual keying + matching is minutes per invoice at volume", "Agent automates extract/match/code"], "not_captured": ["Fewer errors and duplicate payments", "Early-payment discounts captured"] }
+        },
+        {
+          "id": "fpa-narrative", "name": "FP&A Narrative Agent", "tier": "catalog",
+          "agent_owns": "Turning actuals into a written variance story.",
+          "human_keeps": "Owning the narrative to leadership.",
+          "today": "FP&A spends days turning the variance numbers into the written story leadership actually reads.",
+          "tomorrow": "The agent drafts the variance narrative from the actuals, explaining the drivers in prose. The finance lead owns the final story to leadership.",
+          "payoff": { "defensible": true, "headline": "~1-2 days saved per reporting cycle", "assumptions": ["Narrative writing is a meaningful slice of the cycle", "Agent drafts, lead refines", "Monthly"], "not_captured": ["Consistent explanation quality", "Analysts freed for analysis"] }
+        },
+        {
+          "id": "treasury-cash", "name": "Treasury & Cash Agent", "tier": "catalog",
+          "agent_owns": "Monitoring cash position and forecast, flagging covenant or liquidity risks.",
+          "human_keeps": "Deciding the moves.",
+          "today": "Cash forecasting lives in a fragile spreadsheet, and covenant risk is spotted late.",
+          "tomorrow": "The agent monitors the cash position and forecast and flags covenant or liquidity risks early. The treasurer decides the moves.",
+          "payoff": { "defensible": false, "note": "Risk reduction on liquidity; avoided-cost value, not clean hours." }
+        },
+        {
+          "id": "tax-provision", "name": "Tax Provision Agent", "tier": "catalog",
+          "agent_owns": "Assembling provision workpapers from the ledger and flagging positions needing judgment.",
+          "human_keeps": "Deciding the tax positions.",
+          "today": "Tax provision is a periodic scramble to assemble workpapers from the ledger by hand.",
+          "tomorrow": "The agent assembles the provision workpapers from the ledger and flags the positions that need judgment. The tax lead decides those.",
+          "payoff": { "defensible": true, "headline": "Days of workpaper assembly compressed", "assumptions": ["Manual workpaper prep is multi-day", "Agent assembles, human judges positions"], "not_captured": ["Fewer errors", "More time for actual tax strategy"] }
+        }
+      ]
+    },
+
+    {
+      "id": "procurement", "band": "horizontal", "label": "Procurement",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "vendor-evaluation", "name": "Vendor Evaluation Agent", "tier": "catalog",
+          "agent_owns": "Scoring RFP responses against weighted criteria and drafting the committee comparison.",
+          "human_keeps": "The committee decision.",
+          "today": "Vendor selection means manually scoring long RFP responses in a spreadsheet, inconsistently.",
+          "tomorrow": "The agent scores RFP responses against the weighted criteria and drafts a side-by-side comparison for the committee. The committee decides.",
+          "payoff": { "defensible": true, "headline": "~1-2 days saved per selection", "assumptions": ["Manual scoring of responses is multi-day", "Agent scores + drafts comparison"], "not_captured": ["Consistent, defensible scoring", "Faster procurement cycle"] }
+        },
+        {
+          "id": "contract-renewal", "name": "Contract Renewal Agent", "tier": "catalog",
+          "agent_owns": "Tracking renewals, flagging price hikes and unused seats, drafting renegotiation points.",
+          "human_keeps": "Negotiating.",
+          "today": "Renewals sneak up and auto-renew at a price increase before anyone reviews them.",
+          "tomorrow": "The agent tracks upcoming renewals, flags price hikes and unused seats, and drafts renegotiation talking points. A human negotiates.",
+          "payoff": { "defensible": true, "headline": "Renewal overspend caught before it auto-renews", "assumptions": ["Silent auto-renewals at higher prices are common", "Agent surfaces them with leverage points"], "not_captured": ["Better negotiated terms", "No missed cancellation windows"] }
+        },
+        {
+          "id": "spend-classification", "name": "Spend Classification Agent", "tier": "catalog",
+          "agent_owns": "Categorizing procurement spend and flagging maverick or off-contract buying.",
+          "human_keeps": "Addressing the behavior.",
+          "today": "Spend categorization is manual and lagging, so off-contract buying hides in the noise.",
+          "tomorrow": "The agent categorizes spend continuously and flags maverick or off-contract purchases. A human addresses the behavior.",
+          "payoff": { "defensible": false, "note": "Savings depend on enforcement; indirect value." }
+        }
+      ]
+    },
+
+    {
+      "id": "hr-people", "band": "horizontal", "label": "HR & People",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "policy-qa", "name": "Policy Q&A Agent", "tier": "catalog",
+          "agent_owns": "Answering benefits, leave, and policy questions from the handbook.",
+          "human_keeps": "Edge cases.",
+          "today": "HR fields the same handbook questions all day, so real people work waits.",
+          "tomorrow": "The agent answers routine benefits, leave, and policy questions from the handbook instantly. HR handles the edge cases.",
+          "payoff": { "defensible": true, "headline": "Routine HR questions deflected", "assumptions": ["A large share of HR queries are handbook-answerable", "Agent handles those", "~$60/hr HR time"], "not_captured": ["Faster answers for employees", "HR freed for real people work"] }
+        },
+        {
+          "id": "hr-onboarding-logistics", "name": "Onboarding Logistics Agent", "tier": "catalog",
+          "agent_owns": "Prepping equipment, access, and paperwork, and tracking completion.",
+          "human_keeps": "Owning the welcome.",
+          "today": "New-hire setup is a checklist that lives in someone's head, so things slip and day one is rough.",
+          "tomorrow": "The agent preps equipment, access, and paperwork, tracks completion, and escalates gaps. A human owns the human part of the welcome.",
+          "payoff": { "defensible": true, "headline": "Smoother day one, less coordinator time", "assumptions": ["Onboarding coordination is hours per hire", "Agent orchestrates the checklist"], "not_captured": ["Better new-hire first impression", "Fewer day-one access failures"] }
+        },
+        {
+          "id": "attrition-risk", "name": "Attrition Risk Agent", "tier": "catalog",
+          "agent_owns": "Flagging flight-risk signals from engagement and performance data.",
+          "human_keeps": "The conversation — never an automated action.",
+          "today": "Regretted attrition is a surprise; the signals were there but scattered.",
+          "tomorrow": "The agent flags flight-risk signals for a manager's attention. The manager has the conversation. This never triggers an automated action, only a human one.",
+          "payoff": { "defensible": false, "note": "Retention value, and a sensitive area where over-quantifying would be inappropriate." }
+        },
+        {
+          "id": "performance-cycle", "name": "Performance Cycle Agent", "tier": "catalog",
+          "agent_owns": "Assembling review packets: goals, feedback, peer input.",
+          "human_keeps": "Writing the assessment.",
+          "today": "Review season means managers manually gathering goals, feedback, and peer input from five systems.",
+          "tomorrow": "The agent assembles the review packet from all the sources into one place. The manager writes the actual assessment.",
+          "payoff": { "defensible": true, "headline": "Hours per review returned to managers", "assumptions": ["Packet assembly ~1-2 hrs per report", "Agent gathers, manager writes", "Times team size, twice a year"], "not_captured": ["Managers spend time on quality feedback, not gathering"] }
+        }
+      ]
+    },
+
+    {
+      "id": "talent-acquisition", "band": "horizontal", "label": "Talent Acquisition",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "resume-screening", "name": "Resume Screening Agent", "tier": "catalog",
+          "agent_owns": "Shortlisting candidates against role criteria with stated reasoning.",
+          "human_keeps": "Reviewing the shortlist; humans always interview.",
+          "today": "Recruiters skim hundreds of resumes fast and inconsistently, so good candidates get missed and bias creeps in.",
+          "tomorrow": "The agent shortlists against the role criteria and shows its reasoning per candidate. The recruiter reviews the shortlist, and humans do all interviewing and hiring decisions.",
+          "payoff": { "defensible": true, "headline": "Hours of screening per role reclaimed", "assumptions": ["Screening hundreds of resumes is hours per role", "Agent shortlists with rationale, recruiter reviews"], "not_captured": ["More consistent, criteria-based screening", "Faster time-to-shortlist"] }
+        },
+        {
+          "id": "interview-logistics", "name": "Interview Logistics Agent", "tier": "catalog",
+          "agent_owns": "Scheduling, panel assembly, and reminder sequencing.",
+          "human_keeps": "Handling conflicts.",
+          "today": "Coordinating interview panels across calendars is a maddening time sink for recruiters.",
+          "tomorrow": "The agent handles scheduling, assembles the panel, and sequences reminders. The recruiter handles genuine conflicts.",
+          "payoff": { "defensible": true, "headline": "~30-45 min saved per interview loop", "assumptions": ["Scheduling coordination is significant per loop", "Agent automates the mechanics"], "not_captured": ["Faster loops mean better candidate experience", "Fewer scheduling drops"] }
+        },
+        {
+          "id": "jd-drafting", "name": "JD Drafting Agent", "tier": "catalog",
+          "agent_owns": "Drafting role descriptions calibrated against market postings.",
+          "human_keeps": "Owning the bar.",
+          "today": "Job descriptions are copied from an old one and lightly edited, so they're stale and off-market.",
+          "tomorrow": "The agent drafts a JD calibrated against current market postings for the role. The hiring manager owns the bar and the final wording.",
+          "payoff": { "defensible": false, "note": "Quality and speed of hiring; not a clean time figure." }
+        }
+      ]
+    },
+
+    {
+      "id": "legal-compliance", "band": "horizontal", "label": "Legal & Compliance",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "contract-redline", "name": "Contract Redline Agent", "tier": "proof_runnable",
+          "agent_owns": "First-pass review against the negotiating playbook, precedent-aware severity, drafting redlines.",
+          "human_keeps": "Whether to accept, negotiate, or walk.",
+          "today": "A vendor contract lands and a lawyer reads the whole agreement to find what's off, roughly an hour per contract, and the nested carve-out in a boring section is exactly where things slip.",
+          "tomorrow": "The agent takes the first pass in seconds and hands counsel a brief: the deviations, ranked, each with suggested language and what this vendor accepted before. Counsel opens the contract already knowing the shape of the negotiation, then makes the calls. The agent flags and suggests; it never accepts, sends, or negotiates.",
+          "payoff": { "defensible": true, "headline": "~$90/contract, ~$90K/year, plus the risk it catches", "assumptions": ["~60 min skilled review today, ~15 with the agent", "~$120/hr loaded contract-manager/junior-counsel rate", "~1,000 contracts/year"], "not_captured": ["One missed carve-out or under-floor cap can dwarf a year of time savings", "Faster turnaround is revenue timing", "Every clause reviewed, every time"] },
+          "is_reference_build": true,
+          "repo_note": "This one is built and runnable — link the repo and the sample brief. Full card already authored in agent-card-preview-v2.html; port it as-is."
+        },
+        {
+          "id": "regulatory-change", "name": "Regulatory Change Agent", "tier": "proof_candidate",
+          "agent_owns": "Monitoring regulatory updates and drafting impact summaries against current controls.",
+          "human_keeps": "The legal judgment call.",
+          "today": "Someone manually tracks regulatory feeds and tries to figure out what each change means for the company, slowly, and misses things.",
+          "tomorrow": "The agent monitors the relevant regulatory sources and drafts an impact summary for each change, mapped against your current controls. Legal makes the judgment call on what to do.",
+          "payoff": { "defensible": true, "headline": "Regulatory monitoring that doesn't depend on one person's vigilance", "assumptions": ["Manual tracking is hours/week and error-prone", "Agent watches continuously, drafts impact"], "not_captured": ["A missed regulatory change is a compliance risk far larger than the time saved"] }
+        },
+        {
+          "id": "policy-drift", "name": "Policy Drift Agent", "tier": "catalog",
+          "agent_owns": "Checking internal policies against current regulation and flagging drift.",
+          "human_keeps": "Deciding the fix.",
+          "today": "Internal policies quietly fall out of step with regulation until an audit finds the gap.",
+          "tomorrow": "The agent checks internal policies against current regulation and flags where they've drifted. A human decides the fix.",
+          "payoff": { "defensible": false, "note": "Compliance-risk reduction; avoided-penalty value, not clean hours." }
+        },
+        {
+          "id": "litigation-first-pass", "name": "Litigation First-Pass Agent", "tier": "catalog",
+          "agent_owns": "First-pass discovery review.",
+          "human_keeps": "Every call — counsel decides.",
+          "today": "Discovery review is armies of associates reading documents at enormous cost.",
+          "tomorrow": "The agent does a first-pass discovery review, surfacing and categorizing relevant documents. Counsel makes every actual call.",
+          "payoff": { "defensible": true, "headline": "First-pass review cost cut dramatically", "assumptions": ["Manual first-pass discovery is a large, costly effort", "Agent triages, counsel decides"], "not_captured": ["Faster case prep", "Consistency across a huge document set"] }
+        }
+      ]
+    },
+
+    {
+      "id": "risk-audit", "band": "horizontal", "label": "Risk & Audit",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "controls-testing", "name": "Controls Testing Agent", "tier": "catalog",
+          "agent_owns": "Running continuous control checks instead of point-in-time sampling, and flagging failures.",
+          "human_keeps": "Validating and reporting.",
+          "today": "Controls are tested by sampling a few times a year, so failures live undetected in between.",
+          "tomorrow": "The agent runs continuous control checks against every relevant event and flags failures as they happen. The auditor validates and reports.",
+          "payoff": { "defensible": false, "note": "Coverage and risk reduction; the value is caught failures, not saved hours." }
+        },
+        {
+          "id": "audit-evidence", "name": "Audit Evidence Agent", "tier": "catalog",
+          "agent_owns": "Gathering evidence for auditors automatically from source systems.",
+          "human_keeps": "Scoping and judging.",
+          "today": "Audit season means weeks of screenshotting and exporting evidence by hand.",
+          "tomorrow": "The agent gathers the evidence from source systems automatically into an audit-ready package. The auditor scopes and judges.",
+          "payoff": { "defensible": true, "headline": "Weeks of evidence-gathering compressed", "assumptions": ["Manual evidence collection is weeks per audit", "Agent pulls from source systems automatically"], "not_captured": ["Less audit-season disruption", "Consistent, complete evidence"] },
+          "xref": "Adjacent to Nomos, which owns tech compliance evidence; this is the internal-audit counterpart."
+        },
+        {
+          "id": "fraud-pattern", "name": "Fraud Pattern Agent", "tier": "catalog",
+          "agent_owns": "Flagging anomalous transaction patterns for investigation.",
+          "human_keeps": "Investigating.",
+          "today": "Fraud is found after the fact, in a periodic review, once the money's gone.",
+          "tomorrow": "The agent flags anomalous transaction patterns as they occur. An investigator investigates.",
+          "payoff": { "defensible": false, "note": "Loss prevention; avoided-fraud value can't be honestly pre-quantified." }
+        }
+      ]
+    },
+
+    {
+      "id": "operations-supply", "band": "horizontal", "label": "Operations / Supply",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "demand-forecasting", "name": "Demand Forecasting Agent", "tier": "proof_candidate",
+          "agent_owns": "Predicting demand shifts and flagging anomalies.",
+          "human_keeps": "Approving the plan.",
+          "today": "Demand forecasts are built in spreadsheets on a lagging cadence, so the plan is always fighting last month's reality.",
+          "tomorrow": "The agent predicts demand shifts from the live signals and flags anomalies for the planner. The planner approves the plan.",
+          "payoff": { "defensible": false, "note": "Value is better inventory and service levels; hard to attribute cleanly without real data." }
+        },
+        {
+          "id": "inventory-optimization", "name": "Inventory Optimization Agent", "tier": "catalog",
+          "agent_owns": "Recommending reorder points and quantities.",
+          "human_keeps": "Approving large orders.",
+          "today": "Reorder decisions are rules of thumb, so the company carries too much of some things and stocks out of others.",
+          "tomorrow": "The agent recommends reorder points and quantities from actual demand and lead times. A human approves the large orders.",
+          "payoff": { "defensible": false, "note": "Working-capital and stockout value; needs real data to quantify honestly." }
+        },
+        {
+          "id": "supplier-risk", "name": "Supplier Risk Agent", "tier": "catalog",
+          "agent_owns": "Monitoring supplier financial health and news for disruption risk.",
+          "human_keeps": "Deciding mitigation.",
+          "today": "A key supplier's trouble is discovered when the shipment doesn't arrive.",
+          "tomorrow": "The agent monitors supplier health and news and flags disruption risk early. A human decides mitigation.",
+          "payoff": { "defensible": false, "note": "Disruption-avoidance value; risk reduction, not hours." }
+        },
+        {
+          "id": "logistics-exception", "name": "Logistics Exception Agent", "tier": "catalog",
+          "agent_owns": "Catching shipment delays early and proposing rerouting options.",
+          "human_keeps": "Approving the reroute.",
+          "today": "Delays are handled reactively, after they've already cascaded.",
+          "tomorrow": "The agent catches delays early and proposes rerouting options. A human approves the reroute.",
+          "payoff": { "defensible": false, "note": "Service-level value; avoided-cost, not clean hours." }
+        }
+      ]
+    },
+
+    {
+      "id": "data-analytics", "band": "horizontal", "label": "Data & Analytics",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "ad-hoc-query", "name": "Ad Hoc Query Agent", "tier": "proof_candidate",
+          "agent_owns": "Answering business questions directly from the warehouse in natural language.",
+          "human_keeps": "Validating before anything goes external.",
+          "today": "Every business question becomes a ticket in the analyst queue, so simple answers take days.",
+          "tomorrow": "The agent answers business questions directly from the warehouse in natural language, so self-serve questions get instant answers. An analyst validates anything before it's used externally.",
+          "payoff": { "defensible": true, "headline": "Analyst queue freed from routine questions", "assumptions": ["A large share of requests are simple, repeated lookups", "Agent self-serves those, analyst validates external-facing ones"], "not_captured": ["Faster decisions across the business", "Analysts freed for deep work"] }
+        },
+        {
+          "id": "data-quality", "name": "Data Quality Agent", "tier": "catalog",
+          "agent_owns": "Monitoring pipelines for schema drift, nulls, and anomalies.",
+          "human_keeps": "Fixing root cause.",
+          "today": "Data quality issues are discovered when a stakeholder notices a dashboard looks wrong.",
+          "tomorrow": "The agent monitors pipelines for drift, nulls, and anomalies and flags them before they reach a dashboard. A human fixes the root cause.",
+          "payoff": { "defensible": false, "note": "Prevents bad-data decisions; risk reduction rather than hours." }
+        },
+        {
+          "id": "dashboard-integrity", "name": "Dashboard Integrity Agent", "tier": "catalog",
+          "agent_owns": "Catching dashboards that no longer match the metric definitions.",
+          "human_keeps": "Approving the correction.",
+          "today": "Metric definitions drift and dashboards quietly disagree with each other, eroding trust in all of them.",
+          "tomorrow": "The agent catches dashboards that have drifted from the canonical metric definitions and flags them. A human approves the correction.",
+          "payoff": { "defensible": false, "note": "Trust and consistency value; indirect." }
+        }
+      ]
+    },
+
+    {
+      "id": "facilities", "band": "horizontal", "label": "Facilities",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "space-utilization", "name": "Space Utilization Agent", "tier": "catalog",
+          "agent_owns": "Recommending seating and room allocation from badge and booking data.",
+          "human_keeps": "Deciding the floor plan.",
+          "today": "Space decisions are made on gut feel, so the company pays for room it doesn't use.",
+          "tomorrow": "The agent recommends seating and room allocation from actual badge and booking data. A human decides the floor plan.",
+          "payoff": { "defensible": false, "note": "Real-estate savings depend on action; indirect value." }
+        },
+        {
+          "id": "maintenance-triage", "name": "Maintenance Triage Agent", "tier": "catalog",
+          "agent_owns": "Routing and prioritizing facilities requests.",
+          "human_keeps": "Handling disputes.",
+          "today": "Facilities requests pile up and get handled in the order they're noticed, not by urgency.",
+          "tomorrow": "The agent routes and prioritizes facilities requests by urgency and type. A human handles disputes.",
+          "payoff": { "defensible": false, "note": "Efficiency gain; small and hard to quantify cleanly." }
+        },
+        {
+          "id": "lease-vendor-tracking", "name": "Lease & Vendor Tracking Agent", "tier": "catalog",
+          "agent_owns": "Flagging upcoming lease renewals and obligations.",
+          "human_keeps": "Negotiating.",
+          "today": "Lease obligations and renewal windows are tracked in a spreadsheet nobody checks until it's urgent.",
+          "tomorrow": "The agent tracks lease renewals and obligations and flags them ahead of the deadline. A human negotiates.",
+          "payoff": { "defensible": false, "note": "Avoided missed windows; indirect value." }
+        }
+      ]
+    },
+
+    {
+      "id": "exec-board-ir", "band": "horizontal", "label": "Exec / Board / IR",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "board-pack-assembly", "name": "Board Pack Assembly Agent", "tier": "catalog",
+          "agent_owns": "Pulling the standard board metrics package together.",
+          "human_keeps": "Adding narrative and judgment.",
+          "today": "Every board cycle, someone spends days assembling the same metrics package from a dozen sources.",
+          "tomorrow": "The agent assembles the standard metrics package automatically each cycle. The exec adds the narrative and judgment that actually matters.",
+          "payoff": { "defensible": true, "headline": "~1-2 days saved per board cycle", "assumptions": ["Manual pack assembly is multi-day", "Agent pulls the standard metrics", "Quarterly"], "not_captured": ["Exec time spent on narrative, not gathering", "Consistent pack"] }
+        },
+        {
+          "id": "investor-update", "name": "Investor Update Agent", "tier": "catalog",
+          "agent_owns": "Drafting investor updates from metrics and highlights.",
+          "human_keeps": "Reviewing and sending.",
+          "today": "Investor updates slip because writing them from scratch competes with running the company.",
+          "tomorrow": "The agent drafts the investor update from the metrics and highlights. The exec reviews and sends.",
+          "payoff": { "defensible": false, "note": "Consistency and cadence value; judgment work at the core." }
+        },
+        {
+          "id": "meeting-synthesis", "name": "Meeting Synthesis Agent", "tier": "catalog",
+          "agent_owns": "Turning exec meeting transcripts into decisions, owners, and follow-ups.",
+          "human_keeps": "Confirming the record.",
+          "today": "Decisions made in exec meetings evaporate because nobody captured who owns what.",
+          "tomorrow": "The agent turns the meeting transcript into a clean list of decisions, owners, and follow-ups. The chief of staff confirms.",
+          "payoff": { "defensible": true, "headline": "Decisions and owners captured, not lost", "assumptions": ["Manual minutes are inconsistent or skipped", "Agent produces them reliably"], "not_captured": ["Follow-through improves when owners are explicit"] }
+        }
+      ]
+    },
+
+    {
+      "id": "internal-comms", "band": "horizontal", "label": "Internal Comms",
+      "platforms": [],
+      "agents": [
+        {
+          "id": "comms-drafting", "name": "Comms Drafting Agent", "tier": "catalog",
+          "agent_owns": "Adapting exec announcements into the right format for each channel and checking tone.",
+          "human_keeps": "Approving.",
+          "today": "An exec announcement gets manually reworked for email, Slack, and all-hands, each slightly different and slightly off.",
+          "tomorrow": "The agent adapts the announcement into the right format for each channel, in a consistent tone. Comms approves before it goes out.",
+          "payoff": { "defensible": false, "note": "Consistency and time value; small and hard to quantify precisely." }
+        },
+        {
+          "id": "org-qa", "name": "Org Q&A Agent", "tier": "catalog",
+          "agent_owns": "Answering 'where do I find X' questions from company knowledge.",
+          "human_keeps": "The genuinely new questions.",
+          "today": "People ping HR, IT, and each other all day for things that are written down somewhere nobody can find.",
+          "tomorrow": "The agent answers 'where do I find X / who owns Y' from company knowledge instantly. Humans handle the genuinely new questions.",
+          "payoff": { "defensible": true, "headline": "Countless small interruptions deflected", "assumptions": ["'Where is X' questions are constant and cheap individually but huge in aggregate", "Agent answers from company knowledge"], "not_captured": ["Less interruption across every team", "Faster answers"] }
+        }
+      ]
+    }
+
+  ]
+}
+</script>
+<script>
+// ══ Act 2 renderer — builds the org-chart nodes and the reveal-on-click function
+//    sections from the inline #agents-data blob (source of truth: agents.json). ══
+(function () {
+  var el = document.getElementById('agents-data');
+  var data;
+  try { data = JSON.parse(el.textContent); } catch (e) { console.error('agents-data parse failed', e); return; }
+
+  // Pistis / Nexus / Nomos are framing, not shipped. They live only on the Act 1
+  // platform board; the Act 2 chart never presents them as real builds.
+  var EXCLUDE = { Pistis: 1, Nexus: 1, Nomos: 1 };
+
+  // Display order preserves the approved layout; node <-> section wiring is by id.
+  var TECH_ORDER = ['development', 'devops-sre', 'security', 'tech-compliance', 'product-support', 'eng-ops', 'product-management', 'qa-testing', 'ux-research-design', 'architecture', 'release-change', 'data-eng-platform', 'it-service-asset'];
+  var HORIZ_ORDER = ['legal-compliance', 'finance', 'sales-bd', 'marketing', 'customer-success', 'hr-people', 'talent-acquisition', 'procurement', 'strategy-corpdev', 'risk-audit', 'operations-supply', 'data-analytics', 'comms-pr', 'partnerships', 'facilities', 'exec-board-ir', 'internal-comms'];
+  var SHORT = { 'product-management': 'Product Mgmt', 'ux-research-design': 'UX Research', 'eng-ops': 'Eng Ops', 'release-change': 'Release / Change', 'data-eng-platform': 'Data Eng / Platform', 'it-service-asset': 'IT Service / Asset' };
+  var THESIS = 'Agents take on execution while a human stays as reviewer, approver, or exception handler.';
+
+  var byId = {};
+  data.functions.forEach(function (f) { byId[f.id] = f; });
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  // Honor the house style: no em/en dashes anywhere in rendered copy.
+  function clean(s) { return esc(String(s).replace(/\s*[—–]\s*/g, ', ')); }
+  function plats(f) { return (f.platforms || []).filter(function (p) { return !EXCLUDE[p.name]; }); }
+  function badge(t) { return t === 'proof_runnable' ? 'Proof &middot; runnable' : t === 'proof_candidate' ? 'Proof candidate' : ''; }
+  function dotClass(t) { return t === 'catalog' ? 'd-cat' : 'd-proof'; }
+
+  function tiers(f) {
+    var P = plats(f), A = f.agents || [];
+    var built = P.length > 0, proof = false, cat = false, runnable = false;
+    P.concat(A).forEach(function (x) {
+      if (x.tier === 'built') built = true;
+      else if (x.tier === 'proof_runnable') { proof = true; runnable = true; }
+      else if (x.tier === 'proof_candidate') proof = true;
+      else if (x.tier === 'catalog') cat = true;
+    });
+    return { built: built, proof: proof, cat: cat, runnable: runnable, count: P.length + A.length };
+  }
+
+  function nodeHTML(id) {
+    var f = byId[id]; if (!f) return '';
+    var t = tiers(f);
+    var cls = 'node';
+    if (t.built) cls += ' has-plat'; else if (t.runnable) cls += ' has-proof';
+    var dt = []; if (t.built) dt.push('real'); if (t.proof) dt.push('proof'); if (t.cat) dt.push('catalog');
+    var dots = '';
+    if (t.built) dots += '<span class="d d-built"></span>';
+    if (t.proof) dots += '<span class="d d-proof"></span>';
+    if (t.cat) dots += '<span class="d d-cat"></span>';
+    return '<div class="' + cls + '" data-fn="' + id + '" data-tiers="' + dt.join(' ') + '" role="button" tabindex="0" onclick="revealFn(\'' + id + '\')">'
+      + '<span class="node-name">' + esc(SHORT[id] || f.label) + '</span>'
+      + '<div class="node-meta"><div class="node-dots">' + dots + '</div><span class="node-ct">' + t.count + '</span></div></div>';
+  }
+
+  function countLine(f) {
+    var P = plats(f), A = f.agents || [];
+    var refs = A.filter(function (a) { return a.is_reference_build; });
+    var comps = A.length - refs.length;
+    var parts = [];
+    if (P.length) parts.push(P.length + ' platform' + (P.length > 1 ? 's' : ''));
+    if (refs.length) parts.push(refs.length === 1 ? '1 proof build' : refs.length + ' proof builds');
+    parts.push(comps + ' companion agent' + (comps === 1 ? '' : 's'));
+    return parts.join(' &middot; ');
+  }
+
+  function anchorHTML(p) {
+    return '<div class="anchor"><div class="anchor-top"><span class="anchor-name">' + esc(p.name) + '</span><span class="tag-plat">Platform &middot; Real</span></div>'
+      + '<p class="anchor-desc">' + clean(p.desc) + '</p>'
+      + (p.xref ? '<p class="xref">' + clean(p.xref) + '</p>' : '') + '</div>';
+  }
+
+  function payoffTab(p) {
+    var a = (p.assumptions || []).map(function (x) { return '<li>' + clean(x) + '</li>'; }).join('');
+    var n = (p.not_captured || []).map(function (x) { return '<li>' + clean(x) + '</li>'; }).join('');
+    return '<div class="tab-content" data-tab="payoff">'
+      + '<span class="s-label">Roughly what it saves &middot; conservative, swappable assumptions</span>'
+      + '<p class="payoff-headline">' + clean(p.headline) + '</p>'
+      + '<span class="s-label" style="margin-bottom:8px;">Assumptions (swappable)</span><ul class="payoff-list">' + a + '</ul>'
+      + (n ? '<span class="s-label" style="margin-bottom:8px;">Not captured by the number</span><ul class="mini-bullets">' + n + '</ul>' : '')
+      + '<p class="math-foot">Numbers are illustrative and deliberately conservative. Swap in your own rate, volume, and time and the model holds its shape. The point is not the exact figure; it is that the savings are large, defensible, and mostly in risk the number does not even capture.</p>'
+      + '</div>';
+  }
+
+  function cardHTML(fid, a) {
+    var cid = fid + '__' + a.id;
+    var b = badge(a.tier);
+    var hasPayoff = a.payoff && a.payoff.defensible;
+    var tabs = '<button class="tab-btn active" onclick="switchTab(this,\'' + cid + '\',\'today\')">Today</button>'
+      + '<button class="tab-btn" onclick="switchTab(this,\'' + cid + '\',\'tomorrow\')">Tomorrow</button>'
+      + (hasPayoff ? '<button class="tab-btn" onclick="switchTab(this,\'' + cid + '\',\'payoff\')">Payoff</button>' : '');
+    return '<div class="companion" id="card-' + cid + '">'
+      + '<div class="companion-head" onclick="toggle(\'' + cid + '\')">'
+      + '<span class="comp-dot"><span class="d ' + dotClass(a.tier) + '"></span></span>'
+      + '<div class="comp-body"><div class="comp-name">' + esc(a.name) + (b ? ' <span class="mini-tag">' + b + '</span>' : '') + '</div>'
+      + '<p class="comp-split"><b>Agent:</b> ' + clean(a.agent_owns) + ' <b>Human:</b> ' + clean(a.human_keeps) + '</p>'
+      + (a.xref ? '<p class="xref">' + clean(a.xref) + '</p>' : '') + '</div>'
+      + '<span class="comp-chev">&rsaquo;</span></div>'
+      + '<div class="companion-body"><div class="product-tabs">' + tabs + '</div>'
+      + '<div class="tab-content active" data-tab="today"><span class="s-label">How it&rsquo;s done today</span><p>' + clean(a.today) + '</p></div>'
+      + '<div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span><p>' + clean(a.tomorrow) + '</p></div>'
+      + (hasPayoff ? payoffTab(a.payoff) : '')
+      + '</div></div>';
+  }
+
+  // The one reference build: full authored card ported from agent-card-preview-v2.html.
+  // Repo links stay as placeholders until the redline-agent repo is pushed.
+  function redlineCardHTML(fid, a) {
+    var cid = fid + '__' + a.id;
+    return '<div class="companion open" id="card-' + cid + '">'
+      + '<div class="companion-head" onclick="toggle(\'' + cid + '\')">'
+      + '<span class="comp-dot"><span class="d d-proof"></span></span>'
+      + '<div class="comp-body"><div class="comp-name">' + esc(a.name) + ' <span class="mini-tag">Proof &middot; runnable</span></div>'
+      + '<p class="comp-split"><b>Agent:</b> ' + clean(a.agent_owns) + ' <b>Human:</b> ' + clean(a.human_keeps) + '</p></div>'
+      + '<span class="comp-chev">&rsaquo;</span></div>'
+      + '<div class="companion-body">'
+      + '<div class="product-tabs">'
+      + '<button class="tab-btn active" onclick="switchTab(this,\'' + cid + '\',\'today\')">Today</button>'
+      + '<button class="tab-btn" onclick="switchTab(this,\'' + cid + '\',\'tomorrow\')">Tomorrow</button>'
+      + '<button class="tab-btn" onclick="switchTab(this,\'' + cid + '\',\'payoff\')">Payoff</button>'
+      + '</div>'
+      // TODAY
+      + '<div class="tab-content active" data-tab="today"><span class="s-label">How it&rsquo;s done today</span>'
+      + '<div class="desk"><span class="from">Inbound &middot; Acme Data Systems MSA &middot; renewal round</span>'
+      + 'A vendor contract lands. Someone in legal reads the whole agreement to find what&rsquo;s off: a liability cap set to <span class="clause">three months</span> of fees instead of twelve, an auto-renewal locked to <span class="clause">24-month terms</span>, a data clause that quietly permits <span class="clause">Customer Data to train the vendor&rsquo;s models</span>, governing law moved to <span class="clause">Delaware</span>, and, nested in the indemnification section, a <span class="clause">carve-out excluding the vendor&rsquo;s own IP-infringement claims</span>.'
+      + '<p class="desk-cost">Roughly an hour of skilled legal time per contract, every contract. The nested carve-out in a section nobody reads twice is exactly where things slip through. Multiply by every vendor agreement the company signs in a year.</p></div></div>'
+      // TOMORROW
+      + '<div class="tab-content" data-tab="tomorrow"><span class="s-label">Tomorrow &middot; agent first pass, human in the loop</span>'
+      + '<p class="result-head">The agent takes the first pass in seconds and hands counsel a brief: <b>5 deviations, 3 of them serious</b>, each with suggested language and, where it matters, what this vendor accepted before. Counsel opens the contract already knowing the shape of the negotiation, then makes the calls.</p>'
+      + '<div class="decide">'
+      + '<div class="decide-row"><span class="sev sev-high">High</span><div class="decide-body"><strong>Liability capped at 3 months of fees.</strong> Playbook floor is 12. <em>Precedent:</em> 6 months was accepted once and flagged as the lowest the company would ever go. This is below even that.<span class="sug">Suggested: raise the cap to twelve months preceding the claim.</span></div></div>'
+      + '<div class="decide-row"><span class="sev sev-high">High</span><div class="decide-body"><strong>Vendor may use Customer Data to train its models.</strong> Playbook forbids it. <em>Precedent:</em> this exact language was struck in both prior rounds, a consistent hard no.<span class="sug">Suggested: delete the training permission entirely.</span></div></div>'
+      + '<div class="decide-row"><span class="sev sev-high">High</span><div class="decide-body"><strong>Indemnity carve-out excludes the vendor&rsquo;s own IP infringement.</strong> Nested inside the indemnification section, easy to miss on a fast read. Shifts real risk onto the company.<span class="sug">Suggested: strike the carve-out; vendor&rsquo;s indemnity must cover IP-infringement claims.</span></div></div>'
+      + '<div class="decide-row"><span class="sev sev-med">Medium</span><div class="decide-body"><strong>24-month auto-renewal, 90-day notice window.</strong> Exceeds the 12-month / 60-day limit. Prior rounds held the shorter terms.<span class="sug">Suggested: 12-month terms, 60-day notice.</span></div></div>'
+      + '<div class="decide-row"><span class="sev sev-med" style="background:rgba(138,147,160,.06);color:var(--subtle);">Low</span><div class="decide-body"><strong>Governing law set to Delaware.</strong> Playbook prefers New York. Delaware was accepted last round, so likely fine, but surfaced.<span class="sug">Suggested: New York, or accept if trading for a higher-value term.</span></div></div>'
+      + '</div>'
+      + '<div class="boundary-note"><strong>The line is deliberate.</strong> The agent flags, ranks, and suggests. It never accepts, sends, or negotiates. Deviation-spotting is consistent pattern work; whether to accept a weaker cap depends on leverage, relationship, and what got traded last quarter, context the human owns. The agent narrows the field to minutes of judgment instead of an hour of reading.</div></div>'
+      // PAYOFF
+      + '<div class="tab-content" data-tab="payoff"><span class="s-label">Roughly what it saves &middot; conservative, swappable assumptions</span>'
+      + '<div class="math-grid">'
+      + '<div class="math-row"><span class="math-k">Skilled review time, today</span><span class="math-v">~60 min / contract</span></div>'
+      + '<div class="math-row"><span class="math-k">With the agent (review the brief, make the calls)</span><span class="math-v">~15 min / contract</span></div>'
+      + '<div class="math-row hi"><span class="math-k">Time returned to counsel</span><span class="math-v">~45 min / contract</span></div>'
+      + '<div class="math-row"><span class="math-k">Loaded rate, contract manager / junior counsel</span><span class="math-v">~$120 / hour</span></div>'
+      + '<div class="math-row hi"><span class="math-k">Saved per contract</span><span class="math-v">~$90</span></div>'
+      + '<div class="math-row"><span class="math-k">Vendor contracts / year (mid-size org)</span><span class="math-v">~1,000</span></div>'
+      + '<div class="math-row total"><span class="math-k">Annual time savings</span><span class="math-v">~$90,000 / year</span></div>'
+      + '</div>'
+      + '<p class="math-agent-cost">Agent cost to run: a few cents per contract. Effectively a rounding error against the time it returns.</p>'
+      + '<div class="math-plus"><span class="s-label" style="margin-bottom:8px;">Not in the number above, but real</span><ul class="mini-bullets">'
+      + '<li><strong>Risk avoided.</strong> One missed indemnity carve-out or under-floor liability cap can cost far more than a year of the time savings. The agent reads every clause, every time.</li>'
+      + '<li><strong>Speed.</strong> First-pass in seconds compresses contract turnaround, which is revenue timing, not just cost.</li>'
+      + '<li><strong>Consistency.</strong> The playbook is applied identically at 9am and 6pm, on the interesting contracts and the boring ones.</li>'
+      + '</ul></div>'
+      + '<p class="math-foot">Numbers are illustrative and deliberately conservative. Swap in the company&rsquo;s real rate, volume, and review time and the model holds its shape. The point is not the exact figure; it is that the savings are large, defensible, and mostly in risk the number does not even capture.</p></div>'
+      // PROOF STRIP
+      + '<div class="proof-strip"><div class="proof-head"><span class="proof-badge">Reference build</span><span class="proof-run">runs in 10s &middot; no API key</span></div>'
+      + '<p class="proof-copy">This is the one agent in the catalog I prototyped end to end: a real tool-use loop you can clone and run in seconds. The mock stands in for the model, so you watch it choose tools (<code>get_playbook</code>, then <code>check_deal_history</code> when precedent matters) and assemble the brief, with a human gate before any redline is accepted. Scaling this pattern across the other functions is an engineering job I&rsquo;d <strong>direct, not do myself</strong>. The point of building this one is to show I know exactly what I&rsquo;d be directing.</p>'
+      + '<div class="proof-links"><a class="quick-link" href="#" onclick="event.preventDefault()">View the repo &rarr;</a><a class="quick-link" href="#" onclick="event.preventDefault()">Read the sample brief</a><span class="proof-note">links go live when the repo is pushed</span></div>'
+      + '</div></div></div>';
+  }
+
+  function sectionHTML(id) {
+    var f = byId[id]; if (!f) return '';
+    var anchors = plats(f).map(anchorHTML).join('');
+    var cards = (f.agents || []).map(function (a) { return a.is_reference_build ? redlineCardHTML(id, a) : cardHTML(id, a); }).join('');
+    return '<div class="fn-section" id="fn-' + id + '" style="scroll-margin-top:72px;">'
+      + '<div class="fn-head2"><span class="fn-title">' + esc(f.label) + '</span><span class="fn-ct">' + countLine(f) + '</span></div>'
+      + '<p class="fn-thesis2">' + THESIS + '</p>' + anchors + cards + '</div>';
+  }
+
+  var chart = '<div class="band-label">Technology functions</div><div class="nodes">' + TECH_ORDER.map(nodeHTML).join('') + '</div>'
+    + '<div class="band-label">Horizontal functions</div><div class="nodes">' + HORIZ_ORDER.map(nodeHTML).join('') + '</div>';
+  document.getElementById('chart-band').innerHTML = chart;
+  document.getElementById('fn-sections').innerHTML = TECH_ORDER.concat(HORIZ_ORDER).map(sectionHTML).join('');
+
+  // Reveal one function section at a time; scroll it into view; light the node.
+  window.revealFn = function (id) {
+    var target = document.getElementById('fn-' + id);
+    if (!target) return;
+    var willOpen = !target.classList.contains('open');
+    var band = document.getElementById('chart-band');
+    document.querySelectorAll('#fn-sections .fn-section.open').forEach(function (s) { s.classList.remove('open'); });
+    if (band) band.querySelectorAll('.node.active').forEach(function (n) { n.classList.remove('active'); });
+    if (willOpen) {
+      target.classList.add('open');
+      var node = band && band.querySelector('.node[data-fn="' + id + '"]');
+      if (node) node.classList.add('active');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+})();
+
 </script>
 </body>
 </html>
