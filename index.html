@@ -104,11 +104,30 @@
   .bridge-line { font-size: 17px; color: var(--fg); font-weight: 500; max-width: 54ch; margin: 26px auto 0; line-height: 1.5; }
   .bridge-sub { font-size: 13px; color: var(--subtle); font-style: italic; margin-top: 10px; }
 
-  /* ── Product rows ─────────────────────────────── */
-  .repo-list { display: flex; flex-direction: column; margin-bottom: 96px; }
+  /* ── Platform overview grid (the whole board in one place) ── */
+  .plat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 6px 0 4px; }
+  .plat {
+    border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+    padding: 13px 14px; cursor: pointer; text-align: left; width: 100%; font-family: var(--sans);
+    transition: border-color .15s, background .15s;
+  }
+  .plat:hover { border-color: var(--ember-border); background: var(--ember-soft); }
+  .plat.active { border-color: var(--ember-border); background: var(--ember-soft); }
+  .plat-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .plat-name { font-size: 14px; color: var(--fg); font-weight: 500; }
+  .plat-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .plat-dot.real { background: var(--live); }
+  .plat-dot.framing { background: var(--ember); }
+  .plat-desc { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
 
-  .repo-item { border-top: 1px solid var(--border); padding: 24px 0; }
-  .repo-item:last-child { border-bottom: 1px solid var(--border); }
+  /* ── Product rows: detail panels, revealed when a tile is clicked ── */
+  .repo-list { display: block; margin-bottom: 16px; }
+  .repo-item {
+    border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface);
+    padding: 22px 24px; margin-bottom: 10px;
+  }
+  .repo-item:not(.open) { display: none; }
+  .repo-item:last-child { margin-bottom: 0; }
 
   .repo-header {
     display: flex; align-items: flex-start; justify-content: space-between;
@@ -363,6 +382,8 @@
     .layout { flex-direction: column; gap: 48px; padding-top: 64px; }
     .sidebar { width: 100%; position: static; }
   }
+  @media (max-width: 760px) { .plat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .plat-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -423,8 +444,20 @@
       </div>
 
       <div class="section-head">
-        <span class="section-label">The Builds</span>
-        <span class="section-hint">select one to dig deeper</span>
+        <span class="section-label">The Builds &middot; 8 platforms</span>
+        <span class="section-hint">click any box to open its detail</span>
+      </div>
+
+      <!-- Platform board: the whole vision in one place, click a box for detail -->
+      <div class="plat-grid">
+        <button class="plat" type="button" onclick="togglePlatform(this,'optikon')"><div class="plat-top"><span class="plat-name">Optikon</span><span class="plat-dot real"></span></div><span class="plat-fn">Finance</span><p class="plat-desc">AI spend visibility</p></button>
+        <button class="plat" type="button" onclick="togglePlatform(this,'ichnos')"><div class="plat-top"><span class="plat-name">Ichnos</span><span class="plat-dot real"></span></div><span class="plat-fn">Development</span><p class="plat-desc">Code provenance</p></button>
+        <button class="plat" type="button" onclick="togglePlatform(this,'alethinos')"><div class="plat-top"><span class="plat-name">Alethinos</span><span class="plat-dot real"></span></div><span class="plat-fn">Eng Ops</span><p class="plat-desc">Project intelligence</p></button>
+        <button class="plat" type="button" onclick="togglePlatform(this,'poiesis')"><div class="plat-top"><span class="plat-name">Poiesis</span><span class="plat-dot real"></span></div><span class="plat-fn">Development</span><p class="plat-desc">Agentic SDLC, issue to prod</p></button>
+        <button class="plat" type="button" onclick="togglePlatform(this,'aegis')"><div class="plat-top"><span class="plat-name">Aegis</span><span class="plat-dot real"></span></div><span class="plat-fn">DevOps / SRE</span><p class="plat-desc">Agentic DevSecOps</p></button>
+        <button class="plat" type="button" onclick="togglePlatform(this,'pistis')"><div class="plat-top"><span class="plat-name">Pistis</span><span class="plat-dot framing"></span></div><span class="plat-fn">Security</span><p class="plat-desc">Agentic IAM</p></button>
+        <button class="plat" type="button" onclick="togglePlatform(this,'nexus')"><div class="plat-top"><span class="plat-name">Nexus</span><span class="plat-dot framing"></span></div><span class="plat-fn">Product Support</span><p class="plat-desc">Agentic internal support</p></button>
+        <button class="plat" type="button" onclick="togglePlatform(this,'nomos')"><div class="plat-top"><span class="plat-name">Nomos</span><span class="plat-dot framing"></span></div><span class="plat-fn">Tech Compliance</span><p class="plat-desc">Agentic compliance evidence</p></button>
       </div>
 
       <div class="repo-list">
@@ -1111,6 +1144,15 @@
     card.querySelectorAll('.tab-content').forEach(function(tc) {
       tc.classList.toggle('active', tc.dataset.tab === tabName);
     });
+  }
+  // Platform board tile: open its detail card, scroll to it, mark the tile active.
+  function togglePlatform(tile, id) {
+    var el = document.getElementById('card-' + id);
+    if (!el) return;
+    var willOpen = !el.classList.contains('open');
+    el.classList.toggle('open');
+    tile.classList.toggle('active', willOpen);
+    if (willOpen) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 </script>
 </body>
