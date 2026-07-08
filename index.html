@@ -103,11 +103,13 @@
   .bridge { text-align: center; padding: 42px 0 10px; margin-top: 10px; border-top: 1px solid var(--border-soft); }
   .bridge-line { font-size: 17px; color: var(--fg); font-weight: 500; max-width: 54ch; margin: 26px auto 0; line-height: 1.5; }
   .bridge-sub { font-size: 13px; color: var(--subtle); font-style: italic; margin-top: 10px; }
+  .bridge-box { display: inline-block; font-family: var(--mono); font-size: 14px; color: var(--ember); border: 1px solid var(--ember-border); background: var(--ember-soft); border-radius: var(--radius); padding: 12px 20px; letter-spacing: .02em; margin-top: 14px; }
 
   /* ── Act 2: function sections + companion agent boxes ── */
   .act2-head { font-size: 22px; color: var(--fg); font-weight: 600; margin: 8px 0 6px; }
-  .act2-intro { font-size: 14px; color: var(--muted); max-width: 62ch; line-height: 1.7; margin-bottom: 12px; }
-  .fn-section { border-top: 1px solid var(--border); padding: 26px 0; }
+  .act2-intro { font-size: 14px; color: var(--muted); max-width: none; text-align: justify; line-height: 1.7; margin-bottom: 12px; }
+  .coming-soon { text-align: center; font-family: var(--mono); font-size: 12px; color: var(--subtle); letter-spacing: .04em; margin: 30px 0 8px; }
+  .fn-section { display: none; border-top: 1px solid var(--border); padding: 26px 0; }  /* hidden until the agent reveal is built (evening) */
   .fn-head2 { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
   .fn-title { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); }
   .fn-ct { font-family: var(--mono); font-size: 11px; color: var(--subtle); }
@@ -510,7 +512,6 @@
 
       <!-- ── Act 1: platforms, front and center ── -->
       <div class="act-intro">
-        <span class="act-kicker">Act 1 &middot; The proof of execution</span>
         <h2>What does the agentic enterprise actually look like?</h2>
         <p class="act-intro-p">Not a chatbot bolted onto a support queue. A full operating model where agents take the first pass on the work, and humans keep the judgment calls.</p>
         <p class="act-intro-note">Eight platforms, stay front and center. A catalog of companion agents mapped across every function of the enterprise. All of it marked honestly by how real it is.</p>
@@ -518,7 +519,7 @@
 
       <div class="section-head">
         <span class="section-label">8 Platforms</span>
-        <span class="section-hint">click any box to open its detail</span>
+        <span class="section-hint">Select one to dig deeper</span>
       </div>
 
       <!-- Platform board: the whole vision in one place, click a box for detail -->
@@ -1177,7 +1178,7 @@
 
       <!-- ── Bridge: Act 1 → Act 2 (org chart slots in here next) ── -->
       <div class="bridge" id="bridge">
-        <p class="bridge-sub">Agents take the execution. Humans keep the judgment.</p>
+        <p class="bridge-box">Agents take the execution. Humans keep the judgment.</p>
       </div>
 
       <!-- ══ ACT 2: the agentic org chart (companion agents as boxes) ══ -->
@@ -1185,25 +1186,12 @@
         <h2 class="act2-head">The Agentic Org Chart</h2>
         <p class="act2-intro">Every function of the enterprise, mapped. Where a platform already exists it anchors the function; companion agents fill in the rest. Nothing here is industry-specific: the same shape works for banking, health, automotive, anything.</p>
 
-        <!-- Filter: the honesty control. Hit Real + Proof to collapse to what is real. -->
-        <div class="filter">
-          <span class="fpill on" onclick="filterTier(this,'all')">All</span>
-          <span class="fpill" onclick="filterTier(this,'real')">Real</span>
-          <span class="fpill" onclick="filterTier(this,'proof')">Proof</span>
-          <span class="fpill" onclick="filterTier(this,'catalog')">Catalog</span>
-        </div>
-        <div class="chart-legend">
-          <span><span class="d d-built"></span>Real platform</span>
-          <span><span class="d d-proof"></span>Proof</span>
-          <span><span class="d d-cat"></span>Catalog</span>
-        </div>
-
         <div class="chart-band">
           <div class="band-label">Technology functions</div>
           <div class="nodes">
-            <div class="node has-plat" data-tiers="real proof catalog" onclick="goToFn('development')"><span class="node-name">Development</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">6</span></div></div>
+            <div class="node has-plat" data-tiers="real proof catalog"><span class="node-name">Development</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">6</span></div></div>
             <div class="node has-plat" data-tiers="real proof catalog"><span class="node-name">DevOps / SRE</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
-            <div class="node has-plat" data-tiers="real proof catalog" onclick="goToFn('security')"><span class="node-name">Security</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node has-plat" data-tiers="real proof catalog"><span class="node-name">Security</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
             <div class="node has-plat" data-tiers="real catalog"><span class="node-name">Tech Compliance</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
             <div class="node has-plat" data-tiers="real catalog"><span class="node-name">Product Support</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
             <div class="node has-plat" data-tiers="real catalog"><span class="node-name">Eng Ops</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-cat"></span></div><span class="node-ct">3</span></div></div>
@@ -1216,9 +1204,9 @@
             <div class="node" data-tiers="catalog"><span class="node-name">IT Service / Asset</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">2</span></div></div>
           </div>
 
-          <div class="band-label">Enterprise (horizontal) functions</div>
+          <div class="band-label">Horizontal functions</div>
           <div class="nodes">
-            <div class="node has-proof" data-tiers="proof catalog" onclick="goToFn('legal')"><span class="node-name">Legal &amp; Compliance</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
+            <div class="node has-proof" data-tiers="proof catalog"><span class="node-name">Legal &amp; Compliance</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
             <div class="node has-plat" data-tiers="real proof catalog"><span class="node-name">Finance</span><div class="node-meta"><div class="node-dots"><span class="d d-built"></span><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">7</span></div></div>
             <div class="node" data-tiers="proof catalog"><span class="node-name">Sales &amp; BD</span><div class="node-meta"><div class="node-dots"><span class="d d-proof"></span><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
             <div class="node" data-tiers="catalog"><span class="node-name">Marketing</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">4</span></div></div>
@@ -1237,6 +1225,8 @@
             <div class="node" data-tiers="catalog"><span class="node-name">Internal Comms</span><div class="node-meta"><div class="node-dots"><span class="d d-cat"></span></div><span class="node-ct">2</span></div></div>
           </div>
         </div>
+
+        <p class="coming-soon">Details coming soon</p>
 
         <!-- SECURITY -->
         <div class="fn-section" id="fn-security" style="scroll-margin-top:72px;">
@@ -1446,20 +1436,6 @@
     card.querySelectorAll('.tab-content').forEach(function(tc) {
       tc.classList.toggle('active', tc.dataset.tab === tabName);
     });
-  }
-  // Org chart: filter nodes by tier (a node shows if it holds an agent at that tier).
-  function filterTier(pill, tier) {
-    document.querySelectorAll('.filter .fpill').forEach(function(p) { p.classList.remove('on'); });
-    pill.classList.add('on');
-    document.querySelectorAll('.node').forEach(function(n) {
-      var tiers = (n.getAttribute('data-tiers') || '').split(' ');
-      n.classList.toggle('hidden', !(tier === 'all' || tiers.indexOf(tier) > -1));
-    });
-  }
-  // Org chart node: scroll to its function section when one exists.
-  function goToFn(slug) {
-    var el = document.getElementById('fn-' + slug);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   // Platform board tile: open its detail card, scroll to it, mark the tile active.
   function togglePlatform(tile, id) {
