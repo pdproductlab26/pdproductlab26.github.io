@@ -393,7 +393,7 @@
 
   /* ── Two-column layout (v4) ───────────────────── */
   .wrap { max-width: 1180px; }
-  .layout { display: flex; gap: 64px; align-items: flex-start; padding: 88px 0 0; }
+  .layout { display: flex; gap: 64px; align-items: flex-start; padding: 48px 0 0; }
 
   .sidebar { width: 300px; flex-shrink: 0; position: sticky; top: 48px; }
   .sidebar .kicker { margin-bottom: 20px; }
@@ -431,7 +431,7 @@
   .contact-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
   .btn-outline {
     font-family: var(--mono); font-size: 11px; color: var(--ember);
-    border: 1px solid var(--ember-border); padding: 5px 11px; border-radius: var(--radius);
+    border: 1px solid var(--ember-border); padding: 5px 14px; border-radius: 20px;
     letter-spacing: .02em; transition: background .15s; white-space: nowrap;
     display: flex; align-items: center; gap: 4px;
   }
@@ -454,7 +454,7 @@
   .about { margin-bottom: 72px; }
 
   @media (max-width: 940px) {
-    .layout { flex-direction: column; gap: 48px; padding-top: 64px; }
+    .layout { flex-direction: column; gap: 48px; padding-top: 40px; }
     .sidebar { width: 100%; position: static; }
   }
   @media (max-width: 760px) { .plat-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -539,12 +539,6 @@
 </head>
 <body>
 
-<nav class="top-nav">
-  <div class="top-nav-inner">
-    <a href="https://github.com/pdproductlab26" target="_blank" class="capsule capsule-accent">GitHub &#8599;</a>
-    <a href="#background" class="capsule" onclick="focusBackground(event)">Background &#8595;</a>
-  </div>
-</nav>
 
 <div class="wrap">
   <div class="layout">
@@ -569,15 +563,15 @@
       <div class="contact-box">
         <p>Building in this space, or investing in it?</p>
         <div class="contact-actions">
-          <a href="https://github.com/pdproductlab26" target="_blank" class="btn-outline">&#8599; github.com/pdproductlab26</a>
-          <a href="mailto:pdproductlab@gmail.com?subject=Interested" title="Get in touch" class="btn-outline">&#9993; pdproductlab@gmail.com</a>
+          <a href="https://github.com/pdproductlab26" target="_blank" class="btn-outline">&#8599; GitHub</a>
+          <a href="mailto:pdproductlab@gmail.com?subject=Interested" title="Get in touch" class="btn-outline">&#9993; Email</a>
         </div>
       </div>
 
       <!-- ── Background: moved into the sidebar, below the contact box ── -->
       <section class="about" id="background" style="scroll-margin-top: 72px;">
         <span class="section-label" style="display:block;margin-bottom:12px;">Background</span>
-        <p>FinTech roots into management consulting - many industries, many clients, cultures &amp; constraints &amp; one consistent instinct: technology earns its place only when it solves the right problem. Business first. Technology second.</p>
+        <p>FinTech and management consulting roots, and they still run the operating system. Many industries, many clients, one consistent instinct: technology earns its place only when it solves the right problem. The problem leads. The technology follows.</p>
         <p>Enterprise developer tooling in recent times, reimagining the ecosystem as agentic, because the moat has always been client-first, forward deployed ethos - the one that moves revenue faster, not the one that moves tickets or chases the next shiny object.</p>
         <p class="mantra">Learn. Build. Ship. <span class="thesis-badge">agentic everything</span></p>
       </section>
